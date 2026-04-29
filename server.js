@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // PUT YOUR GROQ API KEY HERE
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || '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' });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 app.post('/generate-review', async (req, res) => {
   const { bizName, stars, highlights, note } = req.body;
