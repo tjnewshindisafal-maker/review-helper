@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReviewHelper</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0f4ff;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem}
+.app{width:100%;max-width:540px}
+.header{text-align:center;margin-bottom:2rem}
+.brand{display:inline-flex;align-items:center;gap:12px;background:white;padding:10px 20px 10px 12px;border-radius:16px;box-shadow:0 2px 12px rgba(66,133,244,.15);margin-bottom:10px}
+.brand-icon{width:42px;height:42px;background:#4285F4;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.brand-icon svg{width:24px;height:24px}
+.brand-name{font-size:22px;font-weight:800;color:#1a1a2e;letter-spacing:-.5px}
+.brand-name span{color:#4285F4}
+.subtitle{font-size:14px;color:#666}
+.card{background:white;border-radius:16px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.setup-toggle{text-align:right;font-size:13px;color:#4285F4;cursor:pointer;font-weight:600;margin-bottom:8px;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.setup-box{background:#f8f9ff;border:1px solid #e0e7ff;border-radius:12px;padding:1rem;margin-bottom:1rem;display:none}
+.setup-box.open{display:block}
+.setup-row{margin-bottom:10px}
+.setup-row label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:4px}
+.input-field{width:100%;padding:10px 14px;border:1.5px solid #e8eaf0;border-radius:10px;background:white;color:#1a1a2e;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color .2s}
+.input-field:focus{border-color:#4285F4}
+.stars{display:flex;gap:8px;margin-bottom:8px}
+.star{width:48px;height:48px;border:1.5px solid #e8eaf0;border-radius:10px;background:#f8f9ff;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;transition:all .15s;color:#ddd;line-height:1}
+.star:hover{transform:scale(1.1)}
+.star.active{background:#FFF8E1;border-color:#FFC107;color:#FFC107;transform:scale(1.08)}
+.star-label{font-size:13px;color:#666;margin-bottom:1.25rem;min-height:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem}
+.chip{padding:7px 14px;border:1.5px solid #e8eaf0;border-radius:25px;font-size:13px;cursor:pointer;background:#f8f9ff;color:#555;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:all .15s}
+.chip:hover{border-color:#4285F4;color:#4285F4}
+.chip.selected{background:#E8F0FE;border-color:#4285F4;color:#1a73e8;font-weight:600}
+textarea.input-field{resize:vertical;line-height:1.5}
+.gen-btn{width:100%;padding:15px;background:linear-gradient(135deg,#4285F4,#1a73e8);color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(66,133,244,.35);transition:all .2s}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(66,133,244,.4)}
+.gen-btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.dots{display:flex;gap:4px;align-items:center}
+.dots span{width:7px;height:7px;background:white;border-radius:50%;animation:bop .6s infinite}
+.dots span:nth-child(2){animation-delay:.15s}
+.dots span:nth-child(3){animation-delay:.3s}
+@keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.review-output{display:none;margin-top:1rem;animation:fadeIn .3s ease}
+.review-output.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.review-box{width:100%;min-height:140px;padding:14px;border:1.5px solid #e8eaf0;border-radius:10px;background:#f8f9ff;color:#1a1a2e;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;outline:none;line-height:1.7;transition:border-color .2s}
+.review-box:focus{border-color:#4285F4;background:white}
+.action-row{display:flex;gap:10px;margin-top:12px}
+.btn-sec{flex:1;padding:12px;border:1.5px solid #e8eaf0;border-radius:10px;background:white;color:#555;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.btn-sec:hover{border-color:#4285F4;color:#4285F4}
+.btn-google{flex:2;padding:12px;background:linear-gradient(135deg,#34A853,#2d9146);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 10px rgba(52,168,83,.3);transition:all .2s}
+.btn-google:hover{transform:translateY(-1px);box-shadow:0 5px 15px rgba(52,168,83,.4)}
+.hint{font-size:12px;color:#888;margin-top:8px;text-align:center}
+.hint.success{color:#34A853;font-weight:600}
+.err-msg{font-size:13px;color:#D93025;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin-top:10px;display:none}
+.powered{text-align:center;font-size:11px;color:#aaa;margin-top:1.5rem}
+.powered span{color:#4285F4;font-weight:600}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <div class="brand-name">Review<span>Helper</span></div>
+    </div>
+    <div class="subtitle">Share your experience &mdash; AI writes the review for you</div>
+  </div>
+
+  <div class="setup-toggle" onclick="toggleSetup()">
+    &#9881; Business Settings
+  </div>
+  <div class="setup-box" id="setupBox">
+    <div class="setup-row">
+      <label>Business Name</label>
+      <input class="input-field" id="bizName" placeholder="e.g. Ahmed Electronics" />
+    </div>
+    <div class="setup-row">
+      <label>Your Google Review URL</label>
+      <input class="input-field" id="googleLink" placeholder="https://g.page/r/your-business/review" />
+    </div>
+    <button class="btn-sec" onclick="saveConfig()" style="width:100%;margin-top:4px">Save Settings</button>
+  </div>
+
+  <div class="card">
+    <div class="section-label">How was your experience?</div>
+    <div class="stars">
+      <button class="star" onclick="setStar(1)">&#9733;</button>
+      <button class="star" onclick="setStar(2)">&#9733;</button>
+      <button class="star" onclick="setStar(3)">&#9733;</button>
+      <button class="star" onclick="setStar(4)">&#9733;</button>
+      <button class="star" onclick="setStar(5)">&#9733;</button>
+    </div>
+    <div class="star-label" id="starLabel">Tap a star to rate</div>
+
+    <div class="section-label">What did you like? (select all that apply)</div>
+    <div class="chips">
+      <button class="chip" onclick="toggleChip(this)">Helpful staff</button>
+      <button class="chip" onclick="toggleChip(this)">Fast service</button>
+      <button class="chip" onclick="toggleChip(this)">Affordable price</button>
+      <button class="chip" onclick="toggleChip(this)">Professional</button>
+      <button class="chip" onclick="toggleChip(this)">Clean &amp; organized</button>
+      <button class="chip" onclick="toggleChip(this)">Good communication</button>
+      <button class="chip" onclick="toggleChip(this)">On-time delivery</button>
+      <button class="chip" onclick="toggleChip(this)">High quality work</button>
+      <button class="chip" onclick="toggleChip(this)">Trustworthy</button>
+      <button class="chip" onclick="toggleChip(this)">Would recommend</button>
+    </div>
+
+    <div class="section-label">Anything else to add? (optional)</div>
+    <textarea class="input-field" id="extraNote" rows="2" placeholder="e.g. I came for phone repair and they fixed it same day..."></textarea>
+  </div>
+
+  <button class="gen-btn" id="genBtn" onclick="generateReview()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <span id="btnText">Generate AI Review</span>
+  </button>
+  <div class="err-msg" id="errMsg"></div>
+
+  <div class="review-output" id="reviewOutput">
+    <div class="card">
+      <div class="section-label">Your AI-generated review (edit if needed)</div>
+      <textarea class="review-box" id="reviewText"></textarea>
+      <div class="action-row">
+        <button class="btn-sec" onclick="generateReview()">Regenerate</button>
+        <button class="btn-google" onclick="submitToGoogle()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Open Google &amp; Submit
+        </button>
+      </div>
+      <div class="hint" id="copyHint"></div>
+    </div>
+  </div>
+
+  <div class="powered">Powered by <span>Claude AI</span> &mdash; ReviewHelper</div>
+</div>
+
+<script>
+let selectedStars=0,isGenerating=false;
+let bizName='our business',googleLink='';
+const starLabels=['','Very poor - 1/5','Poor - 2/5','Average - 3/5','Good - 4/5','Excellent - 5/5'];
+
+function toggleSetup(){document.getElementById('setupBox').classList.toggle('open')}
+function saveConfig(){
+  const n=document.getElementById('bizName').value.trim();
+  const l=document.getElementById('googleLink').value.trim();
+  if(n)bizName=n;if(l)googleLink=l;
+  document.getElementById('setupBox').classList.remove('open');
+  showHint('Settings saved!',true);
+}
+function setStar(n){
+  selectedStars=n;
+  document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('active',i<n));
+  document.getElementById('starLabel').textContent=starLabels[n];
+}
+function toggleChip(el){el.classList.toggle('selected')}
+function showHint(msg,ok){
+  const h=document.getElementById('copyHint');
+  h.textContent=msg;h.className='hint'+(ok?' success':'');
+}
+
+async function generateReview(){
+  if(selectedStars===0){alert('Please select a star rating first!');return}
+  if(isGenerating)return;
+  isGenerating=true;
+  const btn=document.getElementById('genBtn');
+  document.getElementById('btnText').innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
+  btn.disabled=true;
+  document.getElementById('errMsg').style.display='none';
+
+  const highlights=[...document.querySelectorAll('.chip.selected')].map(c=>c.textContent);
+  const note=document.getElementById('extraNote').value.trim();
+
+  try{
+    const res=await fetch('/generate-review',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({bizName,stars:selectedStars,highlights,note})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error);
+    document.getElementById('reviewText').value=data.review;
+    document.getElementById('reviewOutput').classList.add('visible');
+    showHint('Review ready! Edit if needed, then submit to Google.',true);
+  }catch(e){
+    const err=document.getElementById('errMsg');
+    err.textContent='Error: '+(e.message||'Something went wrong. Please try again.');
+    err.style.display='block';
+  }
+
+  document.getElementById('btnText').innerHTML='Generate AI Review';
+  btn.disabled=false;isGenerating=false;
+}
+
+function submitToGoogle(){
+  const review=document.getElementById('reviewText').value.trim();
+  if(!review){alert('Please generate a review first!');return}
+  navigator.clipboard.writeText(review).then(()=>{
+    showHint('Copied to clipboard! Paste it on Google.',true);
+  }).catch(()=>{
+    showHint('Copy the text manually, then paste on Google.',false);
+  });
+  const link=googleLink||'https://www.google.com/maps';
+  setTimeout(()=>window.open(link,'_blank'),500);
+}
+</script>
+</body>
+</html>
