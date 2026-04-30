@@ -207,7 +207,7 @@ async function init(){
 }
 
 function render(){
-  document.getElementById('loadWrap').classList.add('hidden');
+  document.getElementById("loadWrap").style.display="none";
   document.getElementById('app').classList.remove('hidden');
   document.title = biz.name + ' — Review';
   document.getElementById('bizIcon').textContent = biz.icon || '⭐';
