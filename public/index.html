@@ -310,8 +310,18 @@ async function generate(){
 }
 
 function postGoogle(){
-  const rev=document.getElementById('revText').value.trim();
+  var rev=document.getElementById('revText').value.trim();
   if(!rev){alert('Generate a review first!');return;}
+  if(stars<=2){
+    document.getElementById('shieldPopup').style.display='flex';
+    return;
+  }
+  navigator.clipboard.writeText(rev).then(function(){
+    document.getElementById('pastePopup').style.display='flex';
+  }).catch(function(){
+    openGoogle();
+  });
+}
   navigator.clipboard.writeText(rev).then(()=>{
     document.getElementById('pastePopup').style.display='flex';
   }).catch(()=>{
