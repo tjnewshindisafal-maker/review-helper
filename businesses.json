@@ -1,0 +1,191 @@
+{
+  "orthoderma": {
+    "name": "Orthoderma Skin & Joint Clinic",
+    "googleLink": "https://g.page/r/Ca3mxnzw0BJ1EBM/review",
+    "type": "multi",
+    "showDoctor": true,
+    "showLocation": false,
+    "icon": "🏥",
+    "departments": [
+      {
+        "id": "ortho",
+        "label": "Orthopedic / Joint",
+        "icon": "🦴",
+        "doctor": "Dr. Pradeep Jadhav",
+        "services": [
+          "Knee Replacement",
+          "Hip Replacement",
+          "Spine Treatment",
+          "Joint Pain",
+          "Fracture Treatment",
+          "Sports Injury",
+          "Arthritis",
+          "General Checkup"
+        ],
+        "chips": [
+          "Pain relief",
+          "Expert surgeon",
+          "Successful surgery",
+          "Quick recovery",
+          "Caring staff",
+          "Clean facility",
+          "Affordable",
+          "Good follow-up"
+        ],
+        "keywords": ["orthopedic", "joint replacement", "knee", "hip", "spine", "surgery", "pain relief"]
+      },
+      {
+        "id": "derm",
+        "label": "Dermatology / Skin",
+        "icon": "✨",
+        "doctor": "Dr. Parineeta Khade",
+        "services": [
+          "Acne Treatment",
+          "Skin Allergy",
+          "Hair Loss",
+          "Anti-aging",
+          "Pigmentation",
+          "Eczema",
+          "Psoriasis",
+          "General Skin Checkup"
+        ],
+        "chips": [
+          "Clear skin results",
+          "Expert dermatologist",
+          "Safe treatment",
+          "Affordable",
+          "Good skincare advice",
+          "Quick results",
+          "Caring staff",
+          "Clean clinic"
+        ],
+        "keywords": ["dermatology", "skin", "acne", "treatment", "skincare", "skin clinic"]
+      }
+    ]
+  },
+
+  "potdar": {
+    "name": "Dr. Potdar Dental Care",
+    "googleLink": "https://g.page/r/CS9Y-L-vdJsnEBM/review",
+    "type": "dental",
+    "showDoctor": false,
+    "showLocation": false,
+    "icon": "🦷",
+    "doctor": "",
+    "location": "",
+    "services": [
+      "Root Canal",
+      "Dental Implant",
+      "Teeth Cleaning",
+      "Braces / Aligners",
+      "Tooth Extraction",
+      "Teeth Whitening",
+      "Dentures",
+      "General Checkup"
+    ],
+    "chips": [
+      "Painless treatment",
+      "Expert dentist",
+      "Modern equipment",
+      "Clean clinic",
+      "Affordable",
+      "Friendly staff",
+      "Quick appointment",
+      "Great results"
+    ],
+    "keywords": ["dental", "dentist", "teeth", "painless", "implant", "oral health", "dental clinic"]
+  },
+
+  "vaishali": {
+    "name": "Dr. Vaishali's Dental Care",
+    "googleLink": "https://g.page/r/CQ4eaFS-aTdQEBM/review",
+    "type": "dental",
+    "showDoctor": true,
+    "showLocation": false,
+    "icon": "🦷",
+    "doctor": "Dr. Vaishali",
+    "location": "Wakad, Pune",
+    "services": [
+      "Root Canal",
+      "Dental Implant",
+      "Teeth Cleaning",
+      "Braces / Aligners",
+      "Tooth Extraction",
+      "Teeth Whitening",
+      "Kids Dentistry",
+      "General Checkup"
+    ],
+    "chips": [
+      "Painless treatment",
+      "Gentle doctor",
+      "Modern equipment",
+      "Clean clinic",
+      "Affordable",
+      "Friendly staff",
+      "Kid friendly",
+      "Great results"
+    ],
+    "keywords": ["dental", "dentist", "teeth", "painless", "implant", "oral health", "Wakad", "Pune"]
+  },
+
+  "reshine": {
+    "name": "Reshine Studio",
+    "googleLink": "https://g.page/r/CXxA0WugHjVuEBM/review",
+    "type": "automotive",
+    "showDoctor": false,
+    "showLocation": false,
+    "icon": "🚗",
+    "staff": "Sameer",
+    "location": "Kharadi, Pune",
+    "services": [
+      "PPF (Paint Protection Film)",
+      "Ceramic Coating",
+      "Full Car Detailing",
+      "Interior Detailing",
+      "Car Wash",
+      "Headlight Restoration",
+      "Dent Removal",
+      "Window Tinting"
+    ],
+    "chips": [
+      "Perfect finish",
+      "Expert team",
+      "Quality materials",
+      "Affordable",
+      "On-time delivery",
+      "Trustworthy",
+      "Great detailing",
+      "Professional work"
+    ],
+    "keywords": ["PPF", "car detailing", "ceramic coating", "car wash", "paint protection", "Kharadi", "Pune"]
+  },
+
+  "anelectronics": {
+    "name": "A N Electronics",
+    "googleLink": "https://g.page/r/CRJozOTFeW6PEBM/review",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": false,
+    "icon": "📺",
+    "staff": "",
+    "location": "",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Cooler Purchase"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": ["LED TV repair", "LCD TV repair", "TV service", "television", "cooler", "electronics"]
+  }
+}
