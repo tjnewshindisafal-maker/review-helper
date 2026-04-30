@@ -1,379 +1,1235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Leave a Review</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#F5F7FF;min-height:100vh;padding:0 0 5rem}
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-.top-bar{background:white;padding:1.1rem 1rem;text-align:center;box-shadow:0 1px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:10}
-.biz-icon{font-size:34px;margin-bottom:4px}
-.biz-name{font-size:17px;font-weight:800;color:#1a1a2e;line-height:1.2}
-.biz-tag{font-size:12px;color:#999;margin-top:3px}
+  <!-- SEO: Title -->
+  <title>Best Digital Marketing Agency in Pune | Google Ads, SEO, GMB | Advizr Media</title>
 
-.content{padding:1rem;max-width:480px;margin:0 auto}
+  <!-- SEO: Meta -->
+  <meta name="description" content="Advizr Media – Pune's award-winning digital marketing agency. Expert SEO, Google Ads & GMB optimization. 9300+ keywords ranked, 100+ happy clients. Get free consultation today!"/>
+  <meta name="keywords" content="digital marketing agency pune, SEO company pune, google ads agency pune, GMB optimization pune, best digital marketing pune, google ranking pune"/>
+  <link rel="canonical" href="https://advizrmedia.com/"/>
 
-.card{background:white;border-radius:20px;padding:1.2rem;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.card-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.badge{width:26px;height:26px;background:#4285F4;color:white;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.card-title{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.6px}
+  <!-- OG Tags -->
+  <meta property="og:title" content="Best Digital Marketing Agency in Pune | Advizr Media"/>
+  <meta property="og:description" content="Pune's top-rated digital marketing agency. SEO, Google Ads & GMB optimization. 9300+ keywords ranked, 100+ clients."/>
+  <meta property="og:url" content="https://advizrmedia.com/"/>
+  <meta property="og:type" content="website"/>
 
-/* Dept */
-.dept-row{display:flex;gap:8px}
-.dept-btn{flex:1;padding:14px 8px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;cursor:pointer;text-align:center;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.dept-btn.on{background:#EEF2FF;border-color:#4285F4}
-.dept-btn .di{font-size:26px;margin-bottom:5px}
-.dept-btn .dl{font-size:12px;font-weight:600;color:#666;line-height:1.3}
-.dept-btn.on .dl{color:#1a73e8}
+  <!-- Schema: LocalBusiness -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Advizr Media","description":"Best Digital Marketing Agency in Pune offering SEO, Google Ads, GMB Optimization, Website Design.","url":"https://advizrmedia.com","telephone":"+91-8087289267","email":"contact@advizrmedia.com","address":{"@type":"PostalAddress","streetAddress":"Nexus, 1st Floor, Office 103, W2, Pride Icon, Thite Vasti, Kharadi","addressLocality":"Pune","addressRegion":"Maharashtra","postalCode":"411014","addressCountry":"IN"},"openingHours":"Mo-Sa 09:00-18:00","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"112"},"sameAs":["https://www.facebook.com/advizrmedia","https://www.linkedin.com/company/advizr-media","https://www.instagram.com/advizr_media/","https://twitter.com/advizrmedia"]}
+  </script>
 
-/* Services */
-.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.svc{padding:13px 10px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;cursor:pointer;font-size:13px;font-weight:500;color:#555;font-family:'Plus Jakarta Sans',sans-serif;text-align:center;transition:all .2s;-webkit-tap-highlight-color:transparent;line-height:1.3}
-.svc:active{transform:scale(.96)}
-.svc.on{background:#EEF2FF;border-color:#4285F4;color:#1a73e8;font-weight:700}
+  <!-- Schema: FAQ -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does SEO take in Pune?","acceptedAnswer":{"@type":"Answer","text":"With daily optimization, clients see measurable ranking improvements in 4–8 weeks. Reaching Google Page 1 for competitive keywords typically takes 3–6 months."}},{"@type":"Question","name":"How much do digital marketing services cost in Pune?","acceptedAnswer":{"@type":"Answer","text":"Our packages start from ₹5,000/month for local SEO. Google Ads management starts from ₹8,000/month. Contact us for a custom quote."}},{"@type":"Question","name":"Does Advizr Media work with small businesses?","acceptedAnswer":{"@type":"Answer","text":"Yes! We specialize in helping small and medium businesses in Pune grow online with affordable, result-driven digital marketing packages."}}]}
+  </script>
 
-/* Stars */
-.star-row{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
-.star{width:54px;height:54px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;cursor:pointer;font-size:28px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#DDD;-webkit-tap-highlight-color:transparent}
-.star:active{transform:scale(.88)}
-.star.on{background:#FFF8E1;border-color:#FFC107;color:#FFC107}
-.star-lbl{font-size:14px;color:#666;text-align:center;min-height:20px;margin-bottom:14px;font-weight:500}
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-/* Chips */
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{padding:8px 14px;border:2px solid #E8EAF0;border-radius:50px;font-size:13px;cursor:pointer;background:#F8F9FF;color:#555;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.chip:active{transform:scale(.94)}
-.chip.on{background:#EEF2FF;border-color:#4285F4;color:#1a73e8;font-weight:600}
+  <style>
+    :root {
+      --orange: #FF5C00;
+      --orange-light: #FF7A2B;
+      --dark: #0A0A0F;
+      --dark2: #13131A;
+      --dark3: #1C1C26;
+      --border: rgba(255,255,255,0.08);
+      --text: #E8E8F0;
+      --muted: #7B7B9A;
+      --white: #ffffff;
+      --green: #00C896;
+      --gold: #FFB800;
+    }
 
-.divider{height:1px;background:#F0F0F5;margin:14px 0}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-.note{width:100%;padding:12px 14px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;color:#1a1a2e;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:none;line-height:1.6;transition:border-color .2s}
-.note:focus{border-color:#4285F4;background:white}
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-.gen-btn{width:100%;padding:17px;background:#4285F4;color:white;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 18px rgba(66,133,244,.45);-webkit-tap-highlight-color:transparent;margin-bottom:12px}
-.gen-btn:active{transform:scale(.98)}
-.gen-btn:disabled{opacity:.65;cursor:not-allowed}
+    h1, h2, h3, h4 { line-height: 1.15; }
+    .display { font-family: 'Fraunces', serif; }
 
-.dots{display:flex;gap:5px;align-items:center}
-.dots span{width:7px;height:7px;background:white;border-radius:50%;animation:bop .6s infinite}
-.dots span:nth-child(2){animation-delay:.15s}
-.dots span:nth-child(3){animation-delay:.3s}
-@keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-.rev-card{background:white;border-radius:20px;padding:1.2rem;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:none}
-.rev-card.show{display:block;animation:up .35s ease}
-@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: var(--orange);
+      padding: 9px 0;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .topbar a { color: white; text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
 
-.rev-box{width:100%;min-height:120px;padding:13px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;color:#1a1a2e;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;outline:none;line-height:1.7}
-.rev-box:focus{border-color:#4285F4;background:white}
+    /* ─── NAV ─── */
+    nav {
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 1000;
+      padding: 0;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--orange);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: white; font-family: 'Fraunces', serif;
+    }
+    .logo-text { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; color: var(--white); }
+    .logo-text span { color: var(--orange); }
 
-.act-row{display:flex;gap:8px;margin-top:12px}
-.btn-re{flex:1;padding:13px;border:2px solid #E8EAF0;border-radius:12px;background:white;color:#555;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;-webkit-tap-highlight-color:transparent}
-.btn-g{flex:2;padding:13px;background:#34A853;color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;-webkit-tap-highlight-color:transparent}
+    .nav-links { display: flex; list-style: none; gap: 8px; align-items: center; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-cta {
+      background: var(--orange) !important;
+      color: white !important;
+      font-weight: 700 !important;
+      padding: 10px 20px !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    .hamburger { display: none; font-size: 22px; cursor: pointer; color: var(--white); }
 
-.hint{font-size:12px;color:#999;margin-top:8px;text-align:center}
-.hint.ok{color:#34A853;font-weight:600}
-.err{font-size:13px;color:#D93025;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:12px;padding:10px 14px;margin-bottom:12px;display:none}
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--dark);
+      min-height: 92vh;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(255,92,0,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,200,150,0.06) 0%, transparent 60%);
+    }
+    /* grid pattern */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
 
-.powered{text-align:center;font-size:11px;color:#CCC;padding:1.5rem 1rem}
-.powered b{color:#4285F4;font-weight:600}
+    .award-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,184,0,0.12);
+      border: 1px solid rgba(255,184,0,0.3);
+      color: var(--gold);
+      padding: 8px 18px; border-radius: 30px;
+      font-size: 13px; font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+    .award-badge i { font-size: 14px; }
 
-.hidden{display:none}
-.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px;color:#888;font-size:14px}
-.spinner{width:36px;height:36px;border:3px solid #E8EAF0;border-top-color:#4285F4;border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+
+    .hero-sub {
+      font-size: 18px; color: var(--muted);
+      max-width: 560px; margin-bottom: 40px; line-height: 1.75;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white; padding: 15px 32px; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.25s;
+      box-shadow: 0 0 30px rgba(255,92,0,0.3);
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 6px 40px rgba(255,92,0,0.4); }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text); padding: 15px 28px; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.25s; background: rgba(255,255,255,0.03);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+
+    /* scrolling text */
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: relative; z-index: 2;
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 20s linear infinite;
+      width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 40px; white-space: nowrap;
+      font-size: 14px; font-weight: 600; color: var(--muted);
+    }
+    .ticker-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--dark2);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .stat-item {
+      background: var(--dark2);
+      padding: 28px 30px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem; font-weight: 900;
+      color: var(--orange); line-height: 1;
+      display: block; margin-bottom: 8px;
+    }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 96px 0; }
+    .s-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .s-tag::before { content: ''; display: block; width: 20px; height: 2px; background: var(--orange); }
+    .s-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; color: var(--white);
+      margin-bottom: 16px; letter-spacing: -0.5px;
+    }
+    .s-title em { font-style: italic; color: var(--orange); }
+    .s-sub { color: var(--muted); font-size: 17px; max-width: 560px; line-height: 1.75; margin-bottom: 56px; }
+
+    /* ─── SERVICES ─── */
+    .services-section { background: var(--dark2); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    }
+    .service-card {
+      background: var(--dark2); padding: 40px 36px;
+      transition: all 0.3s; position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--orange);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { background: var(--dark3); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .svc-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,92,0,0.1); border: 1px solid rgba(255,92,0,0.2);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: var(--orange); margin-bottom: 24px;
+      transition: all 0.3s;
+    }
+    .service-card:hover .svc-icon { background: var(--orange); color: white; }
+
+    .service-card h3 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .service-card p { color: var(--muted); font-size: 14px; line-height: 1.75; margin-bottom: 20px; }
+    .svc-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--orange); font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .svc-link:hover { gap: 10px; }
+
+    /* ─── GOOGLE + MARKETPLACE ─── */
+    .platform-section { background: var(--dark); }
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .platform-card {
+      border: 1px solid var(--border); border-radius: 20px; padding: 44px;
+      position: relative; overflow: hidden; transition: all 0.3s;
+    }
+    .platform-card:hover { border-color: rgba(255,92,0,0.3); transform: translateY(-4px); }
+    .platform-card.google { background: linear-gradient(135deg, rgba(255,92,0,0.06) 0%, transparent 60%); }
+    .platform-card.market { background: linear-gradient(135deg, rgba(0,200,150,0.06) 0%, transparent 60%); }
+
+    .platform-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .google .platform-badge { background: rgba(255,92,0,0.15); color: var(--orange); border: 1px solid rgba(255,92,0,0.2); }
+    .market .platform-badge { background: rgba(0,200,150,0.12); color: var(--green); border: 1px solid rgba(0,200,150,0.2); }
+
+    .platform-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.7rem; font-weight: 900; color: var(--white);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .platform-card p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 28px; }
+
+    .platform-features { list-style: none; margin-bottom: 32px; }
+    .platform-features li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text);
+    }
+    .platform-features li:last-child { border-bottom: none; }
+    .platform-features li i { color: var(--orange); margin-top: 2px; font-size: 13px; }
+    .market .platform-features li i { color: var(--green); }
+
+    .platform-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 10px;
+      font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.25s;
+    }
+    .google .platform-cta { background: var(--orange); color: white; }
+    .google .platform-cta:hover { background: var(--orange-light); }
+    .market .platform-cta { background: rgba(0,200,150,0.15); color: var(--green); border: 1px solid rgba(0,200,150,0.3); }
+    .market .platform-cta:hover { background: var(--green); color: var(--dark); }
+
+    /* ─── WHY US ─── */
+    .why-section { background: var(--dark2); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+    .why-list { display: flex; flex-direction: column; gap: 4px; }
+    .why-item {
+      display: flex; align-items: flex-start; gap: 18px;
+      padding: 22px 24px; border-radius: 12px; cursor: pointer;
+      transition: all 0.25s; border: 1px solid transparent;
+    }
+    .why-item.active,
+    .why-item:hover { background: var(--dark3); border-color: var(--border); }
+    .why-num {
+      font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900;
+      color: rgba(255,92,0,0.2); line-height: 1; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .why-item.active .why-num, .why-item:hover .why-num { color: var(--orange); }
+    .why-item h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .why-item p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    .why-visual {
+      background: var(--dark3);
+      border: 1px solid var(--border); border-radius: 20px; padding: 44px;
+    }
+    .result-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    }
+    .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .result-client { font-size: 14px; font-weight: 700; color: var(--white); }
+    .result-badge { background: rgba(0,200,150,0.12); color: var(--green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+    .result-metric { display: flex; gap: 16px; }
+    .metric { text-align: center; }
+    .metric-val { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; color: var(--orange); }
+    .metric-lbl { font-size: 11px; color: var(--muted); }
+    .result-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+    .result-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 2px; }
+
+    /* ─── PROCESS ─── */
+    .process-section { background: var(--dark); }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 10%; right: 10%;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--orange), var(--orange), var(--orange), transparent);
+      opacity: 0.3;
+    }
+    .process-step { text-align: center; padding: 0 16px; }
+    .step-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--dark2); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 22px; color: var(--muted);
+      transition: all 0.3s; position: relative; z-index: 2;
+    }
+    .process-step:hover .step-circle { border-color: var(--orange); color: var(--orange); background: rgba(255,92,0,0.1); }
+    .process-step h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .process-step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ─── MARKETPLACE ─── */
+    .marketplace-section { background: var(--dark2); }
+    .marketplace-logos {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .mp-logo {
+      background: var(--dark2); padding: 28px 20px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; transition: all 0.25s; cursor: pointer;
+    }
+    .mp-logo:hover { background: var(--dark3); }
+    .mp-logo-icon { font-size: 28px; }
+    .mp-logo-name { font-size: 12px; font-weight: 700; color: var(--muted); }
+    .mp-logo:hover .mp-logo-name { color: var(--white); }
+
+    .mp-explain { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .mp-card {
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px; transition: border-color 0.2s;
+    }
+    .mp-card:hover { border-color: rgba(255,92,0,0.25); }
+    .mp-card-icon { font-size: 28px; margin-bottom: 14px; }
+    .mp-card h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .mp-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section { background: var(--dark); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: all 0.25s;
+    }
+    .testimonial-card:hover { border-color: rgba(255,92,0,0.2); transform: translateY(-4px); }
+    .t-stars { color: var(--gold); font-size: 16px; margin-bottom: 18px; letter-spacing: 2px; }
+    .t-quote { color: #B0B0C8; font-size: 15px; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+    .t-author { display: flex; align-items: center; gap: 14px; }
+    .t-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--orange); display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900; color: white; flex-shrink: 0;
+    }
+    .t-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .t-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ─── CLIENTS ─── */
+    .clients-section { background: var(--dark2); padding: 64px 0; }
+    .clients-label {
+      text-align: center; font-size: 13px; font-weight: 700;
+      color: var(--muted); letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .clients-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent); }
+    .clients-track {
+      display: flex; gap: 0; animation: marquee 18s linear infinite; width: max-content;
+    }
+    .clients-track:hover { animation-play-state: paused; }
+    .client-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 28px; background: var(--dark3); border-right: 1px solid var(--border);
+      white-space: nowrap; font-size: 13px; font-weight: 700; color: var(--muted);
+      transition: color 0.2s;
+    }
+    .client-chip:hover { color: var(--white); }
+    .client-chip span { font-size: 18px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--dark); }
+    .faq-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+    .faq-list { }
+    .faq-item {
+      border-bottom: 1px solid var(--border); overflow: hidden;
+    }
+    .faq-q {
+      padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; gap: 16px;
+    }
+    .faq-q span { font-size: 15px; font-weight: 600; color: var(--white); }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--muted); flex-shrink: 0;
+      transition: all 0.25s;
+    }
+    .faq-item.open .faq-icon { background: var(--orange); border-color: var(--orange); color: white; transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s;
+      color: var(--muted); font-size: 14px; line-height: 1.8; padding: 0;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+
+    .faq-cta {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 44px; position: sticky; top: 100px;
+    }
+    .faq-cta h3 {
+      font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .faq-cta p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .contact-form-inline { display: flex; flex-direction: column; gap: 12px; }
+    .form-field {
+      padding: 13px 16px;
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--white); font-size: 14px;
+      font-family: inherit; transition: border-color 0.2s; width: 100%;
+    }
+    .form-field:focus { outline: none; border-color: var(--orange); }
+    .form-field::placeholder { color: var(--muted); }
+    select.form-field option { background: var(--dark2); }
+    .form-submit {
+      background: var(--orange); color: white; border: none;
+      padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit; transition: all 0.25s;
+    }
+    .form-submit:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--orange) 0%, #FF3D00 100%);
+      padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; top: -50%; right: -5%;
+      width: 500px; height: 500px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .cta-banner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; color: white;
+      margin-bottom: 16px; position: relative;
+    }
+    .cta-banner p { color: rgba(255,255,255,0.85); font-size: 18px; max-width: 520px; margin: 0 auto 36px; position: relative; }
+    .btn-white {
+      background: white; color: var(--orange);
+      padding: 15px 40px; border-radius: 10px; text-decoration: none;
+      font-weight: 800; font-size: 16px; display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.25s; position: relative;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark2); border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand p { color: var(--muted); font-size: 14px; line-height: 1.75; margin: 16px 0 24px; }
+    .social-row { display: flex; gap: 10px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: 14px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--orange); border-color: var(--orange); color: white; }
+    .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 18px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; color: var(--muted); font-size: 14px; }
+    .footer-contact-item i { color: var(--orange); margin-top: 2px; font-size: 13px; flex-shrink: 0; }
+    .footer-contact-item a { color: var(--muted); text-decoration: none; }
+    .footer-contact-item a:hover { color: var(--orange); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 13px; color: var(--muted); }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: var(--orange); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--dark); padding: 90px 30px 30px;
+        gap: 8px; z-index: 9999; overflow-y: auto;
+      }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .marketplace-logos { grid-template-columns: repeat(3, 1fr); }
+      .mp-explain { grid-template-columns: 1fr; }
+      .faq-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="loadWrap" class="loading-wrap" style="display:none">
-  <div class="spinner"></div>
-  <div>Loading...</div>
+<!-- TOPBAR -->
+<div class="topbar">
+  🏆 Pune's #1 Digital Marketing Agency — <a href="#contact">Get Free Consultation Today</a>
 </div>
 
-<div id="app" class="hidden">
-  <div class="top-bar">
-    <div class="biz-icon" id="bizIcon">⭐</div>
-    <div class="biz-name" id="bizName"></div>
-    <div class="biz-tag">Share your experience — takes less than a minute!</div>
-  </div>
-
-  <div class="content">
-
-    <!-- Dept -->
-    <div id="deptCard" class="card hidden">
-      <div class="card-head">
-        <div class="badge">1</div>
-        <div class="card-title">Select Department</div>
-      </div>
-      <div class="dept-row" id="deptRow"></div>
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo-wrap">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">Advizr<span>Media</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#google-marketplace">Google & Marketplace</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </div>
+  </div>
+</nav>
 
-    <!-- Service -->
-    <div class="card">
-      <div class="card-head">
-        <div class="badge" id="svcBadge">1</div>
-        <div class="card-title">Which service did you take?</div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="award-badge">
+        <i class="fas fa-award"></i> Pune's Most Trusted Digital Marketing Agency
       </div>
-      <div class="svc-grid" id="svcGrid">
-        <div style="font-size:13px;color:#BBB;grid-column:span 2;text-align:center;padding:8px">
-          Select department first
+      <h1 class="display">
+        Rank #1 on<br><em>Google</em> &amp;<br>Dominate Every<br>Marketplace
+      </h1>
+      <p class="hero-sub">
+        We help Pune businesses get found on Google Search, Google Maps, JustDial, Sulekha, IndiaMart, and every platform that matters. Daily optimization. Real results. Zero jargon.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i> Get Free Audit</a>
+        <a href="tel:+918087289267" class="btn-ghost"><i class="fas fa-phone"></i> +91-8087289267</a>
+      </div>
+    </div>
+  </div>
+  <!-- Scrolling ticker -->
+  <div class="ticker-wrap" style="position:absolute;bottom:0;left:0;right:0;">
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Page 1 Rankings</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Maps Top 3</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>JustDial Optimization</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Sulekha Business Listing</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>IndiaMart Profile</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Ads Management</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>9,300+ Keywords Ranked</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>100+ Happy Clients</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Page 1 Rankings</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Maps Top 3</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>JustDial Optimization</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Sulekha Business Listing</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>IndiaMart Profile</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>Google Ads Management</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>9,300+ Keywords Ranked</div>
+      <div class="ticker-item"><div class="ticker-dot"></div>100+ Happy Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-num">9,300<span style="font-size:1.5rem">+</span></span>
+        <div class="stat-label">Keywords Ranked on Google</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">20<span style="font-size:1.5rem">+</span></span>
+        <div class="stat-label">Google Maps Top 3 Rankings</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100<span style="font-size:1.5rem">+</span></span>
+        <div class="stat-label">Happy Clients in Pune</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">98<span style="font-size:1.5rem">%</span></span>
+        <div class="stat-label">Client Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="s-tag">What We Do</div>
+    <h2 class="s-title">Complete <em>Digital Growth</em> Services</h2>
+    <p class="s-sub">From Google ranking to marketplace presence — we handle every digital touchpoint your customer interacts with.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="svc-icon"><i class="fas fa-search"></i></div>
+        <h3>SEO Services</h3>
+        <p>Daily on-page, off-page, and technical SEO that pushes your website to Google's first page and keeps it there permanently.</p>
+        <a href="seo-services.html" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><i class="fab fa-google"></i></div>
+        <h3>Google Ads (PPC)</h3>
+        <p>Laser-targeted Google Search & Display campaigns that put your business in front of ready-to-buy customers. Maximum ROI guaranteed.</p>
+        <a href="google-ads.html" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>Google My Business (GMB)</h3>
+        <p>Rank in Google Maps Top 3 for your area. We optimize and manage your GMB profile daily for maximum local visibility.</p>
+        <a href="gmb-optimization.html" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><i class="fas fa-store"></i></div>
+        <h3>Marketplace Listings</h3>
+        <p>Complete profile optimization on JustDial, Sulekha, IndiaMart, TradeIndia, and 20+ other business directories to maximize your reach.</p>
+        <a href="#google-marketplace" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><i class="fas fa-laptop-code"></i></div>
+        <h3>Website Design</h3>
+        <p>SEO-first, mobile-perfect websites that load fast, look stunning, and convert visitors into paying customers.</p>
+        <a href="website-design.html" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><i class="fas fa-map-pin"></i></div>
+        <h3>Local SEO</h3>
+        <p>Dominate "near me" searches in your neighborhood. Connect with high-intent local customers who are ready to buy right now.</p>
+        <a href="local-seo.html" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE + MARKETPLACE DEEP DIVE -->
+<section class="platform-section" id="google-marketplace">
+  <div class="container">
+    <div class="s-tag">Our Focus Areas</div>
+    <h2 class="s-title">Google & <em>Marketplace</em> Dominance</h2>
+    <p class="s-sub">Two of the most powerful channels to get found by customers in Pune — and we specialize in both.</p>
+    <div class="platform-grid">
+      <div class="platform-card google">
+        <div class="platform-badge"><i class="fab fa-google"></i> Google Ecosystem</div>
+        <h3>Rank #1 Across All Google Platforms</h3>
+        <p>We optimize your presence across every Google platform — Search, Maps, Shopping, and Ads — so customers find you wherever they search.</p>
+        <ul class="platform-features">
+          <li><i class="fas fa-check"></i> Google Search — Page 1 organic rankings with daily SEO</li>
+          <li><i class="fas fa-check"></i> Google Maps — Top 3 local pack visibility for your area</li>
+          <li><i class="fas fa-check"></i> Google Ads — High-ROI paid campaigns targeting buyer keywords</li>
+          <li><i class="fas fa-check"></i> Google Business Profile — Fully optimized, reviewed, and managed</li>
+          <li><i class="fas fa-check"></i> Google Knowledge Panel — Build brand authority and recognition</li>
+        </ul>
+        <a href="#contact" class="platform-cta"><i class="fab fa-google"></i> Dominate Google Now</a>
+      </div>
+      <div class="platform-card market">
+        <div class="platform-badge"><i class="fas fa-store"></i> Business Marketplaces</div>
+        <h3>Be Found on Every Major Marketplace</h3>
+        <p>Millions of customers search for businesses on JustDial, Sulekha, IndiaMart every day. We make sure your business appears first — ahead of all competitors.</p>
+        <ul class="platform-features">
+          <li><i class="fas fa-check"></i> JustDial — Top listing, verified badge, keyword-rich profile</li>
+          <li><i class="fas fa-check"></i> Sulekha — Premium business profile with photos & reviews</li>
+          <li><i class="fas fa-check"></i> IndiaMart / TradeIndia — B2B marketplace optimization</li>
+          <li><i class="fas fa-check"></i> Yelp India & Yellow Pages — Citation consistency across 50+ sites</li>
+          <li><i class="fas fa-check"></i> Bing Places & Apple Maps — Multi-platform local visibility</li>
+        </ul>
+        <a href="#contact" class="platform-cta"><i class="fas fa-store"></i> Optimize Marketplaces</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US + RESULTS -->
+<section class="why-section" id="results">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="s-tag">Why Advizr Media</div>
+        <h2 class="s-title">Results That <em>Speak</em></h2>
+        <p class="s-sub" style="margin-bottom:36px;">What sets us apart isn't what we promise — it's what our clients actually experience.</p>
+        <div class="why-list">
+          <div class="why-item active">
+            <div class="why-num">01</div>
+            <div>
+              <h4>Daily Optimization — Not Monthly</h4>
+              <p>Most agencies review your campaign once a month. We optimize every single day, which means faster rankings and better results.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div>
+              <h4>Full Transparency — You Own Everything</h4>
+              <p>Your website, your Google account, your GMB — we hand over complete access and control. No lock-in, no hidden ownership.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div>
+              <h4>WhatsApp Lead Notifications</h4>
+              <p>When a lead comes in, you get an instant WhatsApp notification. No missed leads, no delays. You're always the first to know.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">04</div>
+            <div>
+              <h4>Weekly Reporting, Always Honest</h4>
+              <p>We send clear, jargon-free weekly reports that show exactly where you rank, how much traffic you got, and what we did.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">05</div>
+            <div>
+              <h4>Pune Market Expertise</h4>
+              <p>We understand Kharadi, Hadapsar, Koregaon Park, Baner — we know which keywords Pune customers actually search for.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <p style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:20px;">Live Client Results</p>
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-client">🛒 Retail Shop — Kharadi</span>
+            <span class="result-badge">↑ Page 1</span>
+          </div>
+          <div class="result-metric">
+            <div class="metric"><div class="metric-val">312%</div><div class="metric-lbl">Traffic Increase</div></div>
+            <div class="metric"><div class="metric-val">68</div><div class="metric-lbl">Keywords Page 1</div></div>
+            <div class="metric"><div class="metric-val">4mo</div><div class="metric-lbl">Time to Rank</div></div>
+          </div>
+          <div class="result-bar"><div class="result-fill" style="width:78%"></div></div>
+        </div>
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-client">🏥 Clinic — Hadapsar</span>
+            <span class="result-badge">↑ Maps Top 3</span>
+          </div>
+          <div class="result-metric">
+            <div class="metric"><div class="metric-val">3x</div><div class="metric-lbl">Patient Calls</div></div>
+            <div class="metric"><div class="metric-val">Top 3</div><div class="metric-lbl">Google Maps</div></div>
+            <div class="metric"><div class="metric-val">6wk</div><div class="metric-lbl">Time to Rank</div></div>
+          </div>
+          <div class="result-bar"><div class="result-fill" style="width:92%"></div></div>
+        </div>
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-client">🔧 Service Business — Pune</span>
+            <span class="result-badge">↑ 5.8x ROAS</span>
+          </div>
+          <div class="result-metric">
+            <div class="metric"><div class="metric-val">5.8x</div><div class="metric-lbl">Google Ads ROAS</div></div>
+            <div class="metric"><div class="metric-val">₹2.1L</div><div class="metric-lbl">Monthly Revenue</div></div>
+            <div class="metric"><div class="metric-val">2mo</div><div class="metric-lbl">Break-even</div></div>
+          </div>
+          <div class="result-bar"><div class="result-fill" style="width:85%"></div></div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Rating -->
-    <div class="card">
-      <div class="card-head">
-        <div class="badge" id="starBadge">2</div>
-        <div class="card-title">Rate your experience</div>
-      </div>
-      <div class="star-row">
-        <div class="star" onclick="setStar(1)">&#9733;</div>
-        <div class="star" onclick="setStar(2)">&#9733;</div>
-        <div class="star" onclick="setStar(3)">&#9733;</div>
-        <div class="star" onclick="setStar(4)">&#9733;</div>
-        <div class="star" onclick="setStar(5)">&#9733;</div>
-      </div>
-      <div class="star-lbl" id="starLbl">Tap a star to rate</div>
-
-      <div class="card-head">
-        <div class="badge" id="chipBadge">3</div>
-        <div class="card-title">What did you like?</div>
-      </div>
-      <div class="chips" id="chipsWrap">
-        <div style="font-size:13px;color:#BBB">Select a service first</div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="card-head">
-        <div class="badge" id="noteBadge">4</div>
-        <div class="card-title">Anything else? (optional)</div>
-      </div>
-      <textarea class="note" id="noteField" rows="2"
-        placeholder="e.g. Doctor was very patient and explained everything clearly..."></textarea>
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:64px;">
+      <div class="s-tag" style="justify-content:center;">How We Work</div>
+      <h2 class="s-title">Our <em>5-Step</em> Growth Process</h2>
+      <p class="s-sub" style="max-width:500px; margin:0 auto;">Every client goes through this proven process that delivers consistent, measurable results.</p>
     </div>
-
-    <div class="err" id="errMsg"></div>
-
-    <button class="gen-btn" id="genBtn" onclick="generate()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-      </svg>
-      <span id="btnTxt">Generate My Review</span>
-    </button>
-
-    <div class="rev-card" id="revCard">
-      <div class="card-head">
-        <div class="badge" style="background:#34A853">✓</div>
-        <div class="card-title">Your Review (edit if needed)</div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle"><i class="fas fa-search"></i></div>
+        <h4>Free Audit</h4>
+        <p>We analyze your website, competitors, current rankings, and marketplace presence to find every opportunity.</p>
       </div>
-      <textarea class="rev-box" id="revText"></textarea>
-      <div class="act-row">
-        <button class="btn-re" onclick="generate()">↺ New</button>
-        <button class="btn-g" onclick="postGoogle()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
-            <path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-          </svg>
-          Post on Google
-        </button>
+      <div class="process-step">
+        <div class="step-circle"><i class="fas fa-map"></i></div>
+        <h4>Custom Strategy</h4>
+        <p>A tailored roadmap built around your goals, budget, industry, and target customers in Pune.</p>
       </div>
-      <div class="hint" id="hintMsg"></div>
+      <div class="process-step">
+        <div class="step-circle"><i class="fas fa-bolt"></i></div>
+        <h4>Daily Execution</h4>
+        <p>Our team works on your SEO, ads, GMB, and marketplace profiles every single day — not monthly.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle"><i class="fas fa-chart-bar"></i></div>
+        <h4>Track & Report</h4>
+        <p>Weekly ranking updates and monthly reports with full transparency on traffic, leads, and ROI.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle"><i class="fas fa-rocket"></i></div>
+        <h4>Scale & Grow</h4>
+        <p>As results compound, we scale what's working and push you further ahead of every competitor.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="powered">Powered by <b>ReviewHelper AI</b></div>
+<!-- MARKETPLACE SECTION -->
+<section class="marketplace-section">
+  <div class="container">
+    <div class="s-tag">Marketplace Reach</div>
+    <h2 class="s-title">Your Business, <em>Everywhere</em></h2>
+    <p class="s-sub">We list, optimize, and manage your business on every major platform where Pune customers are searching.</p>
+    <div class="marketplace-logos">
+      <div class="mp-logo"><div class="mp-logo-icon">🔍</div><div class="mp-logo-name">Google</div></div>
+      <div class="mp-logo"><div class="mp-logo-icon">📍</div><div class="mp-logo-name">JustDial</div></div>
+      <div class="mp-logo"><div class="mp-logo-icon">🏷️</div><div class="mp-logo-name">Sulekha</div></div>
+      <div class="mp-logo"><div class="mp-logo-icon">🛒</div><div class="mp-logo-name">IndiaMart</div></div>
+      <div class="mp-logo"><div class="mp-logo-icon">📦</div><div class="mp-logo-name">TradeIndia</div></div>
+    </div>
+    <div class="mp-explain">
+      <div class="mp-card">
+        <div class="mp-card-icon">📍</div>
+        <h4>JustDial Optimization</h4>
+        <p>Get featured at the top of JustDial searches in your category with a verified, keyword-rich business profile that drives direct calls and inquiries.</p>
+      </div>
+      <div class="mp-card">
+        <div class="mp-card-icon">🏷️</div>
+        <h4>Sulekha Profile Management</h4>
+        <p>Complete Sulekha profile setup with detailed service descriptions, photos, pricing, and customer reviews to stand out from competitors.</p>
+      </div>
+      <div class="mp-card">
+        <div class="mp-card-icon">🛒</div>
+        <h4>IndiaMart / TradeIndia</h4>
+        <p>For B2B businesses, we optimize your IndiaMart and TradeIndia profiles to attract wholesale buyers, distributors, and business clients at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="s-tag">Client Reviews</div>
+    <h2 class="s-title">What Our <em>Clients</em> Say</h2>
+    <p class="s-sub">Real results from real Pune businesses who trusted us with their digital growth.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"Advizr Media took our salon from page 5 to page 1 on Google in just 3 months. We now get 40+ new customer calls every month from online search. Their daily optimization approach actually works."</p>
+        <div class="t-author">
+          <div class="t-avatar">P</div>
+          <div><div class="t-name">Priya Sharma</div><div class="t-role">Bliss Beauty Salon, Kharadi, Pune</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"Our Google Ads ROAS went from 1.5x to 5.8x in 2 months after switching to Advizr Media. Extremely transparent team — I can see exactly where every rupee is going. Highly recommend."</p>
+        <div class="t-author">
+          <div class="t-avatar">R</div>
+          <div><div class="t-name">Rahul Desai</div><div class="t-role">TechFix Solutions, Hadapsar, Pune</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"The GMB optimization got our restaurant into Google Maps Top 3 in just 6 weeks. We also got listed on JustDial and Sulekha properly for the first time. Business has grown by 60% this year."</p>
+        <div class="t-author">
+          <div class="t-avatar">A</div>
+          <div><div class="t-name">Amit Joshi</div><div class="t-role">Spice Garden Restaurant, Koregaon Park</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS MARQUEE -->
+<div class="clients-section" id="clients">
+  <div class="container">
+    <div class="clients-label">Trusted by 100+ businesses across Pune</div>
+  </div>
+  <div class="clients-marquee">
+    <div class="clients-track" id="clientsTrack">
+      <div class="client-chip"><span>🛒</span> RetailHub Pune</div>
+      <div class="client-chip"><span>🏥</span> CareMax Clinic</div>
+      <div class="client-chip"><span>🔧</span> FixPro Services</div>
+      <div class="client-chip"><span>💇</span> Glow Salon</div>
+      <div class="client-chip"><span>🏠</span> PropLine Realty</div>
+      <div class="client-chip"><span>🍽️</span> Spice Garden</div>
+      <div class="client-chip"><span>📚</span> Bright Coaching</div>
+      <div class="client-chip"><span>⚙️</span> TechFix Solutions</div>
+      <div class="client-chip"><span>🦷</span> SmileZone Dental</div>
+      <div class="client-chip"><span>🏋️</span> PowerFit Gym</div>
+      <div class="client-chip"><span>🧹</span> CleanPro Pune</div>
+      <div class="client-chip"><span>🚗</span> AutoCare Center</div>
+      <div class="client-chip"><span>🛒</span> RetailHub Pune</div>
+      <div class="client-chip"><span>🏥</span> CareMax Clinic</div>
+      <div class="client-chip"><span>🔧</span> FixPro Services</div>
+      <div class="client-chip"><span>💇</span> Glow Salon</div>
+      <div class="client-chip"><span>🏠</span> PropLine Realty</div>
+      <div class="client-chip"><span>🍽️</span> Spice Garden</div>
+      <div class="client-chip"><span>📚</span> Bright Coaching</div>
+      <div class="client-chip"><span>⚙️</span> TechFix Solutions</div>
+      <div class="client-chip"><span>🦷</span> SmileZone Dental</div>
+      <div class="client-chip"><span>🏋️</span> PowerFit Gym</div>
+      <div class="client-chip"><span>🧹</span> CleanPro Pune</div>
+      <div class="client-chip"><span>🚗</span> AutoCare Center</div>
+    </div>
   </div>
 </div>
+
+<!-- BLOG PREVIEW -->
+<section id="blog" style="background: var(--dark2); padding:80px 0;">
+  <div class="container">
+    <div class="s-tag">Our Blog</div>
+    <h2 class="s-title">Digital Marketing <em>Insights</em></h2>
+    <p class="s-sub">Actionable tips for Pune businesses on SEO, Google Ads, GMB, and marketplace growth.</p>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px;">
+      <a href="blog.html" style="text-decoration:none;">
+        <div style="background:var(--dark3); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(255,92,0,0.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+          <div style="height:150px; background:linear-gradient(135deg, rgba(255,92,0,0.15),transparent); display:flex; align-items:center; justify-content:center; font-size:52px;">📈</div>
+          <div style="padding:24px;">
+            <div style="font-size:11px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">SEO Tips</div>
+            <h3 style="font-size:16px; font-weight:700; color:var(--white); margin-bottom:10px; line-height:1.4;">10 SEO Mistakes Pune Businesses Make in 2025</h3>
+            <p style="color:var(--muted); font-size:13px; line-height:1.7;">Most Pune businesses are losing customers because of these simple, fixable SEO errors. Here's exactly what to change...</p>
+          </div>
+        </div>
+      </a>
+      <a href="blog.html" style="text-decoration:none;">
+        <div style="background:var(--dark3); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(255,92,0,0.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+          <div style="height:150px; background:linear-gradient(135deg, rgba(0,200,150,0.1),transparent); display:flex; align-items:center; justify-content:center; font-size:52px;">📍</div>
+          <div style="padding:24px;">
+            <div style="font-size:11px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Google Maps</div>
+            <h3 style="font-size:16px; font-weight:700; color:var(--white); margin-bottom:10px; line-height:1.4;">How to Rank in Google Maps Top 3 in Pune (2025)</h3>
+            <p style="color:var(--muted); font-size:13px; line-height:1.7;">The local 3-pack gets 60–70% of all clicks. Here's our proven step-by-step process to get your business there...</p>
+          </div>
+        </div>
+      </a>
+      <a href="blog.html" style="text-decoration:none;">
+        <div style="background:var(--dark3); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(255,92,0,0.3)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+          <div style="height:150px; background:linear-gradient(135deg, rgba(255,184,0,0.1),transparent); display:flex; align-items:center; justify-content:center; font-size:52px;">🛒</div>
+          <div style="padding:24px;">
+            <div style="font-size:11px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Marketplace</div>
+            <h3 style="font-size:16px; font-weight:700; color:var(--white); margin-bottom:10px; line-height:1.4;">JustDial vs Sulekha: Which is Better for Pune Businesses?</h3>
+            <p style="color:var(--muted); font-size:13px; line-height:1.7;">A detailed comparison of India's top business marketplaces and which one drives more leads for local Pune businesses...</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ + CONTACT -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-inner">
+      <div>
+        <div class="s-tag">FAQ</div>
+        <h2 class="s-title">Common <em>Questions</em></h2>
+        <p style="color:var(--muted); font-size:16px; line-height:1.75; margin-bottom:40px;">Everything you need to know before working with us.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q"><span>How long does it take to rank on Google Page 1?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">With our daily optimization approach, most clients see measurable improvements in 4–8 weeks. Reaching Page 1 for competitive Pune keywords typically takes 3–6 months, depending on your industry and current website authority.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>How much do your services cost?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">Our packages are customized based on your goals. SEO starts from ₹5,000/month, Google Ads management from ₹8,000/month, and GMB optimization from ₹3,000/month. We also offer full-stack packages. Contact us for a free consultation and custom quote.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>Do you handle JustDial and Sulekha listings?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">Yes! Marketplace optimization is one of our core services. We create, verify, and optimize your profiles on JustDial, Sulekha, IndiaMart, TradeIndia, and 50+ other business directories to maximize your online reach beyond just Google.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>What makes Advizr Media different from other agencies?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">Three key differences: (1) We optimize DAILY, not monthly. (2) Full transparency — you own all your accounts, no lock-in. (3) WhatsApp lead alerts — you get notified instantly when a potential customer contacts you through our campaigns.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>Do you work with small businesses and startups?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">Absolutely! Many of our most successful clients started as small local businesses in Pune. We offer flexible, affordable packages designed specifically for growing businesses. Whether you're a single-person operation or a 50-person team, we have a solution that works for your budget.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>How do I get started?</span><div class="faq-icon">+</div></div>
+            <div class="faq-a">Simply fill out the contact form or call us at +91-8087289267. We'll schedule a free consultation, conduct a complete audit of your current digital presence, and present a customized strategy with clear timelines and expected results — all with no obligation.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div id="contact">
+        <div class="faq-cta">
+          <h3>Get Your Free Audit Today</h3>
+          <p>Discover exactly what's stopping your business from ranking #1 on Google and which marketplaces you're missing.</p>
+          <form action="https://formsubmit.co/contact@advizrmedia.com" method="POST" class="contact-form-inline">
+            <input type="hidden" name="_subject" value="New Lead — Advizr Media Website"/>
+            <input type="hidden" name="_captcha" value="false"/>
+            <input type="text" name="name" placeholder="Your Full Name *" class="form-field" required/>
+            <input type="tel" name="phone" placeholder="Phone Number *" class="form-field" required/>
+            <input type="email" name="email" placeholder="Email Address *" class="form-field" required/>
+            <select name="service" class="form-field">
+              <option value="">What Service Do You Need?</option>
+              <option>SEO Services</option>
+              <option>Google Ads Management</option>
+              <option>GMB / Google Maps</option>
+              <option>Marketplace Listings (JustDial, Sulekha)</option>
+              <option>Website Design</option>
+              <option>Full Digital Marketing Package</option>
+            </select>
+            <textarea name="message" placeholder="Tell us about your business..." class="form-field" style="resize:vertical;min-height:100px;"></textarea>
+            <button type="submit" class="form-submit">🚀 Get My Free Audit</button>
+          </form>
+          <p style="font-size:12px; color:var(--muted); margin-top:14px; text-align:center;">✓ Free, no-obligation audit &nbsp; ✓ Reply within 2 hours</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>Your Competitor is Already on Page 1.<br>What Are You Waiting For?</h2>
+    <p>Every day you're not ranking on Google, you're sending customers to your competitors. Let's fix that — starting today.</p>
+    <a href="#contact" class="btn-white"><i class="fas fa-rocket"></i> Start Growing Today</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo-wrap" style="margin-bottom:16px; display:inline-flex;">
+          <div class="logo-icon">A</div>
+          <div class="logo-text">Advizr<span>Media</span></div>
+        </a>
+        <p>Pune's most trusted digital marketing agency. We help local businesses rank #1 on Google and dominate every marketplace that matters.</p>
+        <div class="social-row">
+          <a href="https://www.facebook.com/advizrmedia" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/advizr_media/" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/advizr-media" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://twitter.com/advizrmedia" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul class="footer-links">
+          <li><a href="seo-services.html">SEO Services Pune</a></li>
+          <li><a href="google-ads.html">Google Ads Management</a></li>
+          <li><a href="gmb-optimization.html">GMB Optimization</a></li>
+          <li><a href="#google-marketplace">Marketplace Listings</a></li>
+          <li><a href="website-design.html">Website Design</a></li>
+          <li><a href="local-seo.html">Local SEO Pune</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="/portfolio.html">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+918087289267">+91-8087289267</a></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+919158357999">+91-9158357999</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>contact@advizrmedia.com</span></div>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Kharadi, Pune 411014</span></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9AM–6PM</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Advizr Media. All Rights Reserved. | Best Digital Marketing Agency Pune</p>
+      <div class="footer-bottom-links">
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms-and-conditions.html">Terms & Conditions</a>
+        <a href="/return-refund-policy.html">Refund Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-const STAR_LABELS = ['','Very poor 😞','Poor 😕','Okay 😐','Good 😊','Excellent 🤩'];
-let biz=null, dept=null, svc='', stars=0, busy=false, selectedLang='english';
-const id = new URLSearchParams(location.search).get('b') || 'orthoderma';
-
-async function init(){
-  try{
-    const r = await fetch('/business/'+id);
-    if(!r.ok) throw new Error();
-    biz = await r.json();
-    render();
-  }catch{
-    document.getElementById('loadWrap').innerHTML='<div style="color:#D93025;font-size:14px">Business not found. Please check the link.</div>';
-  }
-}
-
-function render(){
-  document.getElementById('loadWrap').style.display='none';
-  document.getElementById('app').classList.remove('hidden');
-  document.title = biz.name + ' — Review';
-  document.getElementById('bizIcon').textContent = biz.icon || '⭐';
-  document.getElementById('bizName').textContent = biz.name;
-
-  if(biz.type==='multi'){
-    document.getElementById('deptCard').classList.remove('hidden');
-    document.getElementById('svcBadge').textContent='2';
-    document.getElementById('starBadge').textContent='3';
-    document.getElementById('chipBadge').textContent='4';
-    document.getElementById('noteBadge').textContent='5';
-    document.getElementById('deptRow').innerHTML = biz.departments.map(d=>
-      `<div class="dept-btn" onclick="pickDept('${d.id}',this)">
-        <div class="di">${d.icon}</div>
-        <div class="dl">${d.label}</div>
-      </div>`
-    ).join('');
-  } else {
-    loadSvc(biz.services, biz.chips);
-  }
-}
-
-function pickDept(id, el){
-  dept=id; svc='';
-  document.querySelectorAll('.dept-btn').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  const d = biz.departments.find(x=>x.id===id);
-  if(d) loadSvc(d.services, d.chips);
-}
-
-function loadSvc(services, chips){
-  document.getElementById('svcGrid').innerHTML = services.map(s=>
-    `<div class="svc" onclick="pickSvc('${s.replace(/'/g,"\\'")}',this)">${s}</div>`
-  ).join('');
-  document.getElementById('chipsWrap').innerHTML = chips.map(c=>
-    `<div class="chip" onclick="this.classList.toggle('on')">${c}</div>`
-  ).join('');
-}
-
-function pickLang(lang, el){
-  selectedLang=lang;
-  document.querySelectorAll('#langWrap .chip').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
-}
-function pickSvc(name, el){
-  svc=name;
-  document.querySelectorAll('.svc').forEach(s=>s.classList.remove('on'));
-  el.classList.add('on');
-}
-
-function setStar(n){
-  stars=n;
-  document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('on',i<n));
-  document.getElementById('starLbl').textContent=STAR_LABELS[n];
-}
-
-function hint(msg,ok){
-  const h=document.getElementById('hintMsg');
-  h.textContent=msg;
-  h.className='hint'+(ok?' ok':'');
-}
-
-async function generate(){
-  if(biz.type==='multi'&&!dept){alert('Please select a department!');return;}
-  if(!svc){alert('Please select a service!');return;}
-  if(!stars){alert('Please give a star rating!');return;}
-  if(busy) return;
-  busy=true;
-
-  const btn=document.getElementById('genBtn');
-  document.getElementById('btnTxt').innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
-  btn.disabled=true;
-  document.getElementById('errMsg').style.display='none';
-
-  const highlights=[...document.querySelectorAll('.chip.on')].map(c=>c.textContent);
-  const note=document.getElementById('noteField').value.trim();
-
-  try{
-    const r=await fetch('/generate-review',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({bizId:id,department:dept,service:svc,stars,highlights,note})
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
-    const data=await r.json();
-    if(data.error) throw new Error(data.error);
-    document.getElementById('revText').value=data.review;
-    const card=document.getElementById('revCard');
-    card.classList.add('show');
-    setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'start'}),100);
-    hint('Edit if needed, then post on Google!',true);
-  }catch(e){
-    const err=document.getElementById('errMsg');
-    err.textContent='Error: '+(e.message||'Something went wrong. Try again.');
-    err.style.display='block';
-  }
-
-  document.getElementById('btnTxt').innerHTML='Generate My Review';
-  btn.disabled=false;
-  busy=false;
-}
-
-function postGoogle(){
-  var rev=document.getElementById('revText').value.trim();
-  if(!rev){alert('Generate a review first!');return;}
-  if(stars<=2){
-    document.getElementById('shieldPopup').style.display='flex';
-    return;
-  }
-  navigator.clipboard.writeText(rev).then(function(){
-    document.getElementById('pastePopup').style.display='flex';
-  }).catch(function(){
-    openGoogle();
   });
-}
-  navigator.clipboard.writeText(rev).then(()=>{
-    document.getElementById('pastePopup').style.display='flex';
-  }).catch(()=>{
-    hint('Copy the text manually, then paste on Google.',false);
-    window.open(biz.googleLink||'https://www.google.com/maps','_blank');
-  });
-}
-function openGoogle(){
-  document.getElementById('pastePopup').style.display='none';
-  window.open(biz.googleLink||'https://www.google.com/maps','_blank');
-}
 
-init();
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Why items
+  document.querySelectorAll('.why-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.why-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
 </script>
-
-<div id="pastePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:1rem">
-  <div style="background:white;border-radius:20px;padding:24px;max-width:320px;width:100%;text-align:center;font-family:'Plus Jakarta Sans',sans-serif">
-    <div style="width:56px;height:56px;background:#E8F5E9;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px">✓</div>
-    <div style="font-size:17px;font-weight:800;color:#1a1a2e;margin-bottom:8px">Review Copied!</div>
-    <div style="font-size:13px;color:#555;line-height:1.6;background:#f8f9ff;border-radius:12px;padding:12px;margin-bottom:18px">
-      Google will open now.<br><br>
-      Just <strong style="color:#1a1a2e">tap & hold</strong> in the review box,<br>then tap <strong style="color:#1a1a2e">Paste</strong> and hit <strong style="color:#34A853">Post!</strong>
-    </div>
-    <button onclick="openGoogle()" style="width:100%;padding:14px;background:#4285F4;color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:8px">Open Google Now</button>
-    <button onclick="document.getElementById('pastePopup').style.display='none'" style="width:100%;padding:10px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">Cancel</button>
-  </div>
-</div>
-
-<div id="shieldPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:1rem">
-  <div style="background:white;border-radius:20px;padding:24px;max-width:320px;width:100%;font-family:'Plus Jakarta Sans',sans-serif">
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:36px;margin-bottom:8px">😔</div>
-      <div style="font-size:17px;font-weight:800;color:#1a1a2e;margin-bottom:4px">We are sorry to hear that!</div>
-      <div style="font-size:13px;color:#888;line-height:1.5">Please tell us what went wrong so we can improve.</div>
-    </div>
-    <textarea id="negativeFeedback" rows="4" placeholder="Please share your experience..." style="width:100%;padding:12px;border:1.5px solid #e8eaf0;border-radius:12px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:none;margin-bottom:12px"></textarea>
-    <button onclick="submitNegative()" style="width:100%;padding:13px;background:#EF4444;color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:8px">Send Feedback</button>
-    <button onclick="document.getElementById('shieldPopup').style.display='none'" style="width:100%;padding:10px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer">Cancel</button>
-  </div>
-</div>
-
-<div id="pastePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:1rem">
-  <div style="background:white;border-radius:20px;padding:24px;max-width:320px;width:100%;text-align:center;font-family:'Plus Jakarta Sans',sans-serif">
-    <div style="width:56px;height:56px;background:#E8F5E9;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px">✓</div>
-    <div style="font-size:17px;font-weight:800;color:#1a1a2e;margin-bottom:8px">Review Copied!</div>
-    <div style="font-size:13px;color:#555;line-height:1.6;background:#f8f9ff;border-radius:12px;padding:12px;margin-bottom:18px">
-      Google will open now.<br><br>
-      Just <strong style="color:#1a1a2e">tap & hold</strong> in the review box,<br>then tap <strong style="color:#1a1a2e">Paste</strong> and hit <strong style="color:#34A853">Post!</strong>
-    </div>
-    <button onclick="openGoogle()" style="width:100%;padding:14px;background:#4285F4;color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:8px">Open Google Now</button>
-    <button onclick="document.getElementById('pastePopup').style.display='none'" style="width:100%;padding:10px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer">Cancel</button>
-  </div>
-</div>
 </body>
 </html>
