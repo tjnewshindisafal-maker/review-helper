@@ -5,12 +5,12 @@
     "type": "multi",
     "showDoctor": true,
     "showLocation": false,
-    "icon": "🏥",
+    "icon": "\ud83c\udfe5",
     "departments": [
       {
         "id": "ortho",
         "label": "Orthopedic / Joint",
-        "icon": "🦴",
+        "icon": "\ud83e\uddb4",
         "doctor": "Dr. Pradeep Jadhav",
         "services": [
           "Knee Replacement",
@@ -32,12 +32,20 @@
           "Affordable",
           "Good follow-up"
         ],
-        "keywords": ["orthopedic", "joint replacement", "knee", "hip", "spine", "surgery", "pain relief"]
+        "keywords": [
+          "orthopedic",
+          "joint replacement",
+          "knee",
+          "hip",
+          "spine",
+          "surgery",
+          "pain relief"
+        ]
       },
       {
         "id": "derm",
         "label": "Dermatology / Skin",
-        "icon": "✨",
+        "icon": "\u2728",
         "doctor": "Dr. Parineeta Khade",
         "services": [
           "Acne Treatment",
@@ -59,18 +67,24 @@
           "Caring staff",
           "Clean clinic"
         ],
-        "keywords": ["dermatology", "skin", "acne", "treatment", "skincare", "skin clinic"]
+        "keywords": [
+          "dermatology",
+          "skin",
+          "acne",
+          "treatment",
+          "skincare",
+          "skin clinic"
+        ]
       }
     ]
   },
-
   "potdar": {
     "name": "Dr. Potdar Dental Care",
     "googleLink": "https://g.page/r/CS9Y-L-vdJsnEBM/review",
     "type": "dental",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "🦷",
+    "icon": "\ud83e\uddb7",
     "doctor": "",
     "location": "",
     "services": [
@@ -93,16 +107,23 @@
       "Quick appointment",
       "Great results"
     ],
-    "keywords": ["dental", "dentist", "teeth", "painless", "implant", "oral health", "dental clinic"]
+    "keywords": [
+      "dental",
+      "dentist",
+      "teeth",
+      "painless",
+      "implant",
+      "oral health",
+      "dental clinic"
+    ]
   },
-
   "vaishali": {
     "name": "Dr. Vaishali's Dental Care",
     "googleLink": "https://g.page/r/CQ4eaFS-aTdQEBM/review",
     "type": "dental",
     "showDoctor": true,
     "showLocation": false,
-    "icon": "🦷",
+    "icon": "\ud83e\uddb7",
     "doctor": "Dr. Vaishali",
     "location": "Wakad, Pune",
     "services": [
@@ -125,16 +146,24 @@
       "Kid friendly",
       "Great results"
     ],
-    "keywords": ["dental", "dentist", "teeth", "painless", "implant", "oral health", "Wakad", "Pune"]
+    "keywords": [
+      "dental",
+      "dentist",
+      "teeth",
+      "painless",
+      "implant",
+      "oral health",
+      "Wakad",
+      "Pune"
+    ]
   },
-
   "reshine": {
     "name": "Reshine Studio",
     "googleLink": "https://g.page/r/CXxA0WugHjVuEBM/review",
     "type": "automotive",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "🚗",
+    "icon": "\ud83d\ude97",
     "staff": "Sameer",
     "location": "Kharadi, Pune",
     "services": [
@@ -157,16 +186,23 @@
       "Great detailing",
       "Professional work"
     ],
-    "keywords": ["PPF", "car detailing", "ceramic coating", "car wash", "paint protection", "Kharadi", "Pune"]
+    "keywords": [
+      "PPF",
+      "car detailing",
+      "ceramic coating",
+      "car wash",
+      "paint protection",
+      "Kharadi",
+      "Pune"
+    ]
   },
-
   "anelectronics": {
     "name": "A N Electronics",
     "googleLink": "https://g.page/r/CRJozOTFeW6PEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "📺",
+    "icon": "\ud83d\udcfa",
     "staff": "",
     "location": "",
     "services": [
@@ -186,6 +222,51 @@
       "Good warranty",
       "Professional"
     ],
-    "keywords": ["LED TV repair", "LCD TV repair", "TV service", "television", "cooler", "electronics"]
+    "keywords": [
+      "LED TV repair",
+      "LCD TV repair",
+      "TV service",
+      "television",
+      "cooler",
+      "electronics"
+    ]
+  },
+  "advizrmedia": {
+    "name": "Advizr Media | Digital Marketing Agency",
+    "googleLink": "https://g.page/r/CT19nlTJgIdsEBM/review",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": false,
+    "icon": "\ud83d\udcc8",
+    "staff": "",
+    "services": [
+      "SEO (Search Engine Optimization)",
+      "Google Ads",
+      "GMB Optimization",
+      "WhatsApp Marketing",
+      "Local SEO",
+      "Social Media Marketing",
+      "Website Design",
+      "Online Reputation Management"
+    ],
+    "chips": [
+      "Great results",
+      "Professional team",
+      "Affordable pricing",
+      "Good communication",
+      "Fast turnaround",
+      "Increased visibility",
+      "More leads",
+      "Trustworthy"
+    ],
+    "keywords": [
+      "digital marketing",
+      "SEO",
+      "Google Ads",
+      "GMB",
+      "local SEO",
+      "Pune",
+      "marketing agency"
+    ]
   }
 }
