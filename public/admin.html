@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Panel &#x2014; Advizr Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080f;--s1:#0e1018;--s2:#12151f;--s3:#171b28;
+  --border:#1d2235;--border2:#252d42;
+  --accent:#6c63ff;--accent2:#4f46e5;--accent3:rgba(108,99,255,0.1);
+  --green:#22c55e;--blue:#3b82f6;--yellow:#f59e0b;--red:#ef4444;--wa:#25d366;
+  --white:#eef2ff;--text:#b8c0dc;--muted:#404868;
+  --font:"Plus Jakarta Sans",sans-serif;--mono:"JetBrains Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;-webkit-font-smoothing:antialiased;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 30% at 80% 0%,rgba(108,99,255,0.05),transparent);}
+#aLogin{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);}
+.lbox{background:var(--s1);border:1px solid var(--border2);border-radius:18px;padding:40px 36px;width:380px;max-width:95vw;text-align:center;}
+.lico{font-size:48px;margin-bottom:16px;}
+.ltitle{font-size:22px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.lsub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.lfld{margin-bottom:14px;text-align:left;}
+.lfld label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+.lfld input{width:100%;background:var(--s3);border:1px solid var(--border2);border-radius:9px;padding:11px 14px;color:var(--white);font-family:var(--font);font-size:14px;transition:border-color .2s;}
+.lfld input:focus{outline:none;border-color:var(--accent);}
+.lfld input::placeholder{color:var(--muted);}
+.btn-login{width:100%;padding:13px;border:none;border-radius:10px;cursor:pointer;font-family:var(--font);font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:all .2s;}
+.btn-login:hover{box-shadow:0 0 24px rgba(108,99,255,.4);}
+.lnote{font-size:11px;color:var(--muted);margin-top:14px;}
+#aApp{display:none;}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:224px;background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:10;}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:18px 20px 16px;border-bottom:1px solid var(--border);}
+.sb-logo-ic{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;}
+.sb-logo-nm{font-size:14px;font-weight:800;color:var(--white);}
+.sb-logo-sub{font-size:10px;color:var(--muted);}
+.sbnav{padding:10px 8px;flex:1;}
+.sblink{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:9px;margin-bottom:2px;transition:all .2s;}
+.sblink:hover,.sblink.on{background:var(--accent3);color:var(--accent);}
+.sblink-ico{font-size:16px;width:22px;text-align:center;}
+.sbbot{padding:10px 8px;border-top:1px solid var(--border);}
+.main{margin-left:224px;min-height:100vh;}
+.topbar{background:var(--s1);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:5;}
+.topbar-title{font-size:15px;font-weight:700;color:var(--white);}
+.abadge{background:var(--accent3);border:1px solid rgba(108,99,255,.2);color:var(--accent);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.content{padding:24px;}
+.srow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px;}
+.sc{background:var(--s1);border:1px solid var(--border);border-radius:13px;padding:16px;position:relative;overflow:hidden;}
+.sc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:.45;}
+.sc-val{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--white);}
+.sc-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.sc-ico{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:24px;opacity:.1;}
+.panel{background:var(--s1);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:18px;}
+.panel-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);}
+.panel-title{font-size:14px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:8px;}
+.panel-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.srch{background:var(--s2);border:1px solid var(--border2);border-radius:8px;padding:7px 12px;color:var(--text);font-family:var(--font);font-size:12px;width:190px;transition:border-color .2s;}
+.srch:focus{outline:none;border-color:var(--accent);}
+table{width:100%;border-collapse:collapse;}
+thead th{background:rgba(255,255,255,.02);padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;white-space:nowrap;}
+tbody tr:hover td{background:rgba(108,99,255,.03);}
+td{padding:10px 14px;font-size:13px;border-top:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+.erow td{text-align:center;padding:28px;color:var(--muted);}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.tag-active{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.tag-trial{background:rgba(245,158,11,.1);color:var(--yellow);border:1px solid rgba(245,158,11,.2);}
+.tag-blocked{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);}
+.tag-free{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border);}
+.tag-pro{background:rgba(108,99,255,.12);color:var(--accent);border:1px solid rgba(108,99,255,.25);}
+.tag-biz{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.tag-paid{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.tag-unpaid{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);}
+.abtns{display:flex;gap:5px;flex-wrap:wrap;}
+.ab{padding:5px 10px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .15s;white-space:nowrap;}
+.ab-edit{background:var(--accent3);color:var(--accent);border:1px solid rgba(108,99,255,.25);}
+.ab-edit:hover{background:rgba(108,99,255,.2);}
+.ab-block{background:rgba(239,68,68,.08);color:var(--red);border:1px solid rgba(239,68,68,.2);}
+.ab-block:hover{background:rgba(239,68,68,.15);}
+.ab-unblock{background:rgba(34,197,94,.08);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.ab-unblock:hover{background:rgba(34,197,94,.15);}
+.ab-del{background:rgba(239,68,68,.06);color:var(--red);border:1px solid rgba(239,68,68,.12);}
+.ab-del:hover{background:rgba(239,68,68,.12);}
+.ab-wa{background:rgba(37,211,102,.08);color:var(--wa);border:1px solid rgba(37,211,102,.18);}
+.ab-wa:hover{background:rgba(37,211,102,.15);}
+.ab-paid{background:rgba(34,197,94,.08);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.ab-paid:hover{background:rgba(34,197,94,.15);}
+.ab-unpaid{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border2);}
+.ab-unpaid:hover{background:rgba(255,255,255,.08);}
+.ab-add{background:var(--accent);color:#fff;border:1px solid var(--accent2);padding:7px 14px;}
+.ab-add:hover{background:var(--accent2);}
+.secv{display:none;}.secv.on{display:block;}
+.overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--s2);border:1px solid var(--border2);border-radius:16px;padding:26px;width:430px;max-width:95vw;position:relative;max-height:92vh;overflow-y:auto;}
+.modal h3{font-size:17px;font-weight:800;color:var(--white);margin-bottom:3px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.mfld{margin-bottom:11px;}
+.mfld label{font-size:11px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.mfld input,.mfld select,.mfld textarea{width:100%;background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--white);font-family:var(--font);font-size:13px;transition:border-color .2s;}
+.mfld input:focus,.mfld select:focus,.mfld textarea:focus{outline:none;border-color:var(--accent);}
+.mfld select option{background:#14182a;}
+.mfld textarea{resize:vertical;min-height:80px;}
+.mbtns{display:flex;gap:8px;margin-top:14px;}
+.btn-ms{flex:1;padding:11px;border:none;border-radius:8px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:all .2s;}
+.btn-ms:hover{box-shadow:0 0 20px rgba(108,99,255,.3);}
+.btn-mc{flex:1;padding:11px;border:1px solid var(--border2);border-radius:8px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;background:transparent;color:var(--text);}
+.notice{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:9px;padding:11px 14px;font-size:12px;color:#c8932a;margin-bottom:18px;line-height:1.6;}
+.hosting-box{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px;}
+.hosting-box h4{color:var(--white);font-size:14px;font-weight:700;margin-bottom:12px;}
+.step-line{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--accent3);border:1px solid rgba(108,99,255,.3);color:var(--accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-info{font-size:13px;color:var(--text);line-height:1.6;}
+.step-info b{color:var(--white);}
+.code-box{background:var(--s3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:6px;word-break:break-all;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.cp-btn{background:var(--accent3);border:1px solid rgba(108,99,255,.2);color:var(--accent);font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:var(--font);white-space:nowrap;}
+#toasts{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--s1);border:1px solid var(--border2);border-radius:12px;padding:11px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:fi .3s ease;}
+.toast.ok{border-color:rgba(34,197,94,.4);}
+.toast.err{border-color:rgba(239,68,68,.4);}
+@keyframes fi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fo{to{opacity:0;transform:translateX(16px);}}
+@media(max-width:900px){.srow{grid-template-columns:repeat(3,1fr);}}
+</style></head><body>
+
+<div id="aLogin">
+  <div class="lbox">
+    <div class="lico">&#x1F6E1;&#xFE0F;</div>
+    <div class="ltitle">Admin Panel</div>
+    <div class="lsub">Advizr Media &#x2022; CourierPro</div>
+    <div class="lfld"><label>Admin Email</label><input type="email" id="a-email" placeholder="admin@advizrmedia.in"></div>
+    <div class="lfld"><label>Password</label><input type="password" id="a-pass" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" onkeydown="if(event.key===&apos;Enter&apos;)aLogin()"></div>
+    <button class="btn-login" onclick="aLogin()">&#x1F512; Login to Admin Panel</button>
+    <div class="lnote">Default: admin@advizrmedia.in / Advizr@2025</div>
+  </div>
+</div>
+
+<div id="aApp">
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-ic">&#x1F6E1;&#xFE0F;</div>
+      <div><div class="sb-logo-nm">Admin Panel</div><div class="sb-logo-sub">CourierPro by Advizr Media</div></div>
+    </div>
+    <div class="sbnav">
+      <div class="sblink on" onclick="showSec('dash',this)"><span class="sblink-ico">&#x1F4CA;</span>Dashboard</div>
+      <div class="sblink" onclick="showSec('users',this)"><span class="sblink-ico">&#x1F465;</span>All Users</div>
+      <div class="sblink" onclick="showSec('payments',this)"><span class="sblink-ico">&#x1F4B0;</span>Payments</div>
+      <div class="sblink" onclick="showSec('broadcast',this)"><span class="sblink-ico">&#x1F4E3;</span>Broadcast</div>
+      <div class="sblink" onclick="showSec('hosting',this)"><span class="sblink-ico">&#x1F310;</span>Go Live Guide</div>
+      <div class="sblink" onclick="showSec('settings',this)"><span class="sblink-ico">&#x2699;&#xFE0F;</span>Settings</div>
+    </div>
+    <div class="sbbot">
+      <div class="sblink" onclick="aLogout()"><span class="sblink-ico">&#x1F6AA;</span>Logout</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="pg-title">Dashboard</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="abadge">&#x1F6E1;&#xFE0F; Admin</span>
+        <button class="ab ab-del" onclick="aLogout()" style="padding:6px 14px">Logout</button>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="secv on" id="sec-dash">
+        <div class="notice">&#x1F4A1; <b>Mode: Local (Demo)</b> &#x2014; Data is stored in this browser only. Go to <b>Go Live Guide</b> to connect JSONBin &amp; deploy on Hostinger so all users share the same database.</div>
+        <div class="srow" id="srow"></div>
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">&#x1F550; Recent Signups</div><button class="ab ab-edit" onclick="refreshAll()">&#x21BA; Refresh</button></div>
+          <table><thead><tr><th>Name</th><th>Business</th><th>Industry</th><th>Email</th><th>Plan</th><th>Status</th><th>Joined</th></tr></thead>
+          <tbody id="recent-tb"></tbody></table>
+        </div>
+      </div>
+
+      <!-- USERS -->
+      <div class="secv" id="sec-users">
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">&#x1F465; All Users <span id="ucnt" style="color:var(--muted);font-weight:400;font-size:12px"></span></div>
+            <div class="panel-acts">
+              <input class="srch" id="u-srch" placeholder="Search name, email, phone..." oninput="renderUsers()">
+              <button class="ab ab-add" onclick="openAddUser()">+ Add User</button>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th>#</th><th>Name</th><th>Business</th><th>Industry</th><th>Contact</th><th>Plan</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
+            <tbody id="u-tb"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="secv" id="sec-payments">
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">&#x1F4B0; Payment Management</div>
+            <input class="srch" id="p-srch" placeholder="Search user..." oninput="renderPayments()">
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Email / Phone</th><th>Plan</th><th>Payment</th><th>Amount</th><th>Date</th><th>Notes</th><th>Actions</th></tr></thead>
+            <tbody id="p-tb"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BROADCAST -->
+      <div class="secv" id="sec-broadcast">
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">&#x1F4E3; Broadcast WhatsApp Message</div></div>
+          <div style="padding:20px;max-width:640px;">
+            <div class="notice">&#x1F4AC; Generates WhatsApp links for each user. Click each link to send from your phone. Use {name}, {plan}, {biz} as variables in the message.</div>
+            <div class="mfld"><label>Target Audience</label>
+              <select id="bc-target">
+                <option value="all">All Active Users</option>
+                <option value="trial">Trial Users Only</option>
+                <option value="pro">Pro Users Only</option>
+                <option value="free">Free Users Only</option>
+                <option value="blocked">Blocked Users</option>
+              </select>
+            </div>
+            <div class="mfld"><label>Message Template</label>
+              <textarea id="bc-msg" rows="6">Hi {name},
+
+This is Advizr Media. Your CourierPro {plan} is active!
+
+Need help? Reply to this message.
+
+Thanks,
+Advizr Media Team &#x1F680;</textarea>
+            </div>
+            <button class="ab ab-add" style="padding:9px 20px;font-size:13px;" onclick="genBC()">&#x1F4E4; Generate WhatsApp Links</button>
+            <div id="bc-out" style="margin-top:18px;display:none;">
+              <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:10px;">Generated Links <span id="bc-cnt" style="color:var(--muted);font-weight:400"></span></div>
+              <div id="bc-list" style="display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GO LIVE GUIDE -->
+      <div class="secv" id="sec-hosting">
+        <div class="hosting-box">
+          <h4>&#x1F310; Step 1 &#x2014; Create Free JSONBin Database</h4>
+          <div class="step-line"><div class="step-num">1</div><div class="step-info">Go to <b>jsonbin.io</b> &#x2192; Sign up free</div></div>
+          <div class="step-line"><div class="step-num">2</div><div class="step-info">Click <b>New Bin</b> &#x2192; Paste this as content:<div class="code-box"><span>{"users":[]}</span><button class="cp-btn" onclick="cp('JSON content','{&quot;users&quot;:[]}')">Copy</button></div></div></div>
+          <div class="step-line"><div class="step-num">3</div><div class="step-info">Copy your <b>Bin ID</b> (from URL bar) and <b>Master Key</b> (from Account &gt; API Keys)</div></div>
+        </div>
+        <div class="hosting-box">
+          <h4>&#x2699;&#xFE0F; Step 2 &#x2014; Update Both Files</h4>
+          <div class="step-line"><div class="step-num">1</div><div class="step-info">Open <b>advizr-saas.html</b> and <b>admin.html</b> in Notepad</div></div>
+          <div class="step-line"><div class="step-num">2</div><div class="step-info">Find this line in both files:<div class="code-box"><span>var DB_MODE = 'local';</span><button class="cp-btn" onclick="cp('DB_MODE line',' var DB_MODE = 'local';')">Copy</button></div></div></div>
+          <div class="step-line"><div class="step-num">3</div><div class="step-info">Change to:<div class="code-box"><span>var DB_MODE = 'jsonbin';</span><button class="cp-btn" onclick="cp('DB_MODE jsonbin','var DB_MODE = 'jsonbin';')">Copy</button></div></div></div>
+          <div class="step-line"><div class="step-num">4</div><div class="step-info">Also update these 2 lines with your values:<div class="code-box"><span>var JSONBIN_KEY = 'YOUR_KEY_HERE';<br>var JSONBIN_BIN = 'YOUR_BIN_ID';</span></div></div></div>
+        </div>
+        <div class="hosting-box">
+          <h4>&#x1F680; Step 3 &#x2014; Deploy on Hostinger</h4>
+          <div class="step-line"><div class="step-num">1</div><div class="step-info">Login to <b>Hostinger hPanel</b> &#x2192; File Manager</div></div>
+          <div class="step-line"><div class="step-num">2</div><div class="step-info">Go to <b>public_html</b> folder</div></div>
+          <div class="step-line"><div class="step-num">3</div><div class="step-info">Upload <b>advizr-saas.html</b> &#x2192; Rename to <b>index.html</b></div></div>
+          <div class="step-line"><div class="step-num">4</div><div class="step-info">Upload <b>admin.html</b> &#x2192; Keep as admin.html</div></div>
+          <div class="step-line"><div class="step-num">5</div><div class="step-info">Access: <b>yoursite.com</b> (users) &amp; <b>yoursite.com/admin.html</b> (you)</div></div>
+        </div>
+        <div class="hosting-box">
+          <h4>&#x1F4B3; Step 4 &#x2014; Setup Razorpay Payments</h4>
+          <div class="step-line"><div class="step-num">1</div><div class="step-info">Go to <b>razorpay.com</b> &#x2192; Create free account</div></div>
+          <div class="step-line"><div class="step-num">2</div><div class="step-info">Create a <b>Payment Link</b> for &#x20B9;499/month</div></div>
+          <div class="step-line"><div class="step-num">3</div><div class="step-info">Share Razorpay link on WhatsApp when user requests upgrade</div></div>
+          <div class="step-line"><div class="step-num">4</div><div class="step-info">After payment, go to Admin Panel &#x2192; Payments &#x2192; Mark as Paid &#x2192; Plan auto-upgrades to Pro</div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="secv" id="sec-settings">
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">&#x2699;&#xFE0F; Admin Settings</div></div>
+          <div style="padding:22px;max-width:460px;">
+            <div class="mfld"><label>Admin Email</label><input type="email" id="set-email" placeholder="admin@advizrmedia.in"></div>
+            <div class="mfld"><label>New Password (leave blank to keep current)</label><input type="password" id="set-pass" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;"></div>
+            <div class="mfld"><label>Support WhatsApp Number (with country code)</label><input type="tel" id="set-wa" placeholder="918087289267"></div>
+            <button class="ab ab-add" style="padding:10px 22px;font-size:13px;" onclick="saveSettings()">Save Settings</button>
+            <hr style="border:none;border-top:1px solid var(--border);margin:22px 0;">
+            <div style="font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:700;">Danger Zone</div>
+            <button class="ab ab-del" style="padding:9px 18px;font-size:13px;" onclick="clearAll()">&#x1F5D1; Clear All User Data</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT USER MODAL -->
+<div class="overlay" id="mod-user">
+  <div class="modal">
+    <h3 id="mod-title">Add User</h3>
+    <div class="modal-sub" id="mod-sub">Create account manually</div>
+    <div class="mfld"><label>Full Name *</label><input type="text" id="mu-name" placeholder="Ramesh Kumar"></div>
+    <div class="mfld"><label>Business Name</label><input type="text" id="mu-biz" placeholder="My Business"></div>
+    <div class="mfld"><label>Industry</label>
+      <select id="mu-ind">
+        <option value="courier">&#x1F4E6; Courier &amp; Logistics</option>
+        <option value="ecom">&#x1F6D2; E-commerce</option>
+        <option value="food">&#x1F374; Restaurant / Food</option>
+        <option value="realty">&#x1F3E0; Real Estate</option>
+        <option value="repair">&#x1F527; Repair Services</option>
+        <option value="electric">&#x26A1; Electrician / Plumber</option>
+      </select>
+    </div>
+    <div class="mfld"><label>Email *</label><input type="email" id="mu-email" placeholder="user@example.com"></div>
+    <div class="mfld"><label>Phone *</label><input type="tel" id="mu-phone" placeholder="9876543210"></div>
+    <div class="mfld"><label>Password *</label><input type="password" id="mu-pass" placeholder="Temporary password"></div>
+    <div class="mfld"><label>Plan</label>
+      <select id="mu-plan">
+        <option value="Trial">Trial (7 days)</option>
+        <option value="Pro">Pro (&#x20B9;499/month)</option>
+        <option value="Business">Business (&#x20B9;999/month)</option>
+        <option value="Free">Free</option>
+      </select>
+    </div>
+    <div class="mfld"><label>Notes (internal)</label><input type="text" id="mu-notes" placeholder="Payment via Razorpay, etc."></div>
+    <div class="mbtns">
+      <button class="btn-ms" onclick="saveUser()">Save</button>
+      <button class="btn-mc" onclick="closeUM()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATABASE LAYER — works LOCALLY (localStorage) now
+// Replace JSONBIN_KEY below to go LIVE on Hostinger
+// ═══════════════════════════════════════════════════════
+
+var DB_MODE = 'local'; // Change to 'jsonbin' after setup
+var JSONBIN_KEY  = '$2a$10$BgbKZBWrKTW3FG0Nh81N0.UeAcMHb7Wc1FT.VmQaTEYFEvOR3cIue';  // from jsonbin.io
+var JSONBIN_BIN  = '69b2f7eac3097a1dd51d3f96';           // created on jsonbin.io
+
+// ── PUBLIC API ── (same interface for both modes)
+var DB = {
+  getUsers: function(cb){
+    if(DB_MODE==='jsonbin') _jbGet(function(d){cb(d.users||[]);});
+    else cb(JSON.parse(localStorage.getItem('cp_users')||'[]'));
+  },
+  saveUsers: function(users, cb){
+    if(DB_MODE==='jsonbin') _jbGet(function(d){d.users=users;_jbPut(d,cb||function(){});});
+    else{localStorage.setItem('cp_users',JSON.stringify(users));if(cb)cb();}
+  },
+  getSession: function(){
+    try{return JSON.parse(localStorage.getItem('cp_session'));}catch(e){return null;}
+  },
+  saveSession: function(u){localStorage.setItem('cp_session',JSON.stringify(u));},
+  clearSession: function(){localStorage.removeItem('cp_session');},
+  getAdmin: function(){
+    return JSON.parse(localStorage.getItem('cp_admin')||'{"email":"admin@advizrmedia.in","pass":"Advizr@2025","wa":"918087289267"}');
+  },
+  saveAdmin: function(c){localStorage.setItem('cp_admin',JSON.stringify(c));}
+};
+
+// ── JSONBIN INTERNALS ──
+function _jbGet(cb){
+  fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_BIN+'/latest',{
+    headers:{'X-Master-Key':JSONBIN_KEY}
+  }).then(function(r){return r.json();})
+    .then(function(r){cb(r.record||{users:[]});})
+    .catch(function(){cb({users:[]});});
+}
+function _jbPut(data,cb){
+  fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_BIN,{
+    method:'PUT',
+    headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+    body:JSON.stringify(data)
+  }).then(function(){if(cb)cb();})
+    .catch(function(){if(cb)cb();});
+}
+
+
+var editUID=null;
+
+function aLogin(){
+  var e=document.getElementById('a-email').value.trim();
+  var p=document.getElementById('a-pass').value.trim();
+  var c=DB.getAdmin();
+  if(e===c.email&&p===c.pass){
+    document.getElementById('aLogin').style.display='none';
+    document.getElementById('aApp').style.display='block';
+    loadSettings();refreshAll();
+  } else {toast('Wrong credentials!','err');document.getElementById('a-pass').value='';}
+}
+function aLogout(){document.getElementById('aApp').style.display='none';document.getElementById('aLogin').style.display='flex';document.getElementById('a-pass').value='';}
+
+function showSec(id,el){
+  document.querySelectorAll('.secv').forEach(function(s){s.classList.remove('on');});
+  document.querySelectorAll('.sblink').forEach(function(l){l.classList.remove('on');});
+  document.getElementById('sec-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+  var titles={dash:'Dashboard',users:'All Users',payments:'Payments',broadcast:'Broadcast',hosting:'Go Live Guide',settings:'Settings'};
+  document.getElementById('pg-title').textContent=titles[id]||id;
+  if(id==='users')renderUsers();
+  if(id==='payments')renderPayments();
+  if(id==='dash')renderDash();
+}
+
+function fd(iso){
+  if(!iso)return '&#x2014;';
+  try{return new Date(iso).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+  catch(e){return iso;}
+}
+function indLbl(v){
+  return{courier:'&#x1F4E6; Courier',ecom:'&#x1F6D2; E-com',food:'&#x1F374; Food',realty:'&#x1F3E0; Realty',repair:'&#x1F527; Repair',electric:'&#x26A1; Electric'}[v]||v||'&#x2014;';
+}
+function planTag(p){
+  var c={Pro:'tag-pro',Trial:'tag-trial',Free:'tag-free',Business:'tag-biz'}[p]||'tag-free';
+  return '<span class="tag '+c+'">'+p+'</span>';
+}
+function stTag(s){
+  if(s==='blocked')return '<span class="tag tag-blocked">&#x1F6AB; Blocked</span>';
+  return '<span class="tag tag-active">&#x2713; Active</span>';
+}
+
+function renderDash(){
+  DB.getUsers(function(users){
+    var total=users.length,active=users.filter(function(u){return u.status==='active';}).length;
+    var blocked=users.filter(function(u){return u.status==='blocked';}).length;
+    var pro=users.filter(function(u){return u.plan==='Pro'||u.plan==='Business';}).length;
+    var trial=users.filter(function(u){return u.plan==='Trial';}).length;
+    document.getElementById('srow').innerHTML=[
+      {v:total,l:'Total Users',i:'&#x1F465;',c:''},
+      {v:active,l:'Active',i:'&#x2705;',c:'color:var(--green)'},
+      {v:blocked,l:'Blocked',i:'&#x1F6AB;',c:'color:var(--red)'},
+      {v:pro,l:'Pro / Business',i:'&#x2B50;',c:'color:var(--accent)'},
+      {v:trial,l:'On Trial',i:'&#x23F3;',c:'color:var(--yellow)'}
+    ].map(function(s){
+      return '<div class="sc"><div class="sc-val"'+(s.c?' style="'+s.c+'"':'')+'>'+s.v+'</div>'
+        +'<div class="sc-lbl">'+s.l+'</div><div class="sc-ico">'+s.i+'</div></div>';
+    }).join('');
+    var rec=users.slice(-8).reverse();
+    document.getElementById('recent-tb').innerHTML=rec.length?rec.map(function(u){
+      return '<tr><td style="font-weight:600;color:var(--white)">'+u.name+'</td>'
+        +'<td style="color:var(--muted);font-size:12px">'+(u.biz||'&#x2014;')+'</td>'
+        +'<td><span class="tag" style="background:rgba(59,130,246,.08);color:var(--blue);border:1px solid rgba(59,130,246,.15)">'+indLbl(u.industry)+'</span></td>'
+        +'<td style="font-size:12px">'+u.email+'</td>'
+        +'<td>'+planTag(u.plan)+'</td>'
+        +'<td>'+stTag(u.status)+'</td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+fd(u.joinDate)+'</td></tr>';
+    }).join(''):'<tr class="erow"><td colspan="7">No users yet</td></tr>';
+  });
+}
+
+function renderUsers(){
+  var q=(document.getElementById('u-srch').value||'').toLowerCase();
+  DB.getUsers(function(all){
+    var users=all.filter(function(u){
+      return !q||u.name.toLowerCase().indexOf(q)>=0||u.email.toLowerCase().indexOf(q)>=0||(u.phone||'').indexOf(q)>=0||(u.biz||'').toLowerCase().indexOf(q)>=0;
+    });
+    document.getElementById('ucnt').textContent='('+users.length+')';
+    document.getElementById('u-tb').innerHTML=users.length?users.map(function(u,i){
+      var ib=u.status==='blocked';
+      return '<tr>'
+        +'<td style="font-family:var(--mono);font-size:11px;color:var(--muted)">'+(i+1)+'</td>'
+        +'<td style="font-weight:600;color:var(--white)">'+u.name+'</td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+(u.biz||'&#x2014;')+'</td>'
+        +'<td><span class="tag" style="background:rgba(59,130,246,.08);color:var(--blue);border:1px solid rgba(59,130,246,.15);font-size:11px">'+indLbl(u.industry)+'</span></td>'
+        +'<td style="font-size:12px"><div>'+u.email+'</div><div style="color:var(--muted)">'+(u.phone||'')+'</div></td>'
+        +'<td>'+planTag(u.plan)+'</td>'
+        +'<td>'+stTag(u.status)+'</td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+fd(u.lastLogin)+'</td>'
+        +'<td><div class="abtns">'
+          +'<button class="ab ab-edit" onclick="editUser(''+u.id+'')">&#x270F;</button>'
+          +(ib?'<button class="ab ab-unblock" onclick="setStatus(''+u.id+'','active')">&#x2713; Unblock</button>'
+              :'<button class="ab ab-block" onclick="setStatus(''+u.id+'','blocked')">&#x1F6AB; Block</button>')
+          +'<button class="ab ab-wa" onclick="waUser(''+u.id+'')" title="WhatsApp">&#x1F4AC;</button>'
+          +'<button class="ab ab-del" onclick="delUser(''+u.id+'')" title="Delete">&#x1F5D1;</button>'
+        +'</div></td></tr>';
+    }).join(''):'<tr class="erow"><td colspan="9">No users found</td></tr>';
+  });
+}
+
+function renderPayments(){
+  var q=(document.getElementById('p-srch').value||'').toLowerCase();
+  DB.getUsers(function(all){
+    var users=all.filter(function(u){return !q||u.name.toLowerCase().indexOf(q)>=0||u.email.toLowerCase().indexOf(q)>=0;});
+    document.getElementById('p-tb').innerHTML=users.length?users.map(function(u){
+      var ps=u.payStatus||'unpaid';
+      var pb=ps==='paid'?'<span class="tag tag-paid">&#x2713; Paid</span>':'<span class="tag tag-unpaid">&#x2715; Unpaid</span>';
+      return '<tr>'
+        +'<td style="font-weight:600;color:var(--white)">'+u.name+'</td>'
+        +'<td style="font-size:12px"><div>'+u.email+'</div><div style="color:var(--muted)">'+(u.phone||'')+'</div></td>'
+        +'<td>'+planTag(u.plan)+'</td>'
+        +'<td>'+pb+'</td>'
+        +'<td style="font-family:var(--mono);color:var(--green)">'+(u.payAmount?'&#x20B9;'+u.payAmount:'&#x2014;')+'</td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+fd(u.payDate)+'</td>'
+        +'<td style="font-size:12px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(u.notes||'&#x2014;')+'</td>'
+        +'<td><div class="abtns">'
+          +'<button class="ab ab-paid" onclick="markPaid(''+u.id+'','paid')">&#x2713; Paid</button>'
+          +'<button class="ab ab-unpaid" onclick="markPaid(''+u.id+'','unpaid')">&#x2715; Unpaid</button>'
+          +(u.status==='blocked'?'<button class="ab ab-unblock" onclick="setStatus(''+u.id+'','active')">Unblock</button>'
+            :'<button class="ab ab-block" onclick="setStatus(''+u.id+'','blocked')">Block</button>')
+          +'<button class="ab ab-wa" onclick="waUser(''+u.id+'')" title="Payment reminder">&#x1F4AC;</button>'
+        +'</div></td></tr>';
+    }).join(''):'<tr class="erow"><td colspan="8">No users found</td></tr>';
+  });
+}
+
+function setStatus(id,status){
+  DB.getUsers(function(users){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    u.status=status;
+    DB.saveUsers(users,function(){
+      toast(u.name+' '+(status==='blocked'?'blocked!':'unblocked!'),status==='blocked'?'err':'ok');
+      renderUsers();renderPayments();renderDash();
+    });
+  });
+}
+
+function markPaid(id,status){
+  DB.getUsers(function(users){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    u.payStatus=status;
+    u.payDate=new Date().toISOString();
+    if(status==='paid'){u.plan='Pro';u.status='active';}
+    DB.saveUsers(users,function(){
+      toast(u.name+' marked '+status+'!','ok');
+      renderPayments();renderDash();
+    });
+  });
+}
+
+function delUser(id){
+  if(!confirm('Delete this user permanently?'))return;
+  DB.getUsers(function(users){
+    DB.saveUsers(users.filter(function(u){return u.id!==id;}),function(){
+      toast('User deleted.','ok');renderUsers();renderDash();
+    });
+  });
+}
+
+function waUser(id){
+  DB.getUsers(function(users){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u||!u.phone)return toast('No phone for this user!','err');
+    var ph=String(u.phone).replace(/\D/g,'');
+    if(ph.length===10)ph='91'+ph;
+    var msg='Hi '+u.name+', this is Advizr Media CourierPro. Please contact us for your subscription update.';
+    window.open('https://wa.me/'+ph+'?text='+encodeURIComponent(msg),'_blank');
+  });
+}
+
+function openAddUser(){
+  editUID=null;
+  document.getElementById('mod-title').textContent='Add New User';
+  document.getElementById('mod-sub').textContent='Create account manually';
+  ['mu-name','mu-biz','mu-email','mu-phone','mu-pass','mu-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('mu-ind').value='courier';
+  document.getElementById('mu-plan').value='Trial';
+  document.getElementById('mod-user').classList.add('open');
+}
+function editUser(id){
+  DB.getUsers(function(users){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    editUID=id;
+    document.getElementById('mod-title').textContent='Edit User';
+    document.getElementById('mod-sub').textContent=u.email;
+    document.getElementById('mu-name').value=u.name||'';
+    document.getElementById('mu-biz').value=u.biz||'';
+    document.getElementById('mu-ind').value=u.industry||'courier';
+    document.getElementById('mu-email').value=u.email||'';
+    document.getElementById('mu-phone').value=u.phone||'';
+    document.getElementById('mu-pass').value='';
+    document.getElementById('mu-plan').value=u.plan||'Trial';
+    document.getElementById('mu-notes').value=u.notes||'';
+    document.getElementById('mod-user').classList.add('open');
+  });
+}
+function saveUser(){
+  var name=document.getElementById('mu-name').value.trim();
+  var biz=document.getElementById('mu-biz').value.trim();
+  var ind=document.getElementById('mu-ind').value;
+  var email=document.getElementById('mu-email').value.trim();
+  var phone=document.getElementById('mu-phone').value.trim();
+  var pass=document.getElementById('mu-pass').value.trim();
+  var plan=document.getElementById('mu-plan').value;
+  var notes=document.getElementById('mu-notes').value.trim();
+  if(!name||!email){toast('Name and Email required!','err');return;}
+  DB.getUsers(function(users){
+    if(editUID){
+      var u=users.find(function(x){return x.id===editUID;});
+      if(!u)return;
+      u.name=name;u.biz=biz;u.industry=ind;u.email=email;u.phone=phone;u.plan=plan;u.notes=notes;
+      if(pass)u.pass=pass;
+      DB.saveUsers(users,function(){toast('User updated!','ok');closeUM();renderUsers();renderDash();});
+    } else {
+      if(!pass){toast('Password required!','err');return;}
+      if(users.find(function(u){return u.email===email;})){toast('Email already exists!','err');return;}
+      users.push({id:'usr_'+Date.now(),name:name,biz:biz,industry:ind,email:email,phone:phone,pass:pass,
+        plan:plan,status:'active',payStatus:'unpaid',payAmount:'',payDate:'',notes:notes,
+        joinDate:new Date().toISOString(),lastLogin:null,loginCount:0,msgCount:0,trialStart:new Date().toISOString()});
+      DB.saveUsers(users,function(){toast('User added!','ok');closeUM();renderUsers();renderDash();});
+    }
+  });
+}
+function closeUM(){document.getElementById('mod-user').classList.remove('open');}
+document.getElementById('mod-user').addEventListener('click',function(e){if(e.target===this)closeUM();});
+
+function genBC(){
+  var target=document.getElementById('bc-target').value;
+  var msg=document.getElementById('bc-msg').value.trim();
+  if(!msg){toast('Enter a message!','err');return;}
+  DB.getUsers(function(all){
+    var users=all.filter(function(u){
+      if(target==='all')return u.status!=='blocked';
+      if(target==='blocked')return u.status==='blocked';
+      if(target==='trial')return u.plan==='Trial'&&u.status!=='blocked';
+      if(target==='pro')return (u.plan==='Pro'||u.plan==='Business')&&u.status!=='blocked';
+      if(target==='free')return u.plan==='Free'&&u.status!=='blocked';
+      return true;
+    });
+    if(!users.length){toast('No matching users!','err');return;}
+    document.getElementById('bc-cnt').textContent='('+users.length+' users)';
+    document.getElementById('bc-list').innerHTML=users.map(function(u){
+      var m=msg.replace(/\{name\}/g,u.name).replace(/\{plan\}/g,u.plan).replace(/\{biz\}/g,u.biz||'');
+      var ph=String(u.phone||'').replace(/\D/g,'');
+      if(ph.length===10)ph='91'+ph;
+      if(!ph)return '<div style="padding:9px;color:var(--muted);font-size:12px;background:var(--s1);border:1px solid var(--border);border-radius:8px">&#x26A0; '+u.name+' &#x2014; no phone</div>';
+      return '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--s1);border:1px solid var(--border);border-radius:9px;">'
+        +'<div style="flex:1;min-width:0"><div style="font-weight:600;color:var(--white);font-size:13px">'+u.name+'</div>'
+        +'<div style="font-size:11px;color:var(--muted);margin-top:1px">'+u.email+'</div></div>'
+        +'<span style="font-size:11px;color:var(--muted)">+'+ph+'</span>'
+        +'<a href="https://wa.me/'+ph+'?text='+encodeURIComponent(m)+'" target="_blank" '
+        +'style="padding:6px 13px;background:rgba(37,211,102,.1);color:var(--wa);border:1px solid rgba(37,211,102,.2);border-radius:7px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap">&#x1F4AC; Send</a>'
+        +'</div>';
+    }).join('');
+    document.getElementById('bc-out').style.display='block';
+    toast(users.length+' links generated!','ok');
+  });
+}
+
+function loadSettings(){
+  var c=DB.getAdmin();
+  document.getElementById('set-email').value=c.email||'';
+  document.getElementById('set-wa').value=c.wa||'918087289267';
+}
+function saveSettings(){
+  var email=document.getElementById('set-email').value.trim();
+  var pass=document.getElementById('set-pass').value.trim();
+  var wa=document.getElementById('set-wa').value.trim();
+  if(!email){toast('Email required!','err');return;}
+  var c=DB.getAdmin();c.email=email;c.wa=wa;if(pass)c.pass=pass;
+  DB.saveAdmin(c);toast('Settings saved!','ok');
+}
+function clearAll(){
+  if(!confirm('DELETE ALL USER DATA permanently?'))return;
+  if(!confirm('Final confirmation &#x2014; this cannot be undone!'))return;
+  localStorage.removeItem('cp_users');localStorage.removeItem('cp_session');
+  toast('All user data cleared.','ok');renderDash();
+}
+function cp(label,text){navigator.clipboard&&navigator.clipboard.writeText(text);toast(label+' copied!','ok');}
+function refreshAll(){renderDash();}
+
+function toast(msg,type){
+  var el=document.createElement('div');
+  el.className='toast '+(type||'ok');
+  el.innerHTML=(type==='ok'?'&#x2705;':'&#x274C;')+' '+msg;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(function(){el.style.animation='fo .3s ease forwards';setTimeout(function(){el.remove();},300);},3500);
+}
+</script></body></html>
