@@ -165,5 +165,17 @@ app.post('/add-business', (req, res) => {
   } catch(err) { res.status(500).json({error:err.message}); }
 });
 
+
+app.post('/delete-business', (req, res) => {
+  const { id, pass } = req.body;
+  if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
+  try {
+    const businesses = getBusinesses();
+    if(!businesses[id]) return res.status(404).json({error:'Not found'});
+    delete businesses[id];
+    fs.writeFileSync(path.join(__dirname, 'businesses.json'), JSON.stringify(businesses, null, 2));
+    res.json({ok:true});
+  } catch(err) { res.status(500).json({error:err.message}); }
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log('ReviewHelper running on http://localhost:'+PORT));
