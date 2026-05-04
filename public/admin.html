@@ -10,7 +10,6 @@
 body{font-family:'Plus Jakarta Sans',sans-serif;background:#F0F4FF;min-height:100vh}
 .lw{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
 .lc{background:white;border-radius:20px;padding:2rem;max-width:360px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,.1);text-align:center}
-.li{font-size:40px;margin-bottom:12px}
 .lt{font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
 .ls{font-size:13px;color:#888;margin-bottom:24px}
 .inp{width:100%;padding:12px 16px;border:2px solid #E8EAF0;border-radius:12px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;margin-bottom:12px}
@@ -45,7 +44,8 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 .cntn{font-weight:700;color:#EA4335}
 .abtn{display:flex;gap:6px}
 .bqr{padding:6px 12px;background:#EEF2FF;color:#4285F4;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
-.bol{padding:6px 12px;background:#E8F5E9;color:#2E7D32;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}.bdel{padding:6px 12px;background:#FEF2F2;color:#DC2626;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.bol{padding:6px 12px;background:#E8F5E9;color:#2E7D32;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.bdel{padding:6px 12px;background:#FEF2F2;color:#DC2626;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .ov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;align-items:center;justify-content:center;padding:1rem}
 .mod{background:white;border-radius:20px;padding:1.5rem;max-width:480px;width:100%;max-height:90vh;overflow-y:auto}
 .mtitle{font-size:18px;font-weight:800;color:#1a1a2e;margin-bottom:1.25rem}
@@ -67,7 +67,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 <body>
 <div class="lw" id="loginWrap">
   <div class="lc">
-    <div class="li">&#128272;</div>
+    <div style="font-size:40px;margin-bottom:12px">&#128272;</div>
     <div class="lt">Admin Dashboard</div>
     <div class="ls">Advizr Media ReviewHelper</div>
     <input type="password" class="inp" id="passInput" placeholder="Enter password"/>
@@ -100,7 +100,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     <div class="tw">
       <table>
         <thead><tr><th>Business</th><th>Scans</th><th>Generated</th><th>Submitted</th><th>Negative</th><th>Actions</th></tr></thead>
-        <tbody id="clientTable"><tr><td colspan="6" class="ldg">Loading...</td></tr></tbody>
+        <tbody id="tbl"><tr><td colspan="6" class="ldg">Loading...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -114,8 +114,8 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     </div>
     <div class="fg"><label class="fl">Business Name</label><input class="fi" id="nName" placeholder="City Dental Clinic"/></div>
     <div class="fg"><label class="fl">Google Review URL</label><input class="fi" id="nLink" placeholder="https://g.page/r/xxx/review"/></div>
-    <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="nServices" placeholder="Root Canal, Cleaning"/></div>
-    <div class="fg"><label class="fl">Keywords (comma separated)</label><input class="fi" id="nKeywords" placeholder="dental, dentist"/></div>
+    <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="nSvc" placeholder="Root Canal, Cleaning"/></div>
+    <div class="fg"><label class="fl">Keywords (comma separated)</label><input class="fi" id="nKw" placeholder="dental, dentist"/></div>
     <div class="mbtns">
       <button class="bcan" id="cancelBtn">Cancel</button>
       <button class="bsav" id="saveBtn">Save Client</button>
@@ -134,36 +134,100 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
 var AP='sandeep9821',BU='https://reviews.advizrmedia.com/?b=',data=[],pass='';
-document.getElementById('loginBtn').onclick=login;
-document.getElementById('passInput').onkeydown=function(e){if(e.key==='Enter')login();};
-document.getElementById('logoutBtn').onclick=function(){document.getElementById('loginWrap').style.display='flex';document.getElementById('dashboard').style.display='none';document.getElementById('passInput').value='';};
+
+document.getElementById('loginBtn').onclick=function(){
+  var p=document.getElementById('passInput').value;
+  if(p===AP){pass=p;document.getElementById('loginWrap').style.display='none';document.getElementById('dashboard').style.display='block';load();}
+  else{document.getElementById('loginErr').style.display='block';}
+};
+document.getElementById('passInput').onkeydown=function(e){if(e.key==='Enter')document.getElementById('loginBtn').click();};
+document.getElementById('logoutBtn').onclick=function(){document.getElementById('loginWrap').style.display='flex';document.getElementById('dashboard').style.display='none';};
 document.getElementById('refreshBtn').onclick=load;
 document.getElementById('addBtn').onclick=function(){document.getElementById('addModal').style.display='flex';};
 document.getElementById('cancelBtn').onclick=function(){document.getElementById('addModal').style.display='none';};
-document.getElementById('saveBtn').onclick=save;
+document.getElementById('saveBtn').onclick=saveClient;
 document.getElementById('printBtn').onclick=function(){var c=document.getElementById('qrCanvas');var w=window.open('');w.document.write('<img src="'+c.toDataURL()+'" style="width:300px"/>');w.print();};
 document.getElementById('closeQr').onclick=function(){document.getElementById('qrModal').style.display='none';};
-function login(){var p=document.getElementById('passInput').value;if(p===AP){pass=p;document.getElementById('loginWrap').style.display='none';document.getElementById('dashboard').style.display='block';load();}else{document.getElementById('loginErr').style.display='block';}}
-async function load(){try{var r=await fetch('/analytics-all?pass='+pass);data=await r.json();stats();table();}catch(e){console.error(e);}}
-function stats(){document.getElementById('s1').textContent=data.length;document.getElementById('s2').textContent=data.reduce(function(s,b){return s+(b.scans||0);},0);document.getElementById('s3').textContent=data.reduce(function(s,b){return s+(b.generated||0);},0);document.getElementById('s4').textContent=data.reduce(function(s,b){return s+(b.negative||0);},0);}
-function table(){var tb=document.getElementById('clientTable');if(!data.length){tb.innerHTML='<tr><td colspan="6" class="ldg">No clients</td></tr>';return;}var h='';data.forEach(function(b){h+='<tr><td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+(b.icon||'')+'</span><div><div class="bn">'+b.name+'</div><div class="bt">'+b.id+'</div></div></div></td><td><span class="cnt">'+(b.scans||0)+'</span></td><td><span class="cnt">'+(b.generated||0)+'</span></td><td><span class="cnt">'+(b.submitted||0)+'</span></td><td><span class="cntn">'+(b.negative||0)+'</span></td><td><div class="abtn"><button class="bqr" data-id="'+b.id+'" data-name="'+b.name+'" data-icon="'+(b.icon||'')+'">QR</button><button class="bdel" data-id="'+BU+b.id+'">Open</button></div></td></tr>';});tb.innerHTML=h;document.querySelectorAll('.bqr').forEach(function(btn){btn.onclick=function(){showQR(this.dataset.id,this.dataset.name,this.dataset.icon);};});document.querySelectorAll('.bol').forEach(function(btn){
-  btn.addEventListener('click', function(){window.open(this.getAttribute('data-url'),'_blank');});
-});
-document.querySelectorAll('.bdel').forEach(function(btn){
-  btn.addEventListener('click', function(){deleteBiz(this.getAttribute('data-id'));});
-});}
-function showQR(id,name,icon){document.getElementById('qrName').textContent=icon+' '+name;var url=BU+id;document.getElementById('qrUrl').textContent=url;document.getElementById('qrWrap').innerHTML='<canvas id="qrCanvas"></canvas>';QRCode.toCanvas(document.getElementById('qrCanvas'),url,{width:200,margin:1,color:{dark:'#000',light:'#fff'}});document.getElementById('qrModal').style.display='flex';}
-async function deleteBiz(id){
+
+async function load(){
+  try{
+    var r=await fetch('/analytics-all?pass='+pass);
+    data=await r.json();
+    document.getElementById('s1').textContent=data.length;
+    document.getElementById('s2').textContent=data.reduce(function(s,b){return s+(b.scans||0);},0);
+    document.getElementById('s3').textContent=data.reduce(function(s,b){return s+(b.generated||0);},0);
+    document.getElementById('s4').textContent=data.reduce(function(s,b){return s+(b.negative||0);},0);
+    renderTable();
+  }catch(e){console.error(e);}
+}
+
+function renderTable(){
+  var tb=document.getElementById('tbl');
+  if(!data.length){tb.innerHTML='<tr><td colspan="6" class="ldg">No clients</td></tr>';return;}
+  tb.innerHTML='';
+  data.forEach(function(b){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+(b.icon||'')+'</span><div><div class="bn">'+b.name+'</div><div class="bt">'+b.id+'</div></div></div></td>'
+      +'<td><span class="cnt">'+(b.scans||0)+'</span></td>'
+      +'<td><span class="cnt">'+(b.generated||0)+'</span></td>'
+      +'<td><span class="cnt">'+(b.submitted||0)+'</span></td>'
+      +'<td><span class="cntn">'+(b.negative||0)+'</span></td>'
+      +'<td><div class="abtn">'
+      +'<button class="bqr">QR</button>'
+      +'<button class="bol">Open</button>'
+      +'<button class="bdel">Delete</button>'
+      +'</div></td>';
+    
+    var bizId=b.id;
+    var bizName=b.name;
+    var bizIcon=b.icon||'';
+    var bizUrl=BU+b.id;
+    
+    tr.querySelector('.bqr').onclick=function(){showQR(bizId,bizName,bizIcon);};
+    tr.querySelector('.bol').onclick=function(){window.open(bizUrl,'_blank');};
+    tr.querySelector('.bdel').onclick=function(){delBiz(bizId);};
+    
+    tb.appendChild(tr);
+  });
+}
+
+function showQR(id,name,icon){
+  document.getElementById('qrName').textContent=icon+' '+name;
+  var url=BU+id;
+  document.getElementById('qrUrl').textContent=url;
+  document.getElementById('qrWrap').innerHTML='<canvas id="qrCanvas"></canvas>';
+  QRCode.toCanvas(document.getElementById('qrCanvas'),url,{width:200,margin:1,color:{dark:'#000',light:'#fff'}});
+  document.getElementById('qrModal').style.display='flex';
+}
+
+async function delBiz(id){
   if(!confirm('Delete '+id+'? This cannot be undone!')) return;
   try{
     var r=await fetch('/delete-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});
     var d=await r.json();
     if(d.error) throw new Error(d.error);
-    alert('Deleted!');
+    alert('Deleted successfully!');
     load();
   }catch(e){alert('Error: '+e.message);}
 }
-async function save(){var id=document.getElementById('nId').value.trim().toLowerCase().replace(/\s+/g,'');var name=document.getElementById('nName').value.trim();var icon=document.getElementById('nIcon').value.trim();var link=document.getElementById('nLink').value.trim();var svcs=document.getElementById('nServices').value.split(',').map(function(s){return s.trim();}).filter(Boolean);var kws=document.getElementById('nKeywords').value.split(',').map(function(s){return s.trim();}).filter(Boolean);if(!id||!name||!link){alert('Fill all fields!');return;}try{var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,services:svcs,keywords:kws,pass:pass})});var d=await r.json();if(d.error)throw new Error(d.error);alert('Client added! '+BU+id);document.getElementById('addModal').style.display='none';load();}catch(e){alert('Error: '+e.message);}}
+
+async function saveClient(){
+  var id=document.getElementById('nId').value.trim().toLowerCase().replace(/\s+/g,'');
+  var name=document.getElementById('nName').value.trim();
+  var icon=document.getElementById('nIcon').value.trim();
+  var link=document.getElementById('nLink').value.trim();
+  var svcs=document.getElementById('nSvc').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var kws=document.getElementById('nKw').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  if(!id||!name||!link){alert('Fill all required fields!');return;}
+  try{
+    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,services:svcs,keywords:kws,pass:pass})});
+    var d=await r.json();
+    if(d.error) throw new Error(d.error);
+    alert('Client added! URL: '+BU+id);
+    document.getElementById('addModal').style.display='none';
+    load();
+  }catch(e){alert('Error: '+e.message);}
+}
 </script>
 </body>
 </html>
