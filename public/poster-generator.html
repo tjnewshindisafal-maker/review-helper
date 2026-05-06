@@ -348,6 +348,11 @@ function dl() {
 }
 
 window.onload = function() {
+  // Block direct access - only allow from within admin panel iframe
+  if(window.self === window.top) {
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;background:#111;color:#fff;flex-direction:column;gap:12px"><div style="font-size:48px">🔒</div><div style="font-size:18px;font-weight:700">Access Denied</div><div style="font-size:13px;color:#666">Open from Admin Panel only</div><a href="/admin" style="margin-top:8px;padding:10px 24px;background:#4285F4;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:13px">Go to Admin Panel</a></div>';
+    return;
+  }
   // Pre-fill from URL params (when opened from admin panel)
   const p = new URLSearchParams(window.location.search);
   if(p.get('name')) document.getElementById('f-name').value = p.get('name');
