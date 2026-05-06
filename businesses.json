@@ -268,5 +268,41 @@
       "Pune",
       "marketing agency"
     ]
+  },
+  "drkirti": {
+    "name": "Dr. Kirti P. Khewalkar - Gynecologist",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJUbV8IZPDwjsRtG8Dtakc_lI",
+    "type": "other",
+    "showDoctor": true,
+    "showLocation": false,
+    "icon": "\ud83d\udc69\u200d\u2695\ufe0f",
+    "doctor": "Dr. Kirti P. Khewalkar",
+    "services": [
+      "Normal Delivery",
+      "C-Section",
+      "Infertility Treatment",
+      "High Risk Pregnancy",
+      "Family Planning",
+      "General Checkup",
+      "Laparoscopic Surgery"
+    ],
+    "chips": [
+      "Experienced doctor",
+      "Caring staff",
+      "Clean facility",
+      "Good guidance",
+      "Affordable",
+      "Quick diagnosis",
+      "Safe delivery",
+      "Trusted doctor"
+    ],
+    "keywords": [
+      "gynecologist",
+      "pregnancy",
+      "infertility",
+      "Kharadi",
+      "Pune",
+      "lady doctor"
+    ]
   }
 }
