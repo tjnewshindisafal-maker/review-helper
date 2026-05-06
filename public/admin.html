@@ -195,9 +195,8 @@ function showQR(id,name,icon){
   document.getElementById('qrName').textContent=icon+' '+name;
   var url=BU+id;
   document.getElementById('qrUrl').textContent=url;
-  var encoded=encodeURIComponent(url);
-  var imgUrl='https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl='+encoded+'&choe=UTF-8';
-  document.getElementById('qrWrap').innerHTML='<img id="qrImg" src="'+imgUrl+'" width="200" height="200" style="border-radius:8px"/>';
+  var src = QR_CODES[id] || '';
+  document.getElementById('qrWrap').innerHTML='<img id="qrImg" src="'+src+'" width="200" height="200" style="border-radius:8px"/>';
   document.getElementById('qrModal').style.display='flex';
 }
 
@@ -230,5 +229,5 @@ async function saveClient(){
   }catch(e){alert('Error: '+e.message);}
 }
 </script>
-</body>
+<script src="/qr_data.js"></script></body>
 </html>
