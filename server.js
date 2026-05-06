@@ -147,7 +147,7 @@ app.get('/admin', (req, res) => {
 });
 
 app.post('/add-business', (req, res) => {
-  const { id, name, icon, googleLink, services, keywords, pass } = req.body;
+  const { id, name, icon, googleLink, location, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
   if(!id || !name || !googleLink) return res.status(400).json({error:'Missing fields'});
   try {
@@ -155,6 +155,7 @@ app.post('/add-business', (req, res) => {
     if(businesses[id]) return res.status(400).json({error:'Business ID already exists'});
     businesses[id] = {
       name, icon: icon||'star', googleLink,
+      location: location||'',
       type: 'other', showDoctor: false, showLocation: false,
       services: services||['General Service'],
       chips: ['Professional','Fast service','Affordable','Trustworthy','Good communication','Would recommend'],

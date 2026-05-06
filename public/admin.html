@@ -121,6 +121,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     </div>
     <div class="fg"><label class="fl">Business Name</label><input class="fi" id="nName" placeholder="City Dental Clinic"/></div>
     <div class="fg"><label class="fl">Google Review URL</label><input class="fi" id="nLink" placeholder="https://g.page/r/xxx/review"/></div>
+    <div class="fg"><label class="fl">Location</label><input class="fi" id="nLoc" placeholder="e.g. Pune, Maharashtra"/></div>
     <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="nSvc" placeholder="Root Canal, Cleaning"/></div>
     <div class="fg"><label class="fl">Keywords (comma separated)</label><input class="fi" id="nKw" placeholder="dental, dentist"/></div>
     <div class="mbtns">
@@ -225,11 +226,12 @@ async function saveClient(){
   var name=document.getElementById('nName').value.trim();
   var icon=document.getElementById('nIcon').value.trim();
   var link=document.getElementById('nLink').value.trim();
+  var loc=document.getElementById('nLoc').value.trim();
   var svcs=document.getElementById('nSvc').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
   var kws=document.getElementById('nKw').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
   if(!id||!name||!link){alert('Fill all required fields!');return;}
   try{
-    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,services:svcs,keywords:kws,pass:pass})});
+    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,location:loc,services:svcs,keywords:kws,pass:pass})});
     var d=await r.json();
     if(d.error) throw new Error(d.error);
     alert('Client added! URL: '+BU+id);
@@ -240,10 +242,12 @@ async function saveClient(){
 
 function openPoster(b){
   document.getElementById('posterModalTitle').textContent = '🖼️ Poster — ' + b.name;
+  var cat = '';
+  if(b.services && b.services.length) cat = b.services.slice(0,2).join(' & ');
   var params = new URLSearchParams({
     name: b.name || '',
-    cat: (b.services && b.services[0]) || '',
-    loc: '',
+    cat: cat,
+    loc: b.location || '',
     url: b.googleLink || ''
   });
   document.getElementById('posterFrame').src = '/poster-generator.html?' + params.toString();
