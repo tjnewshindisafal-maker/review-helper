@@ -5,12 +5,12 @@
     "type": "multi",
     "showDoctor": true,
     "showLocation": false,
-    "icon": "\ud83c\udfe5",
+    "icon": "🏥",
     "departments": [
       {
         "id": "ortho",
         "label": "Orthopedic / Joint",
-        "icon": "\ud83e\uddb4",
+        "icon": "🦴",
         "doctor": "Dr. Pradeep Jadhav",
         "services": [
           "Knee Replacement",
@@ -45,7 +45,7 @@
       {
         "id": "derm",
         "label": "Dermatology / Skin",
-        "icon": "\u2728",
+        "icon": "✨",
         "doctor": "Dr. Parineeta Khade",
         "services": [
           "Acne Treatment",
@@ -84,7 +84,7 @@
     "type": "dental",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "\ud83e\uddb7",
+    "icon": "🦷",
     "doctor": "",
     "location": "",
     "services": [
@@ -123,7 +123,7 @@
     "type": "dental",
     "showDoctor": true,
     "showLocation": false,
-    "icon": "\ud83e\uddb7",
+    "icon": "🦷",
     "doctor": "Dr. Vaishali",
     "location": "Wakad, Pune",
     "services": [
@@ -163,7 +163,7 @@
     "type": "automotive",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "\ud83d\ude97",
+    "icon": "🚗",
     "staff": "Sameer",
     "location": "Kharadi, Pune",
     "services": [
@@ -202,7 +202,7 @@
     "type": "electronics",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "\ud83d\udcfa",
+    "icon": "📺",
     "staff": "",
     "location": "",
     "services": [
@@ -237,7 +237,7 @@
     "type": "other",
     "showDoctor": false,
     "showLocation": false,
-    "icon": "\ud83d\udcc8",
+    "icon": "📈",
     "staff": "",
     "services": [
       "SEO (Search Engine Optimization)",
@@ -275,7 +275,7 @@
     "type": "other",
     "showDoctor": true,
     "showLocation": false,
-    "icon": "\ud83d\udc69\u200d\u2695\ufe0f",
+    "icon": "👩‍⚕️",
     "doctor": "Dr. Kirti P. Khewalkar",
     "services": [
       "Normal Delivery",
@@ -303,6 +303,8 @@
       "Kharadi",
       "Pune",
       "lady doctor"
-    ]
+    ],
+    "location": "Kharadi, Pune",
+    "fullAddress": "Gold Rush Hospital, Mundhwa - Kharadi Rd, near Reliance SMART Superstore, Thite Nagar, Kharadi, Pune, Maharashtra 411014"
   }
 }
