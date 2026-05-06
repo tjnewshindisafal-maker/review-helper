@@ -146,6 +146,11 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+// Mini website — /b/reshine, /b/drkirti etc.
+app.get('/b/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'biz.html'));
+});
+
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});

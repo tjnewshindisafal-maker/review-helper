@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Loading...</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f4f6fb;color:#1a1a2e;min-height:100vh}
+
+/* HERO */
+.hero{background:#0d1b5e;padding:32px 20px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC04,#34A853)}
+.hero-bg{position:absolute;inset:0;opacity:0.04;background:repeating-linear-gradient(-55deg,transparent,transparent 18px,#fff 18px,#fff 20px)}
+.hero-inner{position:relative;z-index:2}
+.biz-icon{width:76px;height:76px;border-radius:50%;background:#fff;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:34px;border:3px solid rgba(255,255,255,0.15);box-shadow:0 4px 20px rgba(0,0,0,0.2);overflow:hidden}
+.biz-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.biz-name{font-size:22px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:4px}
+.biz-cat{font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+.rating-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);padding:7px 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.15)}
+.stars{color:#FBBC04;font-size:15px;letter-spacing:1px}
+.rating-num{color:#fff;font-size:13px;font-weight:700}
+.rating-count{color:rgba(255,255,255,0.45);font-size:11px}
+
+/* QUICK ACTIONS */
+.actions{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-bottom:1px solid #eee}
+.action-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 8px;text-decoration:none;border-right:1px solid #f0f0f0;cursor:pointer;transition:background 0.15s}
+.action-btn:last-child{border-right:none}
+.action-btn:active{background:#f8f8f8}
+.action-icon{font-size:22px}
+.action-label{font-size:10px;color:#888;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+
+/* SECTIONS */
+.section{background:#fff;margin:10px 12px;border-radius:14px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.section-title{font-size:10px;font-weight:800;color:#94a3b8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+
+/* ABOUT */
+.about-text{font-size:14px;color:#475569;line-height:1.7}
+
+/* SERVICES */
+.services-grid{display:flex;flex-wrap:wrap;gap:7px}
+.service-chip{padding:6px 13px;background:#f0f4ff;color:#1a3a9e;border-radius:20px;font-size:12px;font-weight:700}
+
+/* LOCATION */
+.location-box{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#f8faff;border-radius:10px;border:1px solid #e8eeff}
+.location-icon{font-size:20px;margin-top:1px;flex-shrink:0}
+.location-text{font-size:13px;color:#475569;line-height:1.6}
+.maps-link{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;color:#4285F4;text-decoration:none}
+
+/* HOURS */
+.hours-grid{display:flex;flex-direction:column;gap:6px}
+.hour-row{display:flex;justify-content:space-between;font-size:13px}
+.hour-day{color:#64748b;font-weight:600}
+.hour-time{color:#1a1a2e;font-weight:700}
+.hour-closed{color:#EA4335;font-weight:700}
+
+/* REVIEW CTA */
+.review-section{margin:10px 12px 0;border-radius:14px;overflow:hidden}
+.review-cta{background:#0d1b5e;padding:20px;text-align:center}
+.review-cta-title{font-size:16px;font-weight:900;color:#fff;margin-bottom:4px}
+.review-cta-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:14px}
+.review-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0d1b5e;padding:12px 28px;border-radius:30px;font-size:14px;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:transform 0.15s}
+.review-btn:active{transform:scale(0.97)}
+.g-b{color:#4285F4}.g-r{color:#EA4335}.g-y{color:#FBBC04}.g-g{color:#34A853}
+.g-word{font-size:15px;font-weight:900}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px;margin-top:10px}
+.footer-text{font-size:10px;color:#aaa;letter-spacing:0.5px}
+.footer-brand{font-size:11px;font-weight:800;color:#4285F4}
+
+/* LOADER */
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:12px}
+.spinner{width:36px;height:36px;border:3px solid #e8eeff;border-top-color:#4285F4;border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-size:13px;color:#94a3b8;font-weight:600}
+
+/* ERROR */
+.error-page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:10px;padding:20px;text-align:center}
+.error-icon{font-size:48px}
+.error-title{font-size:18px;font-weight:800;color:#1a1a2e}
+.error-sub{font-size:13px;color:#94a3b8}
+
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="spinner"></div>
+  <div class="loader-text">Loading...</div>
+</div>
+
+<div id="page" class="hidden">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="biz-icon" id="biz-icon">🏪</div>
+      <div class="biz-name" id="biz-name">Business Name</div>
+      <div class="biz-cat" id="biz-cat">Category · Location</div>
+      <div class="rating-pill">
+        <span class="stars">★★★★★</span>
+        <span class="rating-num">5.0</span>
+        <span class="rating-count">on Google</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a class="action-btn" id="call-btn" href="#">
+      <span class="action-icon">📞</span>
+      <span class="action-label">Call</span>
+    </a>
+    <a class="action-btn" id="whatsapp-btn" href="#">
+      <span class="action-icon">💬</span>
+      <span class="action-label">WhatsApp</span>
+    </a>
+    <a class="action-btn" id="maps-btn" href="#">
+      <span class="action-icon">📍</span>
+      <span class="action-label">Directions</span>
+    </a>
+  </div>
+
+  <div class="section" id="about-section">
+    <div class="section-title">About</div>
+    <div class="about-text" id="about-text"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Services</div>
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+
+  <div class="section" id="location-section">
+    <div class="section-title">Location</div>
+    <div class="location-box">
+      <span class="location-icon">📍</span>
+      <div>
+        <div class="location-text" id="location-text"></div>
+        <a class="maps-link" id="maps-link" href="#" target="_blank">Open in Google Maps →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-section">
+    <div class="review-cta">
+      <div class="review-cta-title">Happy with our service?</div>
+      <div class="review-cta-sub">Share your experience — takes only 60 seconds!</div>
+      <a class="review-btn" id="review-link" href="#">
+        ⭐ Review on <span class="g-word"><span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">Powered by <span class="footer-brand">Advizr Media</span></div>
+  </div>
+
+</div>
+
+<div id="error-page" class="hidden error-page">
+  <div class="error-icon">🔍</div>
+  <div class="error-title">Business not found</div>
+  <div class="error-sub">Check the URL and try again</div>
+</div>
+
+<script>
+const bizId = window.location.pathname.split('/').filter(Boolean).pop();
+
+async function loadBiz() {
+  try {
+    const res = await fetch('/business/' + bizId);
+    if (!res.ok) throw new Error('Not found');
+    const b = await res.json();
+
+    document.title = b.name + ' — Advizr Media';
+
+    // Icon
+    const iconEl = document.getElementById('biz-icon');
+    iconEl.textContent = b.icon || '🏪';
+
+    // Name & category
+    document.getElementById('biz-name').textContent = b.name;
+    const catParts = [b.category || ''];
+    if (b.location) catParts.push(b.location);
+    document.getElementById('biz-cat').textContent = catParts.filter(Boolean).join(' · ');
+
+    // Quick actions
+    const phone = b.phone || '';
+    const whatsapp = b.whatsapp || b.phone || '';
+    const address = b.fullAddress || b.location || b.name;
+
+    document.getElementById('call-btn').href = phone ? 'tel:' + phone : '#';
+    document.getElementById('whatsapp-btn').href = whatsapp ? 'https://wa.me/91' + whatsapp.replace(/\D/g,'') : '#';
+    document.getElementById('maps-btn').href = 'https://maps.google.com/?q=' + encodeURIComponent(address);
+
+    // About
+    if (b.about) {
+      document.getElementById('about-text').textContent = b.about;
+    } else {
+      document.getElementById('about-section').style.display = 'none';
+    }
+
+    // Services
+    const svcs = b.services || [];
+    const grid = document.getElementById('services-grid');
+    svcs.forEach(s => {
+      const chip = document.createElement('span');
+      chip.className = 'service-chip';
+      chip.textContent = s;
+      grid.appendChild(chip);
+    });
+
+    // Location
+    if (b.fullAddress || b.location) {
+      document.getElementById('location-text').textContent = b.fullAddress || b.location;
+      document.getElementById('maps-link').href = 'https://maps.google.com/?q=' + encodeURIComponent(b.fullAddress || b.location);
+    } else {
+      document.getElementById('location-section').style.display = 'none';
+    }
+
+    // Review link — goes to AI review page
+    document.getElementById('review-link').href = '/?b=' + bizId;
+
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('page').classList.remove('hidden');
+
+  } catch(e) {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('error-page').classList.remove('hidden');
+  }
+}
+
+loadBiz();
+</script>
+</body>
+</html>
