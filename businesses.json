@@ -76,7 +76,8 @@
           "skin clinic"
         ]
       }
-    ]
+    ],
+    "category": "Skin & Joint Clinic"
   },
   "potdar": {
     "name": "Dr. Potdar Dental Care",
@@ -115,7 +116,8 @@
       "implant",
       "oral health",
       "dental clinic"
-    ]
+    ],
+    "category": "Dental Clinic"
   },
   "vaishali": {
     "name": "Dr. Vaishali's Dental Care",
@@ -155,7 +157,8 @@
       "oral health",
       "Wakad",
       "Pune"
-    ]
+    ],
+    "category": "Dental Clinic"
   },
   "reshine": {
     "name": "Reshine Studio",
@@ -194,7 +197,8 @@
       "paint protection",
       "Kharadi",
       "Pune"
-    ]
+    ],
+    "category": "Car Detailing Studio"
   },
   "anelectronics": {
     "name": "A N Electronics",
@@ -229,7 +233,8 @@
       "television",
       "cooler",
       "electronics"
-    ]
+    ],
+    "category": "Electronics Shop"
   },
   "advizrmedia": {
     "name": "Advizr Media | Digital Marketing Agency",
@@ -267,7 +272,8 @@
       "local SEO",
       "Pune",
       "marketing agency"
-    ]
+    ],
+    "category": "Digital Marketing Agency"
   },
   "drkirti": {
     "name": "Dr. Kirti P. Khewalkar - Gynecologist",
@@ -305,6 +311,7 @@
       "lady doctor"
     ],
     "location": "Kharadi, Pune",
-    "fullAddress": "Gold Rush Hospital, Mundhwa - Kharadi Rd, near Reliance SMART Superstore, Thite Nagar, Kharadi, Pune, Maharashtra 411014"
+    "fullAddress": "Gold Rush Hospital, Mundhwa - Kharadi Rd, near Reliance SMART Superstore, Thite Nagar, Kharadi, Pune, Maharashtra 411014",
+    "category": "Gynecologist & Obstetrician"
   }
 }

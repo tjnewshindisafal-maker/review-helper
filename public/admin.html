@@ -242,8 +242,11 @@ async function saveClient(){
 
 function openPoster(b){
   document.getElementById('posterModalTitle').textContent = '🖼️ Poster — ' + b.name;
-  var cat = '';
-  if(b.services && b.services.length) cat = b.services.slice(0,2).join(' & ');
+  var typeMap = {
+    'dental':'Dental Clinic','automotive':'Car Detailing Studio','electronics':'Electronics Shop',
+    'multi':'Multi Specialty Clinic','other':'Professional Services'
+  };
+  var cat = b.category || typeMap[b.type] || (b.services && b.services[0]) || 'Professional Services';
   var params = new URLSearchParams({
     name: b.name || '',
     cat: cat,
