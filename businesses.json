@@ -323,5 +323,47 @@
     "fullAddress": "Gold Rush Hospital, Mundhwa - Kharadi Rd, near Reliance SMART Superstore, Thite Nagar, Kharadi, Pune, Maharashtra 411014",
     "category": "Gynecologist & Obstetrician",
     "placeId": "ChIJUbV8lZPDwjsRtG8Dtakc_lI"
+  },
+  "wings": {
+    "name": "Wings Premium Unisex Salon",
+    "icon": "✂️",
+    "googleLink": "https://g.page/r/CcMJ2OwgQotlEBM/review",
+    "location": "Kharadi, Pune",
+    "fullAddress": "Wings Premium Unisex Salon, Kharadi, Pune, Maharashtra",
+    "category": "Premium Unisex Salon",
+    "phone": "",
+    "whatsapp": "",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "services": [
+      "Haircut & Styling",
+      "Hair Color",
+      "Hair Treatment",
+      "Skin Care",
+      "Nail Art",
+      "Facial",
+      "Threading & Waxing",
+      "Bridal Makeup"
+    ],
+    "chips": [
+      "Expert stylists",
+      "Premium products",
+      "Clean & hygienic",
+      "Affordable pricing",
+      "Great ambiance",
+      "Friendly staff",
+      "Quick service",
+      "Best in Kharadi"
+    ],
+    "keywords": [
+      "salon",
+      "hair",
+      "beauty",
+      "Kharadi",
+      "Pune",
+      "unisex"
+    ],
+    "trialClient": true
   }
 }
