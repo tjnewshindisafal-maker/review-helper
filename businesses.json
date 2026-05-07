@@ -77,7 +77,8 @@
         ]
       }
     ],
-    "category": "Skin & Joint Clinic"
+    "category": "Skin & Joint Clinic",
+    "placeId": "ChIJDSApu1y3wjsRrebGfPDQEnU"
   },
   "potdar": {
     "name": "Dr. Potdar Dental Care",
@@ -117,7 +118,8 @@
       "oral health",
       "dental clinic"
     ],
-    "category": "Dental Clinic"
+    "category": "Dental Clinic",
+    "placeId": "ChIJbTFUTd-5wjsRL1j4v690myc"
   },
   "vaishali": {
     "name": "Dr. Vaishali's Dental Care",
@@ -158,7 +160,8 @@
       "Wakad",
       "Pune"
     ],
-    "category": "Dental Clinic"
+    "category": "Dental Clinic",
+    "placeId": "ChIJu9LMd7a7wjsRDh5oVL5pN1A"
   },
   "reshine": {
     "name": "Reshine Studio",
@@ -198,7 +201,8 @@
       "Kharadi",
       "Pune"
     ],
-    "category": "Car Detailing Studio"
+    "category": "Car Detailing Studio",
+    "placeId": "ChIJ_XTmSiLDwjsRfEDRa6AeNW4"
   },
   "anelectronics": {
     "name": "A N Electronics",
@@ -234,7 +238,8 @@
       "cooler",
       "electronics"
     ],
-    "category": "Electronics Shop"
+    "category": "Electronics Shop",
+    "placeId": "ChIJl4MecQPqwjsREmjM5MV5bo8"
   },
   "advizrmedia": {
     "name": "Advizr Media | Digital Marketing Agency",
@@ -273,7 +278,8 @@
       "Pune",
       "marketing agency"
     ],
-    "category": "Digital Marketing Agency"
+    "category": "Digital Marketing Agency",
+    "placeId": "ChIJ9XQSnJnrwjsRPX2eVMmAh2w"
   },
   "drkirti": {
     "name": "Dr. Kirti P. Khewalkar - Gynecologist",
@@ -312,6 +318,7 @@
     ],
     "location": "Kharadi, Pune",
     "fullAddress": "Gold Rush Hospital, Mundhwa - Kharadi Rd, near Reliance SMART Superstore, Thite Nagar, Kharadi, Pune, Maharashtra 411014",
-    "category": "Gynecologist & Obstetrician"
+    "category": "Gynecologist & Obstetrician",
+    "placeId": "ChIJUbV8lZPDwjsRtG8Dtakc_lI"
   }
 }
