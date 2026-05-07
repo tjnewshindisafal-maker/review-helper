@@ -286,7 +286,7 @@ app.get('/find-place', async (req, res) => {
   const q = req.query.q;
   if (!q) return res.status(400).json({ error: 'Query required' });
   try {
-    const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(q)}&inputtype=textquery&fields=place_id,name,formatted_address&key=${apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(q)}&inputtype=textquery&fields=place_id,name,formatted_address&locationbias=circle:50000@18.5204,73.8567&key=${apiKey}`;
     const response = await fetch(url);
     const data = await response.json();
     if (!data.candidates || !data.candidates.length) 

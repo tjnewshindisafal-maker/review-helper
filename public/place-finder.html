@@ -81,7 +81,7 @@ async function searchPlace() {
   document.getElementById('result-box').style.display = 'none';
   
   try {
-    const res = await fetch('/find-place?q=' + encodeURIComponent(q));
+    const res = await fetch('/find-place?q=' + encodeURIComponent(q + ' Pune Maharashtra India'));
     const data = await res.json();
     if(data.error) throw new Error(data.error);
     
@@ -106,8 +106,10 @@ function copyId() {
 }
 
 async function loadClients() {
-  const pass = localStorage.getItem('adminPass') || 'admin123';
+  const pass = 'admin123';
+  try {
   const res = await fetch('/analytics-all?pass=' + pass);
+  if(!res.ok) throw new Error('Failed');
   const clients = await res.json();
   const tbody = document.getElementById('clients-table');
   tbody.innerHTML = '';
@@ -118,13 +120,16 @@ async function loadClients() {
       <td><button class="add-btn" onclick="searchAndFill('${c.id}','${c.name}')">Auto Search</button></td>`;
     tbody.appendChild(tr);
   });
+  } catch(e) { 
+    document.getElementById('clients-table').innerHTML = '<tr><td colspan="3" style="color:#EA4335;padding:12px">Error loading clients: ' + e.message + '</td></tr>'; 
+  }
 }
 
 async function searchAndFill(bizId, bizName) {
   const input = document.getElementById('pid-' + bizId);
   input.value = 'Searching...';
   try {
-    const res = await fetch('/find-place?q=' + encodeURIComponent(bizName + ' Pune'));
+    const res = await fetch('/find-place?q=' + encodeURIComponent(bizName + ' Pune Maharashtra India'));
     const data = await res.json();
     if(data.placeId) input.value = data.placeId;
     else input.value = '';
