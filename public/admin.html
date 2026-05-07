@@ -227,12 +227,12 @@ async function delBiz(id){
 }
 
 async function refreshPlaces(){
-  const pass = localStorage.getItem('adminPass') || prompt('Admin password:');
-  if(!pass) return;
+  const p = pass || prompt('Admin password:');
+  if(!p) return;
   try{
-    const r = await fetch('/refresh-places',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass})});
+    const r = await fetch('/refresh-places',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass:p})});
     const d = await r.json();
-    if(d.ok) alert('✅ Google data refresh started! Check back in 2-3 minutes.');
+    if(d.ok) alert('✅ Google data refresh started! 2-3 minutes mein website pe live ho jaayega.');
     else alert('Error: '+d.error);
   }catch(e){alert('Error: '+e.message);}
 }
