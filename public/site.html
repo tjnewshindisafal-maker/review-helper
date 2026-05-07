@@ -460,18 +460,21 @@ async function loadSite(){
     document.getElementById('nav-name').textContent = d.name;
     const phone = d.phone||'';
     const wa = d.whatsapp||d.phone||'';
-    if(phone){
-      document.getElementById('nav-call').href='tel:+91'+phone.replace(/\D/g,'');
-      document.getElementById('nav-phone-txt').textContent=phone;
+    // Use phone from JSON directly
+    const phoneNum = d.phone || phone || '';
+    const waNum = d.whatsapp || wa || d.phone || '';
+    if(phoneNum){
+      const telHref = 'tel:+91'+phoneNum.replace(/\D/g,'');
+      document.getElementById('nav-call').href = telHref;
+      document.getElementById('hero-call').href = telHref;
+      document.getElementById('nav-phone-txt').textContent = phoneNum;
     }
-    if(wa){
-      const waUrl='https://wa.me/91'+wa.replace(/\D/g,'')+'?text=Hi! I found you on Advizr Media. I need more information.';
-      document.getElementById('nav-wa').href=waUrl;
-      document.getElementById('float-wa').href=waUrl;
-      document.getElementById('hero-wa').href=waUrl;
-      document.getElementById('form-submit').onclick=function(){window.open(waUrl,'_blank');};
+    if(waNum){
+      const waUrl = 'https://wa.me/91'+waNum.replace(/\D/g,'')+'?text=Hi! I found you online and need more information.';
+      document.getElementById('nav-wa').href = waUrl;
+      document.getElementById('float-wa').href = waUrl;
+      document.getElementById('hero-wa').href = waUrl;
     }
-    if(phone) document.getElementById('hero-call').href='tel:+91'+phone.replace(/\D/g,'');
 
     // HERO
     const cat = d.category||'';
@@ -640,8 +643,8 @@ async function loadSite(){
         };
       }
     };
-    // Show skeleton contact until Places data loads
-    window._buildContact(phone||'Loading...', wa, d.fullAddress||loc);
+    // Build contact from JSON data immediately
+    window._buildContact(d.phone||phone||'', d.whatsapp||wa||d.phone||'', d.fullAddress||loc||'');
 
     // Footer
     document.getElementById('footer-name').textContent=d.name;
