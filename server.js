@@ -274,6 +274,18 @@ app.post('/refresh-places', async (req, res) => {
 });
 
 
+
+// Public business list for place finder
+app.get('/business-list', (req, res) => {
+  try {
+    const businesses = getBusinesses();
+    const list = Object.entries(businesses).map(([id, b]) => ({
+      id, name: b.name, icon: b.icon, placeId: b.placeId || ''
+    }));
+    res.json(list);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 // Place ID Finder tool
 app.get('/place-finder', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'place-finder.html'));

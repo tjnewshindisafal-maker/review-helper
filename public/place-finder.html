@@ -106,18 +106,18 @@ function copyId() {
 }
 
 async function loadClients() {
-  const pass = 'admin123';
   try {
-  const res = await fetch('/analytics-all?pass=' + pass);
+  const res = await fetch('/business-list');
   if(!res.ok) throw new Error('Failed');
   const clients = await res.json();
   const tbody = document.getElementById('clients-table');
   tbody.innerHTML = '';
   clients.forEach(c => {
     const tr = document.createElement('tr');
+    const bizId = c.id || c.key;
     tr.innerHTML = `<td>${c.icon||'🏪'} ${c.name}</td>
-      <td><input type="text" placeholder="ChIJ..." id="pid-${c.id}" style="margin:0;padding:6px 10px;font-size:12px;width:220px" value="${c.placeId||''}"></td>
-      <td><button class="add-btn" onclick="searchAndFill('${c.id}','${c.name}')">Auto Search</button></td>`;
+      <td><input type="text" placeholder="ChIJ..." id="pid-${bizId}" style="margin:0;padding:6px 10px;font-size:12px;width:220px" value="${c.placeId||''}"></td>
+      <td><button class="add-btn" onclick="searchAndFill('${bizId}','${c.name}')">Auto Search</button></td>`;
     tbody.appendChild(tr);
   });
   } catch(e) { 
