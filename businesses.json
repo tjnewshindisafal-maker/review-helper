@@ -365,5 +365,48 @@
       "unisex"
     ],
     "trialClient": true
+  },
+  "lucknowbiryani": {
+    "name": "Lucknow Biryani",
+    "icon": "🍛",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJ0doBUMzDwjsR",
+    "location": "Lohagaon, Pune",
+    "fullAddress": "HAVELI, SHOP NO-3, SR NO-296/3/2, Shiv Residency, Porwal Rd, Lohagaon, Pune, Maharashtra 411047",
+    "category": "Biryani Restaurant",
+    "phone": "08983740422",
+    "whatsapp": "08983740422",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "services": [
+      "Chicken Biryani",
+      "Mutton Biryani",
+      "Veg Biryani",
+      "Nalli Biryani",
+      "Lucknowi Dum Biryani",
+      "Raita & Sides",
+      "Home Delivery",
+      "Takeaway"
+    ],
+    "chips": [
+      "Authentic Lucknowi taste",
+      "Fresh ingredients",
+      "Generous portions",
+      "Quick service",
+      "Affordable",
+      "Great ambiance",
+      "Must try",
+      "Best biryani in Pune"
+    ],
+    "keywords": [
+      "biryani",
+      "lucknowi",
+      "restaurant",
+      "Lohagaon",
+      "Pune",
+      "food"
+    ],
+    "trialClient": true,
+    "placeId": "ChIJ0doBUMzDwjsR"
   }
 }
