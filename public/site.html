@@ -554,8 +554,9 @@ async function loadSite(){
             const div = document.createElement('div');
             div.className = 'photo-item';
             const img = document.createElement('img');
-            img.src = 'data:image/jpeg;base64,' + photo.data;
+            img.src = photo.url || ('data:image/jpeg;base64,' + photo.data);
             img.loading = 'lazy';
+            img.onerror = function(){ this.parentElement.style.display='none'; };
             div.appendChild(img);
             pgrid.appendChild(div);
           });

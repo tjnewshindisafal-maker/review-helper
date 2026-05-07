@@ -34,8 +34,8 @@ async function fetchPlacePhoto(photoRef, apiKey, maxWidth = 800) {
   const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photo_reference=${photoRef}&key=${apiKey}`;
   const res = await fetch(url);
   if (!res.ok) return null;
-  const buffer = await res.buffer();
-  return buffer.toString('base64');
+  const arrayBuffer = await res.arrayBuffer();
+  return Buffer.from(arrayBuffer).toString('base64');
 }
 
 async function refreshAllPlacesData() {
@@ -52,18 +52,16 @@ async function refreshAllPlacesData() {
       console.log(`Fetching Google data for: ${biz.name}`);
       const place = await fetchGooglePlaceData(biz.placeId, apiKey);
       
-      // Fetch up to 5 photos as base64
+      // Store photo URLs (lighter than base64)
       const photos = [];
       if (place.photos && place.photos.length > 0) {
-        for (const photo of place.photos.slice(0, 5)) {
-          try {
-            const b64 = await fetchPlacePhoto(photo.photo_reference, apiKey);
-            if (b64) photos.push({ 
-              data: b64, 
-              attribution: photo.html_attributions?.[0] || '' 
-            });
-          } catch(e) { console.log('Photo fetch error:', e.message); }
-        }
+        place.photos.slice(0, 6).forEach(photo => {
+          const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${photo.photo_reference}&key=${apiKey}`;
+          photos.push({ 
+            url: photoUrl,
+            attribution: photo.html_attributions?.[0] || '' 
+          });
+        });
       }
 
       // Extract reviews
