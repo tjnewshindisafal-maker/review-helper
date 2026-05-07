@@ -32,10 +32,10 @@ button:hover{background:#1a73e8}
 <body>
 
 <h1>🔍 Place ID Finder</h1>
-<p class="sub">Advizr Media — Har client ka Google Place ID dhundo</p>
+<p class="sub">Advizr Media — Find Google Place ID for each client</p>
 
 <div class="card">
-  <label>Business Name Search karo</label>
+  <label>Search Business Name</label>
   <input type="text" id="search-input" placeholder="e.g. ReShine Studio Kharadi Pune">
   <div style="display:flex;gap:8px;align-items:center">
     <button onclick="searchPlace()">Search Google Places</button>
@@ -53,7 +53,7 @@ button:hover{background:#1a73e8}
 </div>
 
 <div class="card">
-  <label>Sab Clients — Place ID Add Karo</label>
+  <label>All Clients — Add Place ID</label>
   <table class="table">
     <thead>
       <tr>
@@ -137,7 +137,7 @@ async function searchAndFill(bizId, bizName) {
 }
 
 async function saveAll() {
-  const pass = localStorage.getItem('adminPass') || prompt('Admin password:');
+  const pass = localStorage.getItem('adminPass') || prompt('Admin Password:');
   const rows = document.querySelectorAll('[id^="pid-"]');
   const updates = {};
   rows.forEach(input => {

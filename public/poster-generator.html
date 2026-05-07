@@ -210,7 +210,7 @@ h1 { font-size: 18px; font-weight: 900; letter-spacing: 0.3px; margin-bottom: 2p
     <div class="field"><label>Google Review URL</label><input id="f-url" value="https://g.page/r/example" placeholder="https://g.page/r/..."></div>
     <div class="field">
       <label>Logo Upload (optional)</label>
-      <label class="logo-upload" for="logo-input">📁 Upload client logo</label>
+      <label class="logo-upload" for="logo-input">📁 Upload Client Logo</label>
       <input type="file" id="logo-input" accept="image/*">
     </div>
     <button class="gen-btn" onclick="gen()">✨ Generate Poster</button>
@@ -306,7 +306,7 @@ function gen() {
   const loc  = document.getElementById('f-loc').value.trim() || 'Location';
   const url  = document.getElementById('f-url').value.trim() || 'https://g.page/r/example';
 
-  document.getElementById('st').textContent = '⏳ Generating...';
+  document.getElementById('st').textContent = 'Generating...';
   document.getElementById('p-name').textContent = name;
   document.getElementById('p-cat').textContent = cat;
   document.getElementById('p-loc').textContent = loc;
@@ -328,14 +328,14 @@ function gen() {
   });
 
   setTimeout(() => {
-    document.getElementById('st').textContent = '✅ Ready!';
+    document.getElementById('st').textContent = 'Ready to Download!';
     document.getElementById('dl-btn').disabled = false;
   }, 600);
 }
 
 function dl() {
   const btn = document.getElementById('dl-btn');
-  btn.disabled = true; btn.textContent = '⏳ Saving...';
+  btn.disabled = true; btn.textContent = 'Saving...';
   html2canvas(document.getElementById('poster'), {
     scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
   }).then(c => {
@@ -343,8 +343,8 @@ function dl() {
     a.download = 'poster-' + (document.getElementById('f-name').value.trim().replace(/\s+/g,'-').toLowerCase() || 'advizr') + '.png';
     a.href = c.toDataURL('image/png'); a.click();
     btn.disabled = false; btn.textContent = '⬇️ Download PNG';
-    document.getElementById('st').textContent = '🎉 Downloaded!';
-  }).catch(() => { btn.disabled = false; btn.textContent = '⬇️ Download PNG'; document.getElementById('st').textContent = '❌ Try again'; });
+    document.getElementById('st').textContent = 'Downloaded!';
+  }).catch(() => { btn.disabled = false; btn.textContent = '⬇️ Download PNG'; document.getElementById('st').textContent = 'Error — Try again'; });
 }
 
 window.onload = function() {
