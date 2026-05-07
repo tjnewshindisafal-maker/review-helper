@@ -369,7 +369,7 @@
   "lucknowbiryani": {
     "name": "Lucknow Biryani",
     "icon": "🍛",
-    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJ0doBUMzDwjsR",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJAdOKsu6VwjsRwwnY7CBCi2U",
     "location": "Lohagaon, Pune",
     "fullAddress": "HAVELI, SHOP NO-3, SR NO-296/3/2, Shiv Residency, Porwal Rd, Lohagaon, Pune, Maharashtra 411047",
     "category": "Biryani Restaurant",
@@ -407,6 +407,6 @@
       "food"
     ],
     "trialClient": true,
-    "placeId": "ChIJ0doBUMzDwjsR"
+    "placeId": "ChIJAdOKsu6VwjsRwwnY7CBCi2U"
   }
 }
