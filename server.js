@@ -5,6 +5,105 @@ const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 
+
+// ============ GOOGLE PLACES CACHE SYSTEM ============
+const PLACES_CACHE_FILE = path.join(__dirname, 'places_cache.json');
+
+function getPlacesCache() {
+  try { 
+    if (fs.existsSync(PLACES_CACHE_FILE)) 
+      return JSON.parse(fs.readFileSync(PLACES_CACHE_FILE, 'utf8')); 
+  } catch(e) {}
+  return {};
+}
+
+function savePlacesCache(data) { 
+  fs.writeFileSync(PLACES_CACHE_FILE, JSON.stringify(data, null, 2)); 
+}
+
+async function fetchGooglePlaceData(placeId, apiKey) {
+  const fields = 'name,rating,user_ratings_total,photos,opening_hours,formatted_address,formatted_phone_number,reviews';
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${apiKey}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.status !== 'OK') throw new Error('Places API: ' + data.status);
+  return data.result;
+}
+
+async function fetchPlacePhoto(photoRef, apiKey, maxWidth = 800) {
+  const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photo_reference=${photoRef}&key=${apiKey}`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const buffer = await res.buffer();
+  return buffer.toString('base64');
+}
+
+async function refreshAllPlacesData() {
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  if (!apiKey) { console.log('No GOOGLE_PLACES_API_KEY set — skipping Places refresh'); return; }
+  
+  const businesses = getBusinesses();
+  const cache = getPlacesCache();
+  let updated = 0;
+
+  for (const [bizId, biz] of Object.entries(businesses)) {
+    if (!biz.placeId) continue;
+    try {
+      console.log(`Fetching Google data for: ${biz.name}`);
+      const place = await fetchGooglePlaceData(biz.placeId, apiKey);
+      
+      // Fetch up to 5 photos as base64
+      const photos = [];
+      if (place.photos && place.photos.length > 0) {
+        for (const photo of place.photos.slice(0, 5)) {
+          try {
+            const b64 = await fetchPlacePhoto(photo.photo_reference, apiKey);
+            if (b64) photos.push({ 
+              data: b64, 
+              attribution: photo.html_attributions?.[0] || '' 
+            });
+          } catch(e) { console.log('Photo fetch error:', e.message); }
+        }
+      }
+
+      // Extract reviews
+      const reviews = (place.reviews || []).slice(0, 5).map(r => ({
+        name: r.author_name,
+        rating: r.rating,
+        text: r.text,
+        time: r.relative_time_description
+      }));
+
+      cache[bizId] = {
+        rating: place.rating || 5.0,
+        reviewCount: place.user_ratings_total || 0,
+        photos,
+        reviews,
+        hours: place.opening_hours?.weekday_text || [],
+        address: place.formatted_address || biz.fullAddress || '',
+        phone: place.formatted_phone_number || biz.phone || '',
+        fetchedAt: new Date().toISOString()
+      };
+      updated++;
+      
+      // Small delay to avoid rate limiting
+      await new Promise(r => setTimeout(r, 500));
+    } catch(e) { 
+      console.log(`Error fetching ${biz.name}:`, e.message); 
+    }
+  }
+  
+  savePlacesCache(cache);
+  console.log(`Places cache updated: ${updated} businesses`);
+}
+
+// Run once on startup (after 10 sec delay)
+setTimeout(refreshAllPlacesData, 10000);
+
+// Run every 24 hours at midnight
+setInterval(refreshAllPlacesData, 24 * 60 * 60 * 1000);
+// ============ END GOOGLE PLACES CACHE ============
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -157,8 +256,25 @@ app.get('/site/:id', (req, res) => {
 });
 
 
+
+// Get cached Google Places data for a business
+app.get('/places-data/:id', (req, res) => {
+  const cache = getPlacesCache();
+  const data = cache[req.params.id];
+  if (!data) return res.json({ cached: false });
+  res.json({ cached: true, ...data });
+});
+
+// Manual refresh trigger (admin only)
+app.post('/refresh-places', async (req, res) => {
+  if (req.body.pass !== (process.env.ADMIN_PASS || 'admin123')) 
+    return res.status(401).json({ error: 'Unauthorized' });
+  refreshAllPlacesData();
+  res.json({ ok: true, message: 'Refresh started in background' });
+});
+
 app.post('/add-business', (req, res) => {
-  const { id, name, icon, googleLink, location, services, keywords, pass } = req.body;
+  const { id, name, icon, googleLink, location, placeId, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
   if(!id || !name || !googleLink) return res.status(400).json({error:'Missing fields'});
   try {
@@ -167,6 +283,7 @@ app.post('/add-business', (req, res) => {
     businesses[id] = {
       name, icon: icon||'star', googleLink,
       location: location||'',
+      placeId: placeId||'',
       type: 'other', showDoctor: false, showLocation: false,
       services: services||['General Service'],
       chips: ['Professional','Fast service','Affordable','Trustworthy','Good communication','Would recommend'],

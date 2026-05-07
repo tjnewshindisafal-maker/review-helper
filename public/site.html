@@ -175,6 +175,38 @@ footer{background:var(--dark);padding:32px 20px}
 
 /* HIDDEN */
 .hidden{display:none}
+
+/* PHOTOS */
+.photos-section{background:var(--white)}
+.photos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.photo-item{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--light);position:relative}
+.photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+.photo-item:hover img{transform:scale(1.05)}
+.photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--border)}
+
+/* GOOGLE RATING LIVE */
+.live-rating{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--light);border-radius:16px;border:1px solid var(--border);margin-bottom:28px}
+.live-rating-num{font-family:'Fraunces',serif;font-size:48px;font-weight:900;color:var(--primary);line-height:1}
+.live-rating-right{}
+.live-rating-stars{color:#FBBC04;font-size:20px;letter-spacing:2px}
+.live-rating-count{font-size:13px;color:var(--gray);font-weight:600;margin-top:2px}
+.live-badge{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--gray);margin-top:4px}
+
+/* REVIEWS GRID */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.review-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px}
+.review-card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rev-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.rev-name{font-size:13px;font-weight:700;color:var(--primary)}
+.rev-time{font-size:11px;color:var(--gray)}
+.rev-stars{color:#FBBC04;font-size:12px;margin-bottom:6px}
+.rev-text{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* HOURS */
+.hours-list{display:flex;flex-direction:column;gap:6px}
+.hour-row{display:flex;justify-content:space-between;padding:8px 14px;background:var(--light);border-radius:8px;font-size:13px}
+.hour-day{color:var(--dark);font-weight:600}
+.hour-time{color:var(--gray)}
 </style>
 </head>
 <body>
@@ -263,6 +295,48 @@ footer{background:var(--dark);padding:32px 20px}
     </div>
   </section>
 
+
+  <!-- PHOTOS -->
+  <section class="photos-section" id="photos" style="padding:70px 20px;display:none">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">Gallery</div>
+        <h2 class="section-title">Photos</h2>
+        <p class="section-sub">See our work and space.</p>
+      </div>
+      <div class="photos-grid" id="photos-grid"></div>
+    </div>
+  </section>
+
+  <!-- GOOGLE REVIEWS -->
+  <section id="google-reviews" style="padding:70px 20px;display:none">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">Google Reviews</div>
+        <h2 class="section-title">What Customers Say</h2>
+      </div>
+      <div class="live-rating" id="live-rating" style="display:none">
+        <div class="live-rating-num" id="live-rating-num">5.0</div>
+        <div class="live-rating-right">
+          <div class="live-rating-stars">★★★★★</div>
+          <div class="live-rating-count" id="live-rating-count">Google Reviews</div>
+          <div class="live-badge">🔴 Live from Google</div>
+        </div>
+      </div>
+      <div class="reviews-grid" id="google-reviews-grid"></div>
+    </div>
+  </section>
+
+  <!-- HOURS -->
+  <section id="hours-section" style="padding:40px 20px;background:var(--light);display:none">
+    <div class="section-inner">
+      <div class="section-head" style="margin-bottom:24px">
+        <div class="section-tag">Timing</div>
+        <h2 class="section-title">Working Hours</h2>
+      </div>
+      <div class="hours-list" id="hours-list" style="max-width:500px"></div>
+    </div>
+  </section>
   <!-- REVIEW CTA -->
   <div class="review-cta-section">
     <div class="review-cta-inner">
@@ -454,6 +528,72 @@ async function loadSite(){
 
     // Review CTA
     document.getElementById('review-btn').href = '/?b='+bizId;
+
+    // Load Google Places cache data
+    try {
+      const pRes = await fetch('/places-data/'+bizId);
+      const pData = await pRes.json();
+
+      if (pData.cached) {
+        // Update hero rating
+        document.querySelector('.rating-big').textContent = pData.rating.toFixed(1);
+        document.querySelector('.hero-badge').textContent = '⭐ '+pData.rating.toFixed(1)+' on Google ('+pData.reviewCount+' reviews)';
+
+        // Live rating bar
+        if (pData.rating && pData.reviewCount) {
+          document.getElementById('live-rating').style.display = 'flex';
+          document.getElementById('live-rating-num').textContent = pData.rating.toFixed(1);
+          document.getElementById('live-rating-count').textContent = pData.reviewCount + ' Google Reviews';
+        }
+
+        // Photos
+        if (pData.photos && pData.photos.length > 0) {
+          document.getElementById('photos').style.display = 'block';
+          const pgrid = document.getElementById('photos-grid');
+          pData.photos.forEach(photo => {
+            const div = document.createElement('div');
+            div.className = 'photo-item';
+            const img = document.createElement('img');
+            img.src = 'data:image/jpeg;base64,' + photo.data;
+            img.loading = 'lazy';
+            div.appendChild(img);
+            pgrid.appendChild(div);
+          });
+        }
+
+        // Google Reviews
+        if (pData.reviews && pData.reviews.length > 0) {
+          document.getElementById('google-reviews').style.display = 'block';
+          const rg = document.getElementById('google-reviews-grid');
+          pData.reviews.forEach(r => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            const stars = '★'.repeat(r.rating) + '☆'.repeat(5-r.rating);
+            card.innerHTML = '<div class="review-card-top"><div class="rev-avatar" style="background:'+avatarColor(r.name)+'">'+initials(r.name)+'</div><div><div class="rev-name">'+r.name+'</div><div class="rev-time">'+r.time+'</div></div></div><div class="rev-stars">'+stars+'</div><div class="rev-text">'+r.text+'</div>';
+            rg.appendChild(card);
+          });
+        }
+
+        // Hours
+        if (pData.hours && pData.hours.length > 0) {
+          document.getElementById('hours-section').style.display = 'block';
+          const hl = document.getElementById('hours-list');
+          pData.hours.forEach(h => {
+            const parts = h.split(': ');
+            const row = document.createElement('div');
+            row.className = 'hour-row';
+            row.innerHTML = '<span class="hour-day">'+(parts[0]||h)+'</span><span class="hour-time">'+(parts[1]||'')+'</span>';
+            hl.appendChild(row);
+          });
+        }
+
+        // Update phone/address from Google if not in JSON
+        if (pData.phone && !d.phone) {
+          document.getElementById('nav-call').href = 'tel:'+pData.phone.replace(/\s/g,'');
+          document.getElementById('hero-call').href = 'tel:'+pData.phone.replace(/\s/g,'');
+        }
+      }
+    } catch(e) { console.log('Places cache not available'); }
 
     // Contact info
     const ci=document.getElementById('contact-info');

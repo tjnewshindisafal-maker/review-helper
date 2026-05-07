@@ -123,6 +123,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     <div class="fg"><label class="fl">Business Name</label><input class="fi" id="nName" placeholder="City Dental Clinic"/></div>
     <div class="fg"><label class="fl">Google Review URL</label><input class="fi" id="nLink" placeholder="https://g.page/r/xxx/review"/></div>
     <div class="fg"><label class="fl">Location</label><input class="fi" id="nLoc" placeholder="e.g. Pune, Maharashtra"/></div>
+    <div class="fg"><label class="fl">Google Place ID <span style="color:#888;font-size:11px">(for live photos & reviews)</span></label><input class="fi" id="nPlaceId" placeholder="ChIJ... (from Google Maps)"/></div>
     <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="nSvc" placeholder="Root Canal, Cleaning"/></div>
     <div class="fg"><label class="fl">Keywords (comma separated)</label><input class="fi" id="nKw" placeholder="dental, dentist"/></div>
     <div class="mbtns">
@@ -224,6 +225,16 @@ async function delBiz(id){
   }catch(e){alert('Error: '+e.message);}
 }
 
+async function refreshPlaces(){
+  const pass = localStorage.getItem('adminPass') || prompt('Admin password:');
+  if(!pass) return;
+  try{
+    const r = await fetch('/refresh-places',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass})});
+    const d = await r.json();
+    if(d.ok) alert('✅ Google data refresh started! Check back in 2-3 minutes.');
+    else alert('Error: '+d.error);
+  }catch(e){alert('Error: '+e.message);}
+}
 async function saveClient(){
   var id=document.getElementById('nId').value.trim().toLowerCase().replace(/\s+/g,'');
   var name=document.getElementById('nName').value.trim();
@@ -234,7 +245,7 @@ async function saveClient(){
   var kws=document.getElementById('nKw').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
   if(!id||!name||!link){alert('Fill all required fields!');return;}
   try{
-    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,location:loc,services:svcs,keywords:kws,pass:pass})});
+    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,location:loc,placeId:document.getElementById('nPlaceId').value.trim(),services:svcs,keywords:kws,pass:pass})});
     var d=await r.json();
     if(d.error) throw new Error(d.error);
     alert('Client added! URL: '+BU+id);
