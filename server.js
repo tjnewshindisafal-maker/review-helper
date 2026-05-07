@@ -273,6 +273,43 @@ app.post('/refresh-places', async (req, res) => {
   res.json({ ok: true, message: 'Refresh started in background' });
 });
 
+
+// Place ID Finder tool
+app.get('/place-finder', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'place-finder.html'));
+});
+
+// Find Place ID by text search
+app.get('/find-place', async (req, res) => {
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
+  const q = req.query.q;
+  if (!q) return res.status(400).json({ error: 'Query required' });
+  try {
+    const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(q)}&inputtype=textquery&fields=place_id,name,formatted_address&key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!data.candidates || !data.candidates.length) 
+      return res.status(404).json({ error: 'Business not found on Google Maps' });
+    const place = data.candidates[0];
+    res.json({ placeId: place.place_id, name: place.name, address: place.formatted_address });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+// Bulk update place IDs
+app.post('/update-place-ids', (req, res) => {
+  const { updates, pass } = req.body;
+  if (pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({ error: 'Unauthorized' });
+  try {
+    const businesses = getBusinesses();
+    Object.entries(updates).forEach(([bizId, placeId]) => {
+      if (businesses[bizId]) businesses[bizId].placeId = placeId;
+    });
+    fs.writeFileSync(path.join(__dirname, 'businesses.json'), JSON.stringify(businesses, null, 2));
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, placeId, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});

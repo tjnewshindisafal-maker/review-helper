@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place ID Finder — Advizr Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#0f172a;color:#fff;min-height:100vh;padding:24px}
+h1{font-size:20px;font-weight:800;margin-bottom:4px}
+.sub{font-size:13px;color:#64748b;margin-bottom:24px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:20px;margin-bottom:16px;max-width:700px}
+label{font-size:11px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:6px}
+input{width:100%;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;font-family:'Nunito',sans-serif;font-size:13px;padding:10px 12px;outline:none;margin-bottom:12px}
+input:focus{border-color:#4285F4}
+button{padding:10px 20px;background:#4285F4;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;border:none;border-radius:8px;cursor:pointer;transition:background 0.2s}
+button:hover{background:#1a73e8}
+.result{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:14px;margin-top:14px;display:none}
+.place-id{font-size:14px;font-weight:700;color:#34A853;word-break:break-all;margin-bottom:8px}
+.place-name{font-size:13px;color:#94a3b8;margin-bottom:4px}
+.copy-btn{padding:6px 14px;background:#34A853;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;margin-top:8px}
+.error{color:#EA4335;font-size:13px;margin-top:10px;display:none}
+.table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.table th{text-align:left;padding:8px 12px;background:#334155;color:#94a3b8;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.table td{padding:10px 12px;border-bottom:1px solid #1e293b;color:#e2e8f0}
+.table tr:hover td{background:#1e293b}
+.add-btn{padding:5px 12px;background:#4285F4;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer}
+.saved{color:#34A853;font-size:11px;font-weight:700;display:none}
+</style>
+</head>
+<body>
+
+<h1>🔍 Place ID Finder</h1>
+<p class="sub">Advizr Media — Har client ka Google Place ID dhundo</p>
+
+<div class="card">
+  <label>Business Name Search karo</label>
+  <input type="text" id="search-input" placeholder="e.g. ReShine Studio Kharadi Pune">
+  <div style="display:flex;gap:8px;align-items:center">
+    <button onclick="searchPlace()">Search Google Places</button>
+    <span id="loading" style="font-size:12px;color:#64748b;display:none">Searching...</span>
+  </div>
+  <div class="error" id="error-msg"></div>
+  <div class="result" id="result-box">
+    <div class="place-name" id="place-name"></div>
+    <div style="font-size:11px;color:#64748b;margin-bottom:4px">Place ID:</div>
+    <div class="place-id" id="place-id"></div>
+    <div style="font-size:11px;color:#64748b;margin-top:6px" id="place-addr"></div>
+    <button class="copy-btn" onclick="copyId()">📋 Copy Place ID</button>
+    <span class="saved" id="copied-msg">✅ Copied!</span>
+  </div>
+</div>
+
+<div class="card">
+  <label>Sab Clients — Place ID Add Karo</label>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Business</th>
+        <th>Place ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="clients-table"></tbody>
+  </table>
+  <div style="margin-top:14px">
+    <button onclick="saveAll()" style="background:#34A853">💾 Save All to Server</button>
+    <span id="save-msg" style="font-size:12px;color:#34A853;margin-left:10px;display:none">✅ Saved!</span>
+  </div>
+</div>
+
+<script>
+const placeIds = {};
+
+async function searchPlace() {
+  const q = document.getElementById('search-input').value.trim();
+  if(!q) return;
+  document.getElementById('loading').style.display = 'inline';
+  document.getElementById('error-msg').style.display = 'none';
+  document.getElementById('result-box').style.display = 'none';
+  
+  try {
+    const res = await fetch('/find-place?q=' + encodeURIComponent(q));
+    const data = await res.json();
+    if(data.error) throw new Error(data.error);
+    
+    document.getElementById('place-name').textContent = data.name;
+    document.getElementById('place-id').textContent = data.placeId;
+    document.getElementById('place-addr').textContent = data.address || '';
+    document.getElementById('result-box').style.display = 'block';
+  } catch(e) {
+    document.getElementById('error-msg').textContent = '❌ ' + e.message;
+    document.getElementById('error-msg').style.display = 'block';
+  }
+  document.getElementById('loading').style.display = 'none';
+}
+
+document.getElementById('search-input').addEventListener('keydown', e => { if(e.key === 'Enter') searchPlace(); });
+
+function copyId() {
+  const id = document.getElementById('place-id').textContent;
+  navigator.clipboard.writeText(id);
+  document.getElementById('copied-msg').style.display = 'inline';
+  setTimeout(() => document.getElementById('copied-msg').style.display = 'none', 2000);
+}
+
+async function loadClients() {
+  const pass = localStorage.getItem('adminPass') || 'admin123';
+  const res = await fetch('/analytics-all?pass=' + pass);
+  const clients = await res.json();
+  const tbody = document.getElementById('clients-table');
+  tbody.innerHTML = '';
+  clients.forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${c.icon||'🏪'} ${c.name}</td>
+      <td><input type="text" placeholder="ChIJ..." id="pid-${c.id}" style="margin:0;padding:6px 10px;font-size:12px;width:220px" value="${c.placeId||''}"></td>
+      <td><button class="add-btn" onclick="searchAndFill('${c.id}','${c.name}')">Auto Search</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function searchAndFill(bizId, bizName) {
+  const input = document.getElementById('pid-' + bizId);
+  input.value = 'Searching...';
+  try {
+    const res = await fetch('/find-place?q=' + encodeURIComponent(bizName + ' Pune'));
+    const data = await res.json();
+    if(data.placeId) input.value = data.placeId;
+    else input.value = '';
+  } catch(e) { input.value = ''; }
+}
+
+async function saveAll() {
+  const pass = localStorage.getItem('adminPass') || prompt('Admin password:');
+  const rows = document.querySelectorAll('[id^="pid-"]');
+  const updates = {};
+  rows.forEach(input => {
+    const bizId = input.id.replace('pid-', '');
+    const placeId = input.value.trim();
+    if(placeId && !placeId.includes('Search')) updates[bizId] = placeId;
+  });
+  
+  const res = await fetch('/update-place-ids', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ updates, pass })
+  });
+  const data = await res.json();
+  if(data.ok) {
+    document.getElementById('save-msg').style.display = 'inline';
+    setTimeout(() => document.getElementById('save-msg').style.display = 'none', 3000);
+  }
+}
+
+loadClients();
+</script>
+</body>
+</html>
