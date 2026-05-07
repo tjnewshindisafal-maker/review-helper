@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0d1b5e;
+  --accent:#4285F4;
+  --green:#34A853;
+  --red:#EA4335;
+  --yellow:#FBBC04;
+  --dark:#111827;
+  --gray:#6b7280;
+  --light:#f8faff;
+  --white:#ffffff;
+  --border:#e5e7eb;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:var(--white);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;gap:12px;transition:opacity 0.4s}
+.loader.hide{opacity:0;pointer-events:none}
+.spin{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-txt{font-size:13px;color:var(--gray);font-weight:600}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 20px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.nav-logo{font-size:18px;font-weight:800;color:var(--primary);display:flex;align-items:center;gap:8px}
+.nav-logo-icon{font-size:22px}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;font-weight:600;color:var(--gray);transition:color 0.2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.btn-call{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--primary);color:#fff;border-radius:8px;font-size:13px;font-weight:700;transition:background 0.2s}
+.btn-call:hover{background:#1e3a8a}
+.btn-wa{display:flex;align-items:center;gap:6px;padding:8px 16px;background:#25D366;color:#fff;border-radius:8px;font-size:13px;font-weight:700;transition:background 0.2s}
+.btn-wa:hover{background:#1dbd57}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--primary) 0%,#1e3a8a 60%,#1e40af 100%);padding:70px 20px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(66,133,244,0.15) 0%,transparent 60%)}
+.hero::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC04,#34A853)}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:20px;font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;margin-bottom:20px;letter-spacing:0.5px;text-transform:uppercase}
+.hero-title{font-family:'Fraunces',serif;font-size:52px;font-weight:900;color:#fff;line-height:1.05;margin-bottom:16px;letter-spacing:-1px}
+.hero-title span{color:#FBBC04}
+.hero-subtitle{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:28px;max-width:440px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hero-btn-primary{display:flex;align-items:center;gap:8px;padding:13px 24px;background:#fff;color:var(--primary);border-radius:10px;font-size:14px;font-weight:800;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+.hero-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.hero-btn-secondary{display:flex;align-items:center;gap:8px;padding:13px 24px;background:rgba(255,255,255,0.12);color:#fff;border-radius:10px;font-size:14px;font-weight:700;border:1px solid rgba(255,255,255,0.2);transition:background 0.2s}
+.hero-btn-secondary:hover{background:rgba(255,255,255,0.2)}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:28px;font-weight:900;color:#fff;display:block;line-height:1}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+.hero-stat-divider{width:1px;background:rgba(255,255,255,0.15);align-self:stretch}
+
+/* Rating card */
+.hero-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:28px;backdrop-filter:blur(10px)}
+.rating-big{font-family:'Fraunces',serif;font-size:64px;font-weight:900;color:#FBBC04;line-height:1}
+.rating-stars{font-size:22px;color:#FBBC04;letter-spacing:2px;margin:8px 0}
+.rating-label{font-size:13px;color:rgba(255,255,255,0.6);font-weight:600}
+.review-pills{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.review-pill{background:rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px}
+.review-pill-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.review-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.review-name{font-size:12px;font-weight:700;color:#fff}
+.review-stars{color:#FBBC04;font-size:10px;margin-left:auto}
+.review-text{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5}
+
+/* SECTION COMMON */
+section{padding:70px 20px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-block;background:var(--light);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:12px;border:1px solid rgba(66,133,244,0.15)}
+.section-title{font-family:'Fraunces',serif;font-size:38px;font-weight:900;color:var(--primary);margin-bottom:10px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;color:var(--gray);line-height:1.7;max-width:560px}
+.section-head{margin-bottom:48px}
+
+/* SERVICES */
+.services-bg{background:var(--light)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.service-card{background:#fff;border-radius:16px;padding:24px;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(13,27,94,0.08);border-color:var(--accent)}
+.service-icon{font-size:32px;margin-bottom:14px;display:block}
+.service-name{font-size:15px;font-weight:800;color:var(--primary);margin-bottom:6px}
+.service-desc{font-size:13px;color:var(--gray);line-height:1.6}
+.service-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--accent);margin-top:12px}
+
+/* WHY US */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.why-card{padding:24px;border-radius:16px;border:1px solid var(--border);background:#fff;display:flex;gap:16px;align-items:flex-start;transition:box-shadow 0.2s}
+.why-card:hover{box-shadow:0 8px 24px rgba(13,27,94,0.08)}
+.why-icon-wrap{width:48px;height:48px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.why-title{font-size:14px;font-weight:800;color:var(--primary);margin-bottom:4px}
+.why-desc{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* HOW IT WORKS */
+.steps-bg{background:var(--primary)}
+.steps-bg .section-tag{background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.15)}
+.steps-bg .section-title{color:#fff}
+.steps-bg .section-sub{color:rgba(255,255,255,0.6)}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;position:relative}
+.step-card{text-align:center;padding:28px 20px}
+.step-num{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#FBBC04;margin:0 auto 16px;font-family:'Fraunces',serif}
+.step-title{font-size:15px;font-weight:800;color:#fff;margin-bottom:8px}
+.step-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.contact-info{display:flex;flex-direction:column;gap:16px}
+.contact-card{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--light);border-radius:14px;border:1px solid var(--border)}
+.contact-icon{font-size:24px;width:44px;height:44px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);flex-shrink:0}
+.contact-label{font-size:11px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.contact-value{font-size:14px;font-weight:700;color:var(--primary)}
+.contact-form-card{background:var(--primary);border-radius:20px;padding:32px}
+.form-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:6px}
+.form-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px}
+.form-input{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:rgba(255,255,255,0.4)}
+.form-input::placeholder{color:rgba(255,255,255,0.3)}
+.form-submit{width:100%;padding:13px;background:#fff;color:var(--primary);font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;border:none;border-radius:8px;cursor:pointer;transition:transform 0.15s,opacity 0.15s;margin-top:6px}
+.form-submit:hover{transform:translateY(-1px);opacity:0.95}
+
+/* REVIEW CTA */
+.review-cta-section{background:linear-gradient(135deg,#4285F4,#1a73e8)}
+.review-cta-inner{max-width:700px;margin:0 auto;text-align:center;padding:70px 20px}
+.review-cta-title{font-family:'Fraunces',serif;font-size:40px;font-weight:900;color:#fff;margin-bottom:12px}
+.review-cta-sub{font-size:15px;color:rgba(255,255,255,0.7);margin-bottom:28px}
+.review-cta-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:#fff;color:#1a73e8;border-radius:12px;font-size:15px;font-weight:800;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.review-cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.2)}
+.g-b{color:#4285F4}.g-r{color:#EA4335}.g-y{color:#FBBC04}.g-g{color:#34A853}
+.g-word{font-weight:900;font-size:inherit}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:10px;max-width:760px}
+.faq-item{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.faq-q{width:100%;text-align:left;padding:18px 20px;background:#fff;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:var(--primary);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q::after{content:'＋';font-size:18px;color:var(--accent);transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 20px 18px;font-size:13px;color:var(--gray);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* FOOTER */
+footer{background:var(--dark);padding:32px 20px}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{font-size:14px;font-weight:800;color:#fff}
+.footer-powered{font-size:12px;color:#6b7280}
+.footer-powered span{color:#4285F4;font-weight:700}
+
+/* FLOAT WA */
+.float-wa{position:fixed;bottom:24px;right:24px;z-index:50;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform 0.2s}
+.float-wa:hover{transform:scale(1.1)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .hero-title{font-size:36px}
+  .contact-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .section-title{font-size:28px}
+}
+
+/* HIDDEN */
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="spin"></div>
+  <div class="loader-txt">Loading...</div>
+</div>
+
+<div id="main" class="hidden">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="nav-logo-icon" id="nav-icon">🏪</span>
+        <span id="nav-name">Business</span>
+      </div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#why">Why Us</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn-call" id="nav-call" href="#"><span>📞</span> <span id="nav-phone-txt">Call Now</span></a>
+        <a class="btn-wa" id="nav-wa" href="#"><span>💬</span> WhatsApp</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge" id="hero-badge">⭐ Rated 5.0 on Google</div>
+        <h1 class="hero-title" id="hero-title">Business <span>Name</span></h1>
+        <p class="hero-subtitle" id="hero-sub">Professional services in your area.</p>
+        <div class="hero-btns">
+          <a class="hero-btn-primary" id="hero-call" href="#"><span>📞</span> Call Now</a>
+          <a class="hero-btn-secondary" id="hero-wa" href="#"><span>💬</span> WhatsApp Us</a>
+        </div>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+      <div class="hero-card">
+        <div class="rating-big">5.0</div>
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-label">Google Rating</div>
+        <div class="review-pills" id="review-pills"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-bg" id="services">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">Our Services</div>
+        <h2 class="section-title">What We Offer</h2>
+        <p class="section-sub" id="services-sub">Professional services with quality guaranteed.</p>
+      </div>
+      <div class="services-grid" id="services-grid"></div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">Why Choose Us</div>
+        <h2 class="section-title">Why Customers Trust Us</h2>
+        <p class="section-sub">We deliver quality, reliability and value — every time.</p>
+      </div>
+      <div class="why-grid" id="why-grid"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps-bg">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title">Get Started in 4 Simple Steps</h2>
+        <p class="section-sub">Fast, easy and transparent process from start to finish.</p>
+      </div>
+      <div class="steps-grid" id="steps-grid"></div>
+    </div>
+  </section>
+
+  <!-- REVIEW CTA -->
+  <div class="review-cta-section">
+    <div class="review-cta-inner">
+      <div class="review-cta-title">Happy with our service?</div>
+      <div class="review-cta-sub">Share your experience — it helps others find us and takes only 60 seconds!</div>
+      <a class="review-cta-btn" id="review-btn" href="#">
+        ⭐ Review Us on <span class="g-word">&nbsp;<span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">Contact Us</div>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">We're here to help. Reach out anytime.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info" id="contact-info"></div>
+        <div class="contact-form-card">
+          <div class="form-title">Book a Free Consultation</div>
+          <div class="form-sub">Fill in your details and we'll get back to you shortly.</div>
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <input class="form-input" type="text" placeholder="How can we help you?">
+          </div>
+          <button class="form-submit" id="form-submit">Send WhatsApp Message →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="background:var(--light);padding:70px 20px">
+    <div class="section-inner">
+      <div class="section-head">
+        <div class="section-tag">FAQ</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list" id="faq-list"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand" id="footer-name">Business Name</div>
+        <div style="font-size:12px;color:#6b7280;margin-top:4px" id="footer-loc"></div>
+      </div>
+      <div class="footer-powered">Powered by <span>Advizr Media</span></div>
+    </div>
+  </footer>
+
+  <a class="float-wa" id="float-wa" href="#" title="WhatsApp">💬</a>
+
+</div>
+
+<script>
+const bizId = window.location.pathname.replace('/site/','').replace('/','').split('?')[0];
+
+const DEFAULTS = {
+  icon:'🏪', name:'Business', category:'Professional Services',
+  location:'', phone:'', whatsapp:'', about:'',
+  services:['Consultation','Service 1','Service 2'],
+  googleLink:'#',
+  whyUs:[
+    {icon:'⭐',title:'Quality Service',desc:'We deliver the best quality in everything we do.'},
+    {icon:'⚡',title:'Fast & Reliable',desc:'Quick turnaround without compromising on quality.'},
+    {icon:'💰',title:'Affordable Pricing',desc:'Competitive pricing with complete transparency.'},
+    {icon:'✅',title:'Satisfaction Guaranteed',desc:'We stand behind our work 100%.'},
+  ],
+  steps:[
+    {num:'1',title:'Get in Touch',desc:'Call us or send a WhatsApp message to book your slot.'},
+    {num:'2',title:'Consultation',desc:'We understand your requirements and give you a quote.'},
+    {num:'3',title:'Service',desc:'Our experts deliver the service with precision.'},
+    {num:'4',title:'Done!',desc:'You get the results you wanted. Leave us a review!'},
+  ],
+  faqs:[
+    {q:'What are your working hours?',a:'We are open daily. Call us to confirm timings.'},
+    {q:'Do you offer free consultation?',a:'Yes, initial consultation is free of charge.'},
+    {q:'How can I book an appointment?',a:'Call us or WhatsApp us and we will schedule at your convenience.'},
+  ],
+  reviews:[
+    {name:'Rahul M.',text:'Excellent service! Very professional and reliable. Highly recommended!'},
+    {name:'Priya S.',text:'Amazing experience. Will definitely come back again.'},
+  ]
+};
+
+function initials(name){return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
+const colors=['#4285F4','#EA4335','#34A853','#FBBC04','#6d28d9','#0891b2'];
+function avatarColor(name){return colors[name.charCodeAt(0)%colors.length];}
+
+async function loadSite(){
+  try{
+    let b = null;
+    if(bizId){
+      try{
+        const res = await fetch('/business/'+bizId);
+        if(res.ok) b = await res.json();
+      }catch(e){}
+    }
+    if(!b) b = {};
+
+    const d = {...DEFAULTS,...b};
+
+    document.title = d.name + (d.location ? ' — '+d.location : '');
+
+    // NAV
+    document.getElementById('nav-icon').textContent = d.icon||'🏪';
+    document.getElementById('nav-name').textContent = d.name;
+    const phone = d.phone||'';
+    const wa = d.whatsapp||d.phone||'';
+    if(phone){
+      document.getElementById('nav-call').href='tel:+91'+phone.replace(/\D/g,'');
+      document.getElementById('nav-phone-txt').textContent=phone;
+    }
+    if(wa){
+      const waUrl='https://wa.me/91'+wa.replace(/\D/g,'')+'?text=Hi! I found you on Advizr Media. I need more information.';
+      document.getElementById('nav-wa').href=waUrl;
+      document.getElementById('float-wa').href=waUrl;
+      document.getElementById('hero-wa').href=waUrl;
+      document.getElementById('form-submit').onclick=function(){window.open(waUrl,'_blank');};
+    }
+    if(phone) document.getElementById('hero-call').href='tel:+91'+phone.replace(/\D/g,'');
+
+    // HERO
+    const cat = d.category||'';
+    const loc = d.location||'';
+    document.getElementById('hero-badge').textContent = '⭐ 5.0 on Google — '+d.name;
+    document.getElementById('hero-title').innerHTML = d.name.replace(/(\S+)\s*$/, '<span>$1</span>');
+    document.getElementById('hero-sub').textContent = (d.about||('Professional '+cat+' in '+(loc||'your area.')));
+
+    // Stats
+    const statsEl = document.getElementById('hero-stats');
+    const stats = d.stats||[{num:'5.0★',label:'Google Rating'},{num:'100+',label:'Happy Customers'},{num:'5+',label:'Yrs Experience'}];
+    stats.forEach((s,i)=>{
+      if(i>0){const div=document.createElement('div');div.className='hero-stat-divider';statsEl.appendChild(div);}
+      const el=document.createElement('div');el.className='hero-stat';
+      el.innerHTML='<span class="hero-stat-num">'+s.num+'</span><span class="hero-stat-label">'+s.label+'</span>';
+      statsEl.appendChild(el);
+    });
+
+    // Reviews
+    const pills=document.getElementById('review-pills');
+    const revs=d.reviews||DEFAULTS.reviews;
+    revs.slice(0,2).forEach(r=>{
+      const div=document.createElement('div');div.className='review-pill';
+      div.innerHTML='<div class="review-pill-top"><div class="review-avatar" style="background:'+avatarColor(r.name)+'">'+initials(r.name)+'</div><span class="review-name">'+r.name+'</span><span class="review-stars">★★★★★</span></div><div class="review-text">'+r.text+'</div>';
+      pills.appendChild(div);
+    });
+
+    // Services
+    const serviceIcons={'Consultation':'💬','Wash':'🚿','Coating':'✨','Repair':'🔧','Cleaning':'🧹','Checkup':'🩺','Haircut':'✂️','Color':'🎨','Facial':'💆','Bridal':'👰','Food':'🍽️','Delivery':'🛵','Training':'🏋️','Dental':'🦷','Default':'⚡'};
+    const servGrid=document.getElementById('services-grid');
+    (d.services||[]).forEach(s=>{
+      const icon=Object.keys(serviceIcons).find(k=>s.toLowerCase().includes(k.toLowerCase()))?serviceIcons[Object.keys(serviceIcons).find(k=>s.toLowerCase().includes(k.toLowerCase()))]:serviceIcons.Default;
+      const card=document.createElement('div');card.className='service-card';
+      card.innerHTML='<span class="service-icon">'+icon+'</span><div class="service-name">'+s+'</div><div class="service-desc">Professional '+s.toLowerCase()+' with quality guaranteed.</div><a class="service-link" href="#contact">Book Now →</a>';
+      servGrid.appendChild(card);
+    });
+    document.getElementById('services-sub').textContent='Everything you need — handled with expertise and care'+(loc?' in '+loc:'.')+'.';
+
+    // Why us
+    const whyGrid=document.getElementById('why-grid');
+    (d.whyUs||DEFAULTS.whyUs).forEach(w=>{
+      const card=document.createElement('div');card.className='why-card';
+      card.innerHTML='<div class="why-icon-wrap">'+w.icon+'</div><div><div class="why-title">'+w.title+'</div><div class="why-desc">'+w.desc+'</div></div>';
+      whyGrid.appendChild(card);
+    });
+
+    // Steps
+    const stepsGrid=document.getElementById('steps-grid');
+    (d.steps||DEFAULTS.steps).forEach(s=>{
+      const card=document.createElement('div');card.className='step-card';
+      card.innerHTML='<div class="step-num">'+s.num+'</div><div class="step-title">'+s.title+'</div><div class="step-desc">'+s.desc+'</div>';
+      stepsGrid.appendChild(card);
+    });
+
+    // Review CTA
+    document.getElementById('review-btn').href = '/?b='+bizId;
+
+    // Contact info
+    const ci=document.getElementById('contact-info');
+    const contactItems=[
+      phone?{icon:'📞',label:'Call Us',value:phone,href:'tel:+91'+phone.replace(/\D/g,'')}:null,
+      wa?{icon:'💬',label:'WhatsApp',value:'Chat with us',href:'https://wa.me/91'+wa.replace(/\D/g,'')}:null,
+      loc?{icon:'📍',label:'Location',value:d.fullAddress||loc,href:'https://maps.google.com/?q='+encodeURIComponent(d.fullAddress||loc)}:null,
+      {icon:'⭐',label:'Google Rating',value:'5.0 — Leave a Review',href:'/?b='+bizId},
+    ].filter(Boolean);
+    contactItems.forEach(item=>{
+      const div=document.createElement('a');div.className='contact-card';div.href=item.href;if(item.href.startsWith('http'))div.target='_blank';
+      div.innerHTML='<div class="contact-icon">'+item.icon+'</div><div><div class="contact-label">'+item.label+'</div><div class="contact-value">'+item.value+'</div></div>';
+      ci.appendChild(div);
+    });
+
+    // Footer
+    document.getElementById('footer-name').textContent=d.name;
+    document.getElementById('footer-loc').textContent=loc;
+
+    // FAQs
+    const faqList=document.getElementById('faq-list');
+    (d.faqs||DEFAULTS.faqs).forEach(f=>{
+      const item=document.createElement('div');item.className='faq-item';
+      item.innerHTML='<button class="faq-q">'+f.q+'</button><div class="faq-a">'+f.a+'</div>';
+      item.querySelector('.faq-q').onclick=function(){item.classList.toggle('open');};
+      faqList.appendChild(item);
+    });
+
+    document.getElementById('loader').classList.add('hide');
+    document.getElementById('main').classList.remove('hidden');
+
+  }catch(e){
+    document.getElementById('loader').classList.add('hide');
+    document.getElementById('main').classList.remove('hidden');
+  }
+}
+
+loadSite();
+</script>
+</body>
+</html>

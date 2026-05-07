@@ -151,6 +151,19 @@ app.get('/b/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'biz.html'));
 });
 
+// Full landing page — /site/reshine
+app.get('/site/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'site.html'));
+});
+
+// API — get single business data
+app.get('/business/:id', (req, res) => {
+  const businesses = getBusinesses();
+  const b = businesses[req.params.id];
+  if (!b) return res.status(404).json({ error: 'Not found' });
+  res.json({ ...b, id: req.params.id });
+});
+
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
