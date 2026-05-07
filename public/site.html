@@ -588,27 +588,55 @@ async function loadSite(){
           });
         }
 
-        // Update phone/address from Google if not in JSON
-        if (pData.phone && !d.phone) {
-          document.getElementById('nav-call').href = 'tel:'+pData.phone.replace(/\s/g,'');
-          document.getElementById('hero-call').href = 'tel:'+pData.phone.replace(/\s/g,'');
+        // Update contact with Google Places phone & address
+        const gPhone = pData.phone || phone || '';
+        const gAddress = pData.address || d.fullAddress || loc || '';
+        window._buildContact(gPhone, gPhone, gAddress);
+
+        // Update nav & hero call buttons
+        if (gPhone) {
+          const telHref = 'tel:'+gPhone.replace(/\s/g,'');
+          document.getElementById('nav-call').href = telHref;
+          document.getElementById('hero-call').href = telHref;
+          document.getElementById('nav-phone-txt').textContent = gPhone;
+          document.getElementById('float-wa').href = 'https://wa.me/91'+gPhone.replace(/\D/g,'')+'?text=Hi! I need more information.';
+          document.getElementById('hero-wa').href = 'https://wa.me/91'+gPhone.replace(/\D/g,'')+'?text=Hi! I need more information.';
         }
       }
     } catch(e) { console.log('Places cache not available'); }
 
-    // Contact info
-    const ci=document.getElementById('contact-info');
-    const contactItems=[
-      phone?{icon:'📞',label:'Call Us',value:phone,href:'tel:+91'+phone.replace(/\D/g,'')}:null,
-      wa?{icon:'💬',label:'WhatsApp',value:'Chat with us',href:'https://wa.me/91'+wa.replace(/\D/g,'')}:null,
-      loc?{icon:'📍',label:'Location',value:d.fullAddress||loc,href:'https://maps.google.com/?q='+encodeURIComponent(d.fullAddress||loc)}:null,
-      {icon:'⭐',label:'Google Rating',value:'5.0 — Leave a Review',href:'/?b='+bizId},
-    ].filter(Boolean);
-    contactItems.forEach(item=>{
-      const div=document.createElement('a');div.className='contact-card';div.href=item.href;if(item.href.startsWith('http'))div.target='_blank';
-      div.innerHTML='<div class="contact-icon">'+item.icon+'</div><div><div class="contact-label">'+item.label+'</div><div class="contact-value">'+item.value+'</div></div>';
-      ci.appendChild(div);
-    });
+    // Contact info — will be updated after Places data loads
+    window._buildContact = function(phoneNum, waNum, address) {
+      const ci = document.getElementById('contact-info');
+      ci.innerHTML = '';
+      const items = [
+        phoneNum ? {icon:'📞', label:'Call Us', value:phoneNum, href:'tel:'+phoneNum.replace(/\s/g,'')} : null,
+        waNum ? {icon:'💬', label:'WhatsApp', value:'Chat with us', href:'https://wa.me/91'+waNum.replace(/\D/g,'')+'?text=Hi! I found you online and need more information.'} : null,
+        address ? {icon:'📍', label:'Address', value:address, href:'https://maps.google.com/?q='+encodeURIComponent(address)} : null,
+        {icon:'⭐', label:'Google Rating', value:'5.0 — Leave a Review', href:'/?b='+bizId},
+      ].filter(Boolean);
+      items.forEach(item => {
+        const div = document.createElement('a');
+        div.className = 'contact-card';
+        div.href = item.href;
+        if(item.href.startsWith('http')) div.target = '_blank';
+        div.innerHTML = '<div class="contact-icon">'+item.icon+'</div><div><div class="contact-label">'+item.label+'</div><div class="contact-value">'+item.value+'</div></div>';
+        ci.appendChild(div);
+      });
+      // Update WhatsApp submit button
+      const waSubmit = document.getElementById('form-submit');
+      if(waNum || phoneNum) {
+        const waLink = 'https://wa.me/91'+(waNum||phoneNum).replace(/\D/g,'');
+        waSubmit.onclick = function(){
+          const name = document.querySelector('.form-input[placeholder="Enter your name"]').value || 'Customer';
+          const ph = document.querySelector('.form-input[placeholder="+91 XXXXX XXXXX"]').value || '';
+          const msg = document.querySelector('.form-input[placeholder="How can we help you?"]').value || '';
+          const text = encodeURIComponent('Hi! My name is '+name+(ph?' ('+ph+')':'')+'. '+msg);
+          window.open(waLink+'?text='+text, '_blank');
+        };
+      }
+    };
+    window._buildContact(phone, wa, d.fullAddress||loc);
 
     // Footer
     document.getElementById('footer-name').textContent=d.name;
