@@ -102,7 +102,69 @@ setTimeout(refreshAllPlacesData, 10000);
 setInterval(refreshAllPlacesData, 24 * 60 * 60 * 1000);
 // ============ END GOOGLE PLACES CACHE ============
 
+
+// ============ SECURITY LAYER ============
+const ALLOWED_ORIGINS = [
+  'https://reviews.advizrmedia.com',
+  'https://advizrmedia.com',
+  'http://localhost:3000'
+];
+
+// Rate limiter - prevent brute force
+const rateLimitMap = new Map();
+function rateLimit(ip, max = 30, windowMs = 60000) {
+  const now = Date.now();
+  const key = ip;
+  if (!rateLimitMap.has(key)) rateLimitMap.set(key, []);
+  const times = rateLimitMap.get(key).filter(t => now - t < windowMs);
+  if (times.length >= max) return false;
+  times.push(now);
+  rateLimitMap.set(key, times);
+  return true;
+}
+
+// Clean rate limit map every 5 min
+setInterval(() => rateLimitMap.clear(), 5 * 60 * 1000);
+// ============ END SECURITY ============
+
 const app = express();
+
+// Security headers
+app.use((req, res, next) => {
+  // Hide server info
+  res.removeHeader('X-Powered-By');
+  // Prevent clickjacking
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  // XSS protection
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  // Content type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Referrer policy
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
+// Rate limiting on sensitive endpoints
+app.use((req, res, next) => {
+  const ip = req.ip || req.connection.remoteAddress;
+  const sensitiveRoutes = ['/add-business', '/delete-business', '/update-business', '/refresh-places', '/update-place-ids', '/analytics-all'];
+  if (sensitiveRoutes.some(r => req.path.startsWith(r))) {
+    if (!rateLimit(ip, 20, 60000)) {
+      return res.status(429).json({ error: 'Too many requests. Please slow down.' });
+    }
+  }
+  next();
+});
+
+// Block suspicious requests
+app.use((req, res, next) => {
+  const suspicious = ['.env', '.git', 'wp-admin', 'phpmy', '.php', 'shell', 'eval(', '../'];
+  if (suspicious.some(s => req.path.toLowerCase().includes(s))) {
+    return res.status(404).send('Not found');
+  }
+  next();
+});
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -230,7 +292,7 @@ app.get('/analytics/:bizId', (req, res) => {
 });
 
 app.get('/analytics-all', (req, res) => {
-  if (req.query.pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({ error: 'Unauthorized' });
+  if (req.query.pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
   const businesses = getBusinesses();
   const analytics = getAnalytics();
   res.json(Object.keys(businesses).map(id => ({
@@ -265,7 +327,7 @@ app.get('/places-data/:id', (req, res) => {
 
 // Manual refresh trigger (admin only)
 app.post('/refresh-places', async (req, res) => {
-  if (req.body.pass !== (process.env.ADMIN_PASS || 'admin123')) 
+  if (req.body.pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) 
     return res.status(401).json({ error: 'Unauthorized' });
   refreshAllPlacesData();
   res.json({ ok: true, message: 'Refresh started in background' });
@@ -315,7 +377,7 @@ app.get('/find-place', async (req, res) => {
 // Bulk update place IDs
 app.post('/update-place-ids', (req, res) => {
   const { updates, pass } = req.body;
-  if (pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({ error: 'Unauthorized' });
+  if (pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
   try {
     const businesses = getBusinesses();
     Object.entries(updates).forEach(([bizId, placeId]) => {
@@ -330,7 +392,7 @@ app.post('/update-place-ids', (req, res) => {
 // Update existing business
 app.post('/update-business', (req, res) => {
   const { id, updates, pass } = req.body;
-  if (pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({ error: 'Unauthorized' });
+  if (pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
   try {
     const businesses = getBusinesses();
     if (!businesses[id]) return res.status(404).json({ error: 'Business not found' });
@@ -345,7 +407,7 @@ app.post('/update-business', (req, res) => {
 
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, placeId, services, keywords, pass } = req.body;
-  if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
+  if(pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({error:'Unauthorized'});
   if(!id || !name || !googleLink) return res.status(400).json({error:'Missing fields'});
   try {
     const businesses = getBusinesses();
@@ -367,7 +429,7 @@ app.post('/add-business', (req, res) => {
 
 app.post('/delete-business', (req, res) => {
   const { id, pass } = req.body;
-  if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});
+  if(pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({error:'Unauthorized'});
   try {
     const businesses = getBusinesses();
     if(!businesses[id]) return res.status(404).json({error:'Not found'});
