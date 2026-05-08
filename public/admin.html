@@ -8,6 +8,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:#F0F4FF;min-height:100vh}
+
+/* LOGIN */
 .lw{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
 .lc{background:white;border-radius:20px;padding:2rem;max-width:360px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,.1);text-align:center}
 .lt{font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
@@ -15,39 +17,85 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#F0F4FF;min-height:10
 .inp{width:100%;padding:12px 16px;border:2px solid #E8EAF0;border-radius:12px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;margin-bottom:12px}
 .lbtn{width:100%;padding:14px;background:#4285F4;color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer}
 .lerr{color:#D93025;font-size:13px;margin-top:8px;display:none}
+
+/* DASHBOARD */
 .dash{display:none}
-.topbar{background:white;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.topbar{background:white;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
 .logo{font-size:20px;font-weight:800;color:#1a1a2e}
 .logo span{color:#4285F4}
 .tbadge{background:#EEF2FF;color:#4285F4;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
 .tbtn{padding:8px 16px;border:1.5px solid #E8EAF0;border-radius:10px;background:white;color:#555;font-size:13px;font-weight:600;cursor:pointer}
-.main{padding:1.5rem;max-width:1100px;margin:0 auto}
+
+/* TABS */
+.tabs{background:white;border-bottom:2px solid #F0F0F5;display:flex;padding:0 1.5rem;gap:4px;position:sticky;top:60px;z-index:40}
+.tab{padding:12px 20px;font-size:13px;font-weight:700;color:#888;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.2s;white-space:nowrap}
+.tab.active{color:#4285F4;border-bottom-color:#4285F4}
+.tab:hover{color:#4285F4}
+
+/* TAB CONTENT */
+.tab-content{display:none;padding:1.5rem;max-width:1100px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* STATS */
 .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
 .sc{background:white;border-radius:16px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .slbl{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 .sval{font-size:32px;font-weight:800;margin-bottom:4px}
 .ssub{font-size:12px;color:#888}
-.sc.bl .sval{color:#4285F4}
-.sc.gr .sval{color:#34A853}
-.sc.rd .sval{color:#EA4335}
-.sc.or .sval{color:#FF6B35}
+.sc.bl .sval{color:#4285F4}.sc.gr .sval{color:#34A853}.sc.rd .sval{color:#EA4335}.sc.or .sval{color:#FF6B35}
+
+/* TABLE */
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .st{font-size:16px;font-weight:800;color:#1a1a2e}
 .addbtn{padding:10px 18px;background:#4285F4;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
-.tw{background:white;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:auto;margin-bottom:1.5rem}
+.tw{background:white;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:auto}
 table{width:100%;border-collapse:collapse;min-width:600px}
 th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;background:#F8F9FF;border-bottom:1px solid #F0F0F5}
 td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
-.bn{font-weight:700;color:#1a1a2e}
-.bt{font-size:12px;color:#888}
-.cnt{font-weight:700;color:#4285F4}
-.cntn{font-weight:700;color:#EA4335}
-.abtn{display:flex;gap:6px}
+.bn{font-weight:700;color:#1a1a2e}.bt{font-size:12px;color:#888}
+.cnt{font-weight:700;color:#4285F4}.cntn{font-weight:700;color:#EA4335}
+.abtn{display:flex;gap:6px;flex-wrap:wrap}
 .bqr{padding:6px 12px;background:#EEF2FF;color:#4285F4;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bol{padding:6px 12px;background:#E8F5E9;color:#2E7D32;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bdel{padding:6px 12px;background:#FEF2F2;color:#DC2626;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bposter{padding:6px 12px;background:#FFF3E0;color:#E65100;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bweb{padding:6px 12px;background:#E8F5E9;color:#1B5E20;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.bwa{padding:6px 12px;background:#E8F5FB;color:#075E54;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.ldg{text-align:center;padding:2rem;color:#888;font-size:14px}
+
+/* WHATSAPP SENDER TAB */
+.wa-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.wa-grid{grid-template-columns:1fr}}
+.card{background:white;border-radius:16px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1rem}
+.card-title{font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:4px}
+.card-sub{font-size:12px;color:#94a3b8;margin-bottom:16px}
+.flabel{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block}
+.finput{width:100%;padding:11px 14px;border:2px solid #E8EAF0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#1a1a2e;background:#f8f9ff;outline:none;margin-bottom:12px;transition:border-color 0.2s}
+.finput:focus{border-color:#4285F4;background:white}
+.fselect{width:100%;padding:11px 14px;border:2px solid #E8EAF0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#1a1a2e;background:#f8f9ff;outline:none;margin-bottom:12px;cursor:pointer}
+.ftextarea{width:100%;padding:11px 14px;border:2px solid #E8EAF0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#1a1a2e;background:#f8f9ff;outline:none;resize:vertical;min-height:120px;line-height:1.6;margin-bottom:12px}
+.ftextarea:focus{border-color:#4285F4;background:white}
+.send-wa-btn{width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,211,102,0.35)}
+.send-wa-btn:hover{background:#1dbd57}
+.msg-preview-box{background:#e8f5e9;border-radius:12px;padding:14px;border-left:4px solid #34A853;margin-bottom:12px}
+.msg-preview-label{font-size:10px;font-weight:700;color:#34A853;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.msg-preview-text{font-size:13px;color:#1a1a2e;line-height:1.6;white-space:pre-wrap}
+.wa-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem}
+.wa-stat{background:white;border-radius:12px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.wa-stat-num{font-size:22px;font-weight:900;color:#0d1b5e}
+.wa-stat-label{font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px}
+
+/* PLACE FINDER TAB */
+.place-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.place-grid{grid-template-columns:1fr}}
+.place-result{background:#e8f5e9;border-radius:12px;padding:14px;display:none;margin-top:12px}
+.place-id-text{font-size:14px;font-weight:700;color:#34A853;word-break:break-all;margin:6px 0}
+.copy-btn{padding:8px 16px;background:#34A853;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-top:6px}
+.search-btn{width:100%;padding:12px;background:#4285F4;color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.auto-btn{padding:5px 10px;background:#4285F4;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer}
+.save-all-btn{padding:12px 24px;background:#34A853;color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px}
+
+/* MODALS */
 .pov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;padding:1rem}
 .pmod{background:white;border-radius:20px;width:100%;max-width:900px;max-height:95vh;display:flex;flex-direction:column;overflow:hidden}
 .pmod-top{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid #f0f0f5}
@@ -60,8 +108,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 .fg{margin-bottom:14px}
 .fl{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px}
 .fi{width:100%;padding:10px 14px;border:2px solid #E8EAF0;border-radius:10px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none}
-.fr{display:flex;gap:10px}
-.fr .fg{flex:1}
+.fr{display:flex;gap:10px}.fr .fg{flex:1}
 .mbtns{display:flex;gap:10px;margin-top:16px}
 .bcan{flex:1;padding:12px;border:2px solid #E8EAF0;border-radius:10px;background:white;color:#555;font-size:14px;font-weight:600;cursor:pointer}
 .bsav{flex:2;padding:12px;background:#4285F4;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
@@ -69,13 +116,15 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 .qurl{font-size:11px;color:#4285F4;background:#EEF2FF;padding:6px 12px;border-radius:8px;word-break:break-all;margin:8px 0;display:block}
 .bprint{width:100%;padding:12px;background:#333;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px}
 .bcls{width:100%;padding:10px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer}
-.ldg{text-align:center;padding:2rem;color:#888;font-size:14px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;display:none;z-index:9999;white-space:nowrap}
 </style>
 </head>
 <body>
+
+<!-- LOGIN -->
 <div class="lw" id="loginWrap">
   <div class="lc">
-    <div style="font-size:40px;margin-bottom:12px">&#128272;</div>
+    <div style="font-size:40px;margin-bottom:12px">🔐</div>
     <div class="lt">Admin Dashboard</div>
     <div class="ls">Advizr Media ReviewHelper</div>
     <input type="password" class="inp" id="passInput" placeholder="Enter password"/>
@@ -83,19 +132,31 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     <div class="lerr" id="loginErr">Wrong password!</div>
   </div>
 </div>
+
+<!-- DASHBOARD -->
 <div class="dash" id="dashboard">
+
+  <!-- TOP BAR -->
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:10px">
       <div class="logo">Advizr<span>Media</span></div>
       <div class="tbadge">Admin Panel</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="tbtn" id="refreshBtn" style="color:#4285F4">Refresh</button>
-      <button onclick="refreshPlaces()" style="background:#4285F4;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px">🔄 Google Data</button>
+      <button class="tbtn" onclick="refreshPlaces()" style="color:#4285F4">🔄 Sync Google</button>
       <button class="tbtn" id="logoutBtn">Logout</button>
     </div>
   </div>
-  <div class="main">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('clients')">📊 Clients</div>
+    <div class="tab" onclick="switchTab('whatsapp')">💬 Send Reviews</div>
+    <div class="tab" onclick="switchTab('places')">🔍 Place IDs</div>
+  </div>
+
+  <!-- TAB 1: CLIENTS -->
+  <div class="tab-content active" id="tab-clients">
     <div class="sgrid">
       <div class="sc bl"><div class="slbl">Total Clients</div><div class="sval" id="s1">-</div><div class="ssub">Active businesses</div></div>
       <div class="sc gr"><div class="slbl">Total Scans</div><div class="sval" id="s2">-</div><div class="ssub">QR scans</div></div>
@@ -113,18 +174,124 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
       </table>
     </div>
   </div>
+
+  <!-- TAB 2: WHATSAPP SENDER -->
+  <div class="tab-content" id="tab-whatsapp">
+    <div class="wa-stats">
+      <div class="wa-stat"><div class="wa-stat-num" id="wa-sent-today">0</div><div class="wa-stat-label">Sent Today</div></div>
+      <div class="wa-stat"><div class="wa-stat-num" id="wa-sent-total">0</div><div class="wa-stat-label">Total Sent</div></div>
+      <div class="wa-stat"><div class="wa-stat-num" id="wa-biz-count">0</div><div class="wa-stat-label">Businesses</div></div>
+    </div>
+
+    <div class="wa-grid">
+      <!-- Single Send -->
+      <div>
+        <div class="card">
+          <div class="card-title">📱 Single Customer</div>
+          <div class="card-sub">Send review request to one customer</div>
+          <label class="flabel">Select Business</label>
+          <select class="fselect" id="wa-biz" onchange="updateWAPreview()">
+            <option value="">-- Select Business --</option>
+          </select>
+          <label class="flabel">Customer Name (optional)</label>
+          <input class="finput" type="text" id="wa-name" placeholder="e.g. Rahul" oninput="updateWAPreview()">
+          <label class="flabel">WhatsApp Number</label>
+          <input class="finput" type="tel" id="wa-phone" placeholder="9876543210">
+          <button class="send-wa-btn" onclick="sendSingle()">💬 Send on WhatsApp</button>
+        </div>
+
+        <!-- Message Preview -->
+        <div class="card">
+          <div class="card-title">👁️ Message Preview</div>
+          <div class="card-sub">Edit the message before sending</div>
+          <textarea class="ftextarea" id="wa-msg-edit" style="min-height:160px" oninput="customWAMsg=this.value"></textarea>
+          <button onclick="resetWAMsg()" style="padding:8px 16px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:8px;font-size:12px;font-weight:700;color:#4285F4;cursor:pointer;width:100%">↺ Reset to Default</button>
+        </div>
+      </div>
+
+      <!-- Bulk Send -->
+      <div>
+        <div class="card">
+          <div class="card-title">📋 Bulk Send</div>
+          <div class="card-sub">Send to multiple customers at once</div>
+          <label class="flabel">Select Business</label>
+          <select class="fselect" id="wa-biz-bulk">
+            <option value="">-- Select Business --</option>
+          </select>
+          <label class="flabel">Phone Numbers (one per line)</label>
+          <textarea class="ftextarea" id="wa-bulk-nums" placeholder="9876543210&#10;8765432109&#10;7654321098" style="min-height:120px"></textarea>
+          <button class="send-wa-btn" onclick="sendBulk()" style="background:#0d1b5e;box-shadow:none">📤 Send to All</button>
+        </div>
+
+        <!-- Quick templates -->
+        <div class="card">
+          <div class="card-title">⚡ Quick Templates</div>
+          <div class="card-sub">Click to use a template</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button onclick="setTemplate('after')" style="padding:10px 14px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:10px;font-size:12px;font-weight:700;color:#1a1a2e;cursor:pointer;text-align:left">
+              ✅ After Service Visit
+            </button>
+            <button onclick="setTemplate('followup')" style="padding:10px 14px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:10px;font-size:12px;font-weight:700;color:#1a1a2e;cursor:pointer;text-align:left">
+              🔁 Follow-up (2nd reminder)
+            </button>
+            <button onclick="setTemplate('special')" style="padding:10px 14px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:10px;font-size:12px;font-weight:700;color:#1a1a2e;cursor:pointer;text-align:left">
+              🎁 Special offer + review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: PLACE IDs -->
+  <div class="tab-content" id="tab-places">
+    <div class="place-grid">
+      <!-- Search -->
+      <div>
+        <div class="card">
+          <div class="card-title">🔍 Find Place ID</div>
+          <div class="card-sub">Search Google to get Place ID for any business</div>
+          <label class="flabel">Business Name</label>
+          <input class="finput" type="text" id="place-search" placeholder="e.g. Wings Salon Kharadi Pune" onkeydown="if(event.key==='Enter')searchPlace()">
+          <button class="search-btn" onclick="searchPlace()">Search Google Places</button>
+          <div class="place-result" id="place-result">
+            <div style="font-size:11px;font-weight:700;color:#34A853;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Found!</div>
+            <div style="font-size:13px;font-weight:700;color:#1a1a2e" id="place-found-name"></div>
+            <div style="font-size:11px;color:#888;margin:4px 0" id="place-found-addr"></div>
+            <div class="place-id-text" id="place-found-id"></div>
+            <button class="copy-btn" onclick="copyPlaceId()">📋 Copy Place ID</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- All clients -->
+      <div>
+        <div class="card">
+          <div class="card-title">📋 All Clients — Place IDs</div>
+          <div class="card-sub">Auto-search or manually enter Place IDs</div>
+          <div id="place-clients-list" style="display:flex;flex-direction:column;gap:8px"></div>
+          <button class="save-all-btn" onclick="saveAllPlaceIds()">💾 Save All Place IDs</button>
+          <span id="place-save-msg" style="font-size:12px;color:#34A853;margin-left:10px;display:none">✅ Saved!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<!-- ADD CLIENT MODAL -->
 <div class="ov" id="addModal">
   <div class="mod">
     <div class="mtitle">Add New Client</div>
     <div class="fr">
       <div class="fg"><label class="fl">Business ID</label><input class="fi" id="nId" placeholder="myclinic"/></div>
-      <div class="fg"><label class="fl">Icon</label><input class="fi" id="nIcon" placeholder="&#127973;"/></div>
+      <div class="fg"><label class="fl">Icon</label><input class="fi" id="nIcon" placeholder="🏪"/></div>
     </div>
     <div class="fg"><label class="fl">Business Name</label><input class="fi" id="nName" placeholder="City Dental Clinic"/></div>
     <div class="fg"><label class="fl">Google Review URL</label><input class="fi" id="nLink" placeholder="https://g.page/r/xxx/review"/></div>
+    <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="nPhone" placeholder="9876543210"/></div>
     <div class="fg"><label class="fl">Location</label><input class="fi" id="nLoc" placeholder="e.g. Pune, Maharashtra"/></div>
-    <div class="fg"><label class="fl">Google Place ID <span style="color:#888;font-size:11px">(for live photos & reviews)</span></label><input class="fi" id="nPlaceId" placeholder="ChIJ... (from Google Maps)"/></div>
+    <div class="fg"><label class="fl">Google Place ID</label><input class="fi" id="nPlaceId" placeholder="ChIJ..."/></div>
     <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="nSvc" placeholder="Root Canal, Cleaning"/></div>
     <div class="fg"><label class="fl">Keywords (comma separated)</label><input class="fi" id="nKw" placeholder="dental, dentist"/></div>
     <div class="mbtns">
@@ -133,6 +300,8 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
     </div>
   </div>
 </div>
+
+<!-- QR MODAL -->
 <div class="ov" id="qrModal">
   <div class="qmod">
     <div style="font-size:16px;font-weight:800;color:#1a1a2e;margin-bottom:8px" id="qrName"></div>
@@ -143,136 +312,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
   </div>
 </div>
 
-<script>
-var AP='sandeep9821',BU='https://reviews.advizrmedia.com/?b=',data=[],pass='';
-
-document.getElementById('loginBtn').onclick=function(){
-  var p=document.getElementById('passInput').value;
-  if(p===AP){pass=p;document.getElementById('loginWrap').style.display='none';document.getElementById('dashboard').style.display='block';load();}
-  else{document.getElementById('loginErr').style.display='block';}
-};
-document.getElementById('passInput').onkeydown=function(e){if(e.key==='Enter')document.getElementById('loginBtn').click();};
-document.getElementById('logoutBtn').onclick=function(){document.getElementById('loginWrap').style.display='flex';document.getElementById('dashboard').style.display='none';};
-document.getElementById('refreshBtn').onclick=load;
-document.getElementById('addBtn').onclick=function(){document.getElementById('addModal').style.display='flex';};
-document.getElementById('cancelBtn').onclick=function(){document.getElementById('addModal').style.display='none';};
-document.getElementById('saveBtn').onclick=saveClient;
-document.getElementById('printBtn').onclick=function(){var img=document.getElementById('qrImg');var w=window.open('');w.document.write('<img src="'+img.src+'" style="width:300px"/>');w.print();};
-document.getElementById('closeQr').onclick=function(){document.getElementById('qrModal').style.display='none';};
-
-async function load(){
-  try{
-    var r=await fetch('/analytics-all?pass='+pass);
-    data=await r.json();
-    document.getElementById('s1').textContent=data.length;
-    document.getElementById('s2').textContent=data.reduce(function(s,b){return s+(b.scans||0);},0);
-    document.getElementById('s3').textContent=data.reduce(function(s,b){return s+(b.generated||0);},0);
-    document.getElementById('s4').textContent=data.reduce(function(s,b){return s+(b.negative||0);},0);
-    renderTable();
-  }catch(e){console.error(e);}
-}
-
-function renderTable(){
-  var tb=document.getElementById('tbl');
-  if(!data.length){tb.innerHTML='<tr><td colspan="6" class="ldg">No clients</td></tr>';return;}
-  tb.innerHTML='';
-  data.forEach(function(b){
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+(b.icon||'')+'</span><div><div class="bn">'+b.name+'</div><div class="bt">'+b.id+'</div></div></div></td>'
-      +'<td><span class="cnt">'+(b.scans||0)+'</span></td>'
-      +'<td><span class="cnt">'+(b.generated||0)+'</span></td>'
-      +'<td><span class="cnt">'+(b.submitted||0)+'</span></td>'
-      +'<td><span class="cntn">'+(b.negative||0)+'</span></td>'
-      +'<td><div class="abtn">'
-      +'<button class="bqr">QR</button>'
-      +'<button class="bol">Open</button>'
-      +'<button class="bweb">🌐 Website</button>'
-      +'<button class="bposter">🖼️ Poster</button>'
-      +'<button class="bdel">Delete</button>'
-      +'</div></td>';
-    
-    var bizId=b.id;
-    var bizName=b.name;
-    var bizIcon=b.icon||'';
-    var bizUrl=BU+b.id;
-    
-    tr.querySelector('.bqr').onclick=function(){showQR(bizId,bizName,bizIcon);};
-    tr.querySelector('.bol').onclick=function(){window.open(bizUrl,'_blank');};
-    tr.querySelector('.bweb').onclick=function(){window.open('/site/'+bizId,'_blank');};
-    tr.querySelector('.bposter').onclick=function(){openPoster(b);};
-    tr.querySelector('.bdel').onclick=function(){delBiz(bizId);};
-    
-    tb.appendChild(tr);
-  });
-}
-
-function showQR(id,name,icon){
-  document.getElementById('qrName').textContent=icon+' '+name;
-  var url=BU+id;
-  document.getElementById('qrUrl').textContent=url;
-  var src = QR_CODES[id] || '';
-  document.getElementById('qrWrap').innerHTML='<img id="qrImg" src="'+src+'" width="200" height="200" style="border-radius:8px"/>';
-  document.getElementById('qrModal').style.display='flex';
-}
-
-async function delBiz(id){
-  if(!confirm('Delete '+id+'? This cannot be undone!')) return;
-  try{
-    var r=await fetch('/delete-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});
-    var d=await r.json();
-    if(d.error) throw new Error(d.error);
-    alert('Deleted successfully!');
-    load();
-  }catch(e){alert('Error: '+e.message);}
-}
-
-async function refreshPlaces(){
-  const p = pass || prompt('Admin password:');
-  if(!p) return;
-  try{
-    const r = await fetch('/refresh-places',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass:p})});
-    const d = await r.json();
-    if(d.ok) alert('✅ Google data refresh started! 2-3 minutes mein website pe live ho jaayega.');
-    else alert('Error: '+d.error);
-  }catch(e){alert('Error: '+e.message);}
-}
-async function saveClient(){
-  var id=document.getElementById('nId').value.trim().toLowerCase().replace(/\s+/g,'');
-  var name=document.getElementById('nName').value.trim();
-  var icon=document.getElementById('nIcon').value.trim();
-  var link=document.getElementById('nLink').value.trim();
-  var loc=document.getElementById('nLoc').value.trim();
-  var svcs=document.getElementById('nSvc').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
-  var kws=document.getElementById('nKw').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
-  if(!id||!name||!link){alert('Fill all required fields!');return;}
-  try{
-    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,name:name,icon:icon,googleLink:link,location:loc,placeId:document.getElementById('nPlaceId').value.trim(),services:svcs,keywords:kws,pass:pass})});
-    var d=await r.json();
-    if(d.error) throw new Error(d.error);
-    alert('Client added! URL: '+BU+id);
-    document.getElementById('addModal').style.display='none';
-    load();
-  }catch(e){alert('Error: '+e.message);}
-}
-
-function openPoster(b){
-  document.getElementById('posterModalTitle').textContent = '🖼️ Poster — ' + b.name;
-  var typeMap = {
-    'dental':'Dental Clinic','automotive':'Car Detailing Studio','electronics':'Electronics Shop',
-    'multi':'Multi Specialty Clinic','other':'Professional Services'
-  };
-  var cat = b.category || typeMap[b.type] || (b.services && b.services[0]) || 'Professional Services';
-  var params = new URLSearchParams({
-    name: b.name || '',
-    cat: cat,
-    loc: b.location || '',
-    url: b.googleLink || ''
-  });
-  document.getElementById('posterFrame').src = '/poster-generator.html?' + params.toString();
-  document.getElementById('posterModal').style.display = 'flex';
-}
-</script>
-<script src="/qr_data.js"></script>
+<!-- POSTER MODAL -->
 <div class="pov" id="posterModal">
   <div class="pmod">
     <div class="pmod-top">
@@ -282,5 +322,302 @@ function openPoster(b){
     <iframe id="posterFrame" src=""></iframe>
   </div>
 </div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var AP='sandeep9821', BU='https://reviews.advizrmedia.com/?b=', data=[], pass='';
+var customWAMsg = null;
+var sentToday = parseInt(localStorage.getItem('wa_sent_today')||'0');
+var sentTotal = parseInt(localStorage.getItem('wa_sent_total')||'0');
+var lastDate = localStorage.getItem('wa_last_date');
+var today = new Date().toDateString();
+if(lastDate !== today){ sentToday=0; localStorage.setItem('wa_last_date',today); }
+
+// LOGIN
+document.getElementById('loginBtn').onclick = function(){
+  var p = document.getElementById('passInput').value;
+  if(p===AP){ pass=p; document.getElementById('loginWrap').style.display='none'; document.getElementById('dashboard').style.display='block'; load(); loadWABusinesses(); loadPlaceClients(); updateWAStats(); }
+  else{ document.getElementById('loginErr').style.display='block'; }
+};
+document.getElementById('passInput').onkeydown = function(e){ if(e.key==='Enter') document.getElementById('loginBtn').click(); };
+document.getElementById('logoutBtn').onclick = function(){ document.getElementById('loginWrap').style.display='flex'; document.getElementById('dashboard').style.display='none'; };
+document.getElementById('addBtn').onclick = function(){ document.getElementById('addModal').style.display='flex'; };
+document.getElementById('cancelBtn').onclick = function(){ document.getElementById('addModal').style.display='none'; };
+document.getElementById('saveBtn').onclick = saveClient;
+document.getElementById('closeQr').onclick = function(){ document.getElementById('qrModal').style.display='none'; };
+document.getElementById('printBtn').onclick = function(){ var img=document.getElementById('qrImg'); var w=window.open(''); w.document.write('<img src="'+img.src+'" style="width:300px"/>'); w.print(); };
+
+// TABS
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// LOAD CLIENTS
+async function load(){
+  try{
+    var r = await fetch('/analytics-all?pass='+pass);
+    data = await r.json();
+    document.getElementById('s1').textContent = data.length;
+    document.getElementById('s2').textContent = data.reduce(function(s,b){ return s+(b.scans||0); },0);
+    document.getElementById('s3').textContent = data.reduce(function(s,b){ return s+(b.generated||0); },0);
+    document.getElementById('s4').textContent = data.reduce(function(s,b){ return s+(b.negative||0); },0);
+    renderTable();
+  }catch(e){ console.error(e); }
+}
+
+function renderTable(){
+  var tb = document.getElementById('tbl');
+  if(!data.length){ tb.innerHTML='<tr><td colspan="6" class="ldg">No clients</td></tr>'; return; }
+  tb.innerHTML = '';
+  data.forEach(function(b){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+(b.icon||'')+'</span><div><div class="bn">'+b.name+'</div><div class="bt">'+b.id+'</div></div></div></td>'
+      +'<td><span class="cnt">'+(b.scans||0)+'</span></td>'
+      +'<td><span class="cnt">'+(b.generated||0)+'</span></td>'
+      +'<td><span class="cnt">'+(b.submitted||0)+'</span></td>'
+      +'<td><span class="cntn">'+(b.negative||0)+'</span></td>'
+      +'<td><div class="abtn">'
+      +'<button class="bqr">QR</button>'
+      +'<button class="bol">Open</button>'
+      +'<button class="bweb">🌐 Site</button>'
+      +'<button class="bwa">💬 Send</button>'
+      +'<button class="bposter">🖼️ Poster</button>'
+      +'<button class="bdel">Delete</button>'
+      +'</div></td>';
+    var bizId=b.id, bizName=b.name, bizIcon=b.icon||'';
+    tr.querySelector('.bqr').onclick = function(){ showQR(bizId,bizName,bizIcon); };
+    tr.querySelector('.bol').onclick = function(){ window.open(BU+bizId,'_blank'); };
+    tr.querySelector('.bweb').onclick = function(){ window.open('/site/'+bizId,'_blank'); };
+    tr.querySelector('.bwa').onclick = function(){ switchTabDirect('whatsapp'); document.getElementById('wa-biz').value=bizId; updateWAPreview(); };
+    tr.querySelector('.bposter').onclick = function(){ openPoster(b); };
+    tr.querySelector('.bdel').onclick = function(){ delBiz(bizId); };
+    tb.appendChild(tr);
+  });
+}
+
+function switchTabDirect(name){
+  document.querySelectorAll('.tab').forEach(function(t,i){ t.classList.remove('active'); if(['clients','whatsapp','places'][i]===name) t.classList.add('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function showQR(id,name,icon){
+  document.getElementById('qrName').textContent = icon+' '+name;
+  var url = BU+id;
+  document.getElementById('qrUrl').textContent = url;
+  var src = QR_CODES[id]||'';
+  document.getElementById('qrWrap').innerHTML = '<img id="qrImg" src="'+src+'" width="200" height="200" style="border-radius:8px"/>';
+  document.getElementById('qrModal').style.display = 'flex';
+}
+
+async function delBiz(id){
+  if(!confirm('Delete '+id+'?')) return;
+  try{
+    var r = await fetch('/delete-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});
+    var d = await r.json();
+    if(d.error) throw new Error(d.error);
+    showToast('✅ Deleted!');
+    load();
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+async function refreshPlaces(){
+  try{
+    var r = await fetch('/refresh-places',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass:pass})});
+    var d = await r.json();
+    if(d.ok) showToast('✅ Google sync started! Check back in 3 min.');
+    else showToast('❌ Error: '+d.error);
+  }catch(e){ showToast('❌ Error: '+e.message); }
+}
+
+async function saveClient(){
+  var id=document.getElementById('nId').value.trim().toLowerCase().replace(/\s+/g,'');
+  var name=document.getElementById('nName').value.trim();
+  var icon=document.getElementById('nIcon').value.trim();
+  var link=document.getElementById('nLink').value.trim();
+  var phone=document.getElementById('nPhone').value.trim();
+  var loc=document.getElementById('nLoc').value.trim();
+  var placeId=document.getElementById('nPlaceId').value.trim();
+  var svcs=document.getElementById('nSvc').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var kws=document.getElementById('nKw').value.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  if(!id||!name||!link){alert('Fill all required fields!');return;}
+  try{
+    var r=await fetch('/add-business',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,name,icon,googleLink:link,phone,location:loc,placeId,services:svcs,keywords:kws,pass})});
+    var d=await r.json();
+    if(d.error) throw new Error(d.error);
+    showToast('✅ Client added! URL: '+BU+id);
+    document.getElementById('addModal').style.display='none';
+    load(); loadWABusinesses(); loadPlaceClients();
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+function openPoster(b){
+  document.getElementById('posterModalTitle').textContent = '🖼️ Poster — '+b.name;
+  var typeMap={'dental':'Dental Clinic','automotive':'Car Detailing Studio','electronics':'Electronics Shop','multi':'Multi Specialty Clinic','other':'Professional Services'};
+  var cat=b.category||typeMap[b.type]||(b.services&&b.services[0])||'Professional Services';
+  var params=new URLSearchParams({name:b.name||'',cat:cat,loc:b.location||'',url:b.googleLink||''});
+  document.getElementById('posterFrame').src='/poster-generator.html?'+params.toString();
+  document.getElementById('posterModal').style.display='flex';
+}
+
+// ===================== WHATSAPP SENDER =====================
+function updateWAStats(){
+  document.getElementById('wa-sent-today').textContent = sentToday;
+  document.getElementById('wa-sent-total').textContent = sentTotal;
+}
+
+async function loadWABusinesses(){
+  try{
+    var r = await fetch('/business-list');
+    var list = await r.json();
+    document.getElementById('wa-biz-count').textContent = list.length;
+    ['wa-biz','wa-biz-bulk'].forEach(function(selId){
+      var sel = document.getElementById(selId);
+      sel.innerHTML = '<option value="">-- Select Business --</option>';
+      list.forEach(function(b){
+        var opt=document.createElement('option'); opt.value=b.id; opt.textContent=(b.icon||'🏪')+' '+b.name; sel.appendChild(opt);
+      });
+    });
+    updateWAPreview();
+  }catch(e){}
+}
+
+function getWAMsg(bizId, custName){
+  var name = custName ? ('Hi '+custName+'! 😊') : 'Hi! 😊';
+  var link = 'https://reviews.advizrmedia.com/?b='+bizId;
+  var bizName = '';
+  document.querySelectorAll('#wa-biz option').forEach(function(o){ if(o.value===bizId) bizName=o.textContent.replace(/^.{1,2}\s/,''); });
+  return name+'\n\nThank you for visiting *'+bizName+'*! 🙏\n\nWe\'d love to hear about your experience. It takes just *60 seconds*:\n\n👉 '+link+'\n\nYour feedback means a lot to us! ⭐';
+}
+
+function updateWAPreview(){
+  var bizId = document.getElementById('wa-biz').value;
+  var name = document.getElementById('wa-name').value.trim();
+  if(!bizId){ document.getElementById('wa-msg-edit').value=''; return; }
+  customWAMsg = null;
+  document.getElementById('wa-msg-edit').value = getWAMsg(bizId, name);
+}
+
+function resetWAMsg(){ customWAMsg=null; updateWAPreview(); }
+
+function setTemplate(type){
+  var bizId = document.getElementById('wa-biz').value;
+  var link = bizId ? 'https://reviews.advizrmedia.com/?b='+bizId : 'https://reviews.advizrmedia.com';
+  var msgs = {
+    after: 'Hi! 😊\n\nThank you for visiting us today! 🙏\n\nWe hope you had a great experience. Could you spare 60 seconds to share your feedback on Google?\n\n👉 '+link+'\n\nIt helps us serve you better! ⭐',
+    followup: 'Hi! 😊\n\nJust a gentle reminder — we\'d love to hear about your recent visit! 🙏\n\nLeaving a review takes only 60 seconds:\n\n👉 '+link+'\n\nThank you so much! ⭐',
+    special: 'Hi! 😊\n\nSpecial offer for our valued customers! 🎁\n\nLeave us a Google review and get *10% off* on your next visit!\n\n👉 '+link+'\n\nTakes only 60 seconds. Thank you! ⭐'
+  };
+  document.getElementById('wa-msg-edit').value = msgs[type];
+  customWAMsg = msgs[type];
+}
+
+function sendSingle(){
+  var bizId = document.getElementById('wa-biz').value;
+  var phone = document.getElementById('wa-phone').value.replace(/\D/g,'').trim();
+  var name = document.getElementById('wa-name').value.trim();
+  if(!bizId){ showToast('⚠️ Select a business'); return; }
+  if(!phone||phone.length<10){ showToast('⚠️ Enter valid phone number'); return; }
+  var msg = customWAMsg || getWAMsg(bizId, name);
+  window.open('https://wa.me/91'+phone+'?text='+encodeURIComponent(msg),'_blank');
+  sentToday++; sentTotal++;
+  localStorage.setItem('wa_sent_today',sentToday); localStorage.setItem('wa_sent_total',sentTotal);
+  updateWAStats();
+  document.getElementById('wa-phone').value=''; document.getElementById('wa-name').value='';
+  showToast('✅ WhatsApp opened! Send the message.');
+}
+
+function sendBulk(){
+  var bizId = document.getElementById('wa-biz-bulk').value;
+  if(!bizId){ showToast('⚠️ Select a business'); return; }
+  var lines = document.getElementById('wa-bulk-nums').value.split('\n').map(function(l){return l.trim();}).filter(function(l){return l.length>=10;});
+  if(!lines.length){ showToast('⚠️ Enter at least one number'); return; }
+  var i=0;
+  function next(){
+    if(i>=lines.length){ showToast('✅ All '+lines.length+' messages opened!'); return; }
+    var msg = getWAMsg(bizId,'');
+    window.open('https://wa.me/91'+lines[i].replace(/\D/g,'')+'?text='+encodeURIComponent(msg),'_blank');
+    sentToday++; sentTotal++;
+    localStorage.setItem('wa_sent_today',sentToday); localStorage.setItem('wa_sent_total',sentTotal);
+    updateWAStats();
+    i++; setTimeout(next,1500);
+  }
+  next();
+}
+
+// ===================== PLACE FINDER =====================
+async function searchPlace(){
+  var q = document.getElementById('place-search').value.trim();
+  if(!q){ showToast('⚠️ Enter business name'); return; }
+  document.getElementById('place-result').style.display='none';
+  try{
+    var r = await fetch('/find-place?q='+encodeURIComponent(q+' Pune Maharashtra India'));
+    var d = await r.json();
+    if(d.error) throw new Error(d.error);
+    document.getElementById('place-found-name').textContent = d.name;
+    document.getElementById('place-found-addr').textContent = d.address||'';
+    document.getElementById('place-found-id').textContent = d.placeId;
+    document.getElementById('place-result').style.display='block';
+  }catch(e){ showToast('❌ Not found: '+e.message); }
+}
+
+function copyPlaceId(){
+  var id = document.getElementById('place-found-id').textContent;
+  navigator.clipboard.writeText(id);
+  showToast('✅ Place ID copied!');
+}
+
+async function loadPlaceClients(){
+  try{
+    var r = await fetch('/business-list');
+    var list = await r.json();
+    var container = document.getElementById('place-clients-list');
+    container.innerHTML='';
+    list.forEach(function(b){
+      var div=document.createElement('div');
+      div.style.cssText='display:flex;align-items:center;gap:8px;padding:8px 12px;background:#f8f9ff;border-radius:10px;border:1px solid #e8eaf0';
+      div.innerHTML='<span style="font-size:16px">'+(b.icon||'🏪')+'</span><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+b.name+'</div></div><input type="text" placeholder="ChIJ..." id="pid-'+b.id+'" value="'+(b.placeId||'')+'" style="width:180px;padding:6px 10px;border:1.5px solid #e8eaf0;border-radius:8px;font-size:11px;font-family:Plus Jakarta Sans,sans-serif;outline:none"><button class="auto-btn" onclick="autoSearchPlace(\''+b.id+'\',\''+b.name+'\')">Auto</button>';
+      container.appendChild(div);
+    });
+  }catch(e){}
+}
+
+async function autoSearchPlace(bizId, bizName){
+  var input = document.getElementById('pid-'+bizId);
+  input.value='Searching...'; input.style.color='#888';
+  try{
+    var r = await fetch('/find-place?q='+encodeURIComponent(bizName+' Pune Maharashtra India'));
+    var d = await r.json();
+    input.value = d.placeId||''; input.style.color='#1a1a2e';
+  }catch(e){ input.value=''; input.style.color='#1a1a2e'; showToast('❌ Not found'); }
+}
+
+async function saveAllPlaceIds(){
+  var inputs = document.querySelectorAll('[id^="pid-"]');
+  var updates = {};
+  inputs.forEach(function(inp){
+    var bizId=inp.id.replace('pid-','');
+    var placeId=inp.value.trim();
+    if(placeId&&!placeId.includes('Search')) updates[bizId]=placeId;
+  });
+  try{
+    var r=await fetch('/update-place-ids',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({updates,pass})});
+    var d=await r.json();
+    if(d.ok){ showToast('✅ All Place IDs saved!'); }
+    else showToast('❌ Error saving');
+  }catch(e){ showToast('❌ Error: '+e.message); }
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.style.display='block';
+  setTimeout(function(){ t.style.display='none'; },3000);
+}
+</script>
+<script src="/qr_data.js"></script>
 </body>
 </html>
