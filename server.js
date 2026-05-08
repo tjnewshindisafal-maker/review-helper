@@ -326,6 +326,23 @@ app.post('/update-place-ids', (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
+
+// Update existing business
+app.post('/update-business', (req, res) => {
+  const { id, updates, pass } = req.body;
+  if (pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({ error: 'Unauthorized' });
+  try {
+    const businesses = getBusinesses();
+    if (!businesses[id]) return res.status(404).json({ error: 'Business not found' });
+    // Merge updates
+    Object.entries(updates).forEach(([key, val]) => {
+      if (val !== undefined && val !== '') businesses[id][key] = val;
+    });
+    fs.writeFileSync(path.join(__dirname, 'businesses.json'), JSON.stringify(businesses, null, 2));
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, placeId, services, keywords, pass } = req.body;
   if(pass !== (process.env.ADMIN_PASS || 'admin123')) return res.status(401).json({error:'Unauthorized'});

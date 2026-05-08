@@ -61,6 +61,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 .bposter{padding:6px 12px;background:#FFF3E0;color:#E65100;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bweb{padding:6px 12px;background:#E8F5E9;color:#1B5E20;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .bwa{padding:6px 12px;background:#E8F5FB;color:#075E54;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.bedit{padding:6px 12px;background:#F3E8FF;color:#7c3aed;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 .ldg{text-align:center;padding:2rem;color:#888;font-size:14px}
 
 /* WHATSAPP SENDER TAB */
@@ -279,6 +280,33 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
 
 </div>
 
+
+<!-- EDIT CLIENT MODAL -->
+<div class="ov" id="editModal">
+  <div class="mod" style="max-width:560px">
+    <div class="mtitle">✏️ Edit Client — <span id="editModalName"></span></div>
+    <input type="hidden" id="eId">
+    <div class="fr">
+      <div class="fg"><label class="fl">Icon</label><input class="fi" id="eIcon" placeholder="🏪"/></div>
+      <div class="fg"><label class="fl">Business Name</label><input class="fi" id="eName"/></div>
+    </div>
+    <div class="fg"><label class="fl">Category</label><input class="fi" id="eCategory" placeholder="e.g. Dental Clinic"/></div>
+    <div class="fg"><label class="fl">Google Review URL</label><input class="fi" id="eLink"/></div>
+    <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="ePhone" placeholder="9876543210"/></div>
+    <div class="fg"><label class="fl">WhatsApp Number</label><input class="fi" id="eWhatsapp" placeholder="9876543210 (if different)"/></div>
+    <div class="fg"><label class="fl">Location</label><input class="fi" id="eLoc" placeholder="Pune, Maharashtra"/></div>
+    <div class="fg"><label class="fl">Full Address</label><input class="fi" id="eAddress" placeholder="Shop No, Street, Area, City, PIN"/></div>
+    <div class="fg"><label class="fl">About (1-2 lines)</label><textarea class="fi" id="eAbout" rows="2" style="resize:vertical" placeholder="Brief description of the business..."></textarea></div>
+    <div class="fg"><label class="fl">Services (comma separated)</label><input class="fi" id="eServices" placeholder="Root Canal, Cleaning, Braces"/></div>
+    <div class="fg"><label class="fl">Google Place ID</label><input class="fi" id="ePlaceId" placeholder="ChIJ..."/></div>
+    <div class="fg"><label class="fl">Custom Domain (optional)</label><input class="fi" id="eDomain" placeholder="e.g. drvaishali.com"/></div>
+    <div class="mbtns">
+      <button class="bcan" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
+      <button class="bsav" onclick="saveEdit()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADD CLIENT MODAL -->
 <div class="ov" id="addModal">
   <div class="mod">
@@ -386,6 +414,7 @@ function renderTable(){
       +'<button class="bweb">🌐 Site</button>'
       +'<button class="bwa">💬 Send</button>'
       +'<button class="bposter">🖼️ Poster</button>'
+      +'<button class="bedit">✏️ Edit</button>'
       +'<span style="display:inline-block;width:1px;height:20px;background:#e8eaf0;margin:0 6px;vertical-align:middle"></span>'
       +'<button class="bdel" title="Delete">🗑️</button>'
       +'</div></td>';
@@ -395,6 +424,7 @@ function renderTable(){
     tr.querySelector('.bweb').onclick = function(){ window.open('/site/'+bizId,'_blank'); };
     tr.querySelector('.bwa').onclick = function(){ switchTabDirect('whatsapp'); document.getElementById('wa-biz').value=bizId; updateWAPreview(); };
     tr.querySelector('.bposter').onclick = function(){ openPoster(b); };
+    tr.querySelector('.bedit').onclick = function(){ openEdit(b); };
     tr.querySelector('.bdel').onclick = function(){ delBiz(bizId); };
     tb.appendChild(tr);
   });
@@ -610,6 +640,50 @@ async function saveAllPlaceIds(){
     var d=await r.json();
     if(d.ok){ showToast('✅ All Place IDs saved!'); }
     else showToast('❌ Error saving');
+  }catch(e){ showToast('❌ Error: '+e.message); }
+}
+
+function openEdit(b){
+  document.getElementById('editModalName').textContent = b.name;
+  document.getElementById('eId').value = b.id;
+  document.getElementById('eIcon').value = b.icon||'';
+  document.getElementById('eName').value = b.name||'';
+  document.getElementById('eCategory').value = b.category||'';
+  document.getElementById('eLink').value = b.googleLink||'';
+  document.getElementById('ePhone').value = b.phone||'';
+  document.getElementById('eWhatsapp').value = b.whatsapp||'';
+  document.getElementById('eLoc').value = b.location||'';
+  document.getElementById('eAddress').value = b.fullAddress||'';
+  document.getElementById('eAbout').value = b.about||'';
+  document.getElementById('eServices').value = (b.services||[]).join(', ');
+  document.getElementById('ePlaceId').value = b.placeId||'';
+  document.getElementById('eDomain').value = b.customDomain||'';
+  document.getElementById('editModal').style.display='flex';
+}
+
+async function saveEdit(){
+  var id = document.getElementById('eId').value;
+  var updates = {
+    icon: document.getElementById('eIcon').value.trim(),
+    name: document.getElementById('eName').value.trim(),
+    category: document.getElementById('eCategory').value.trim(),
+    googleLink: document.getElementById('eLink').value.trim(),
+    phone: document.getElementById('ePhone').value.trim(),
+    whatsapp: document.getElementById('eWhatsapp').value.trim(),
+    location: document.getElementById('eLoc').value.trim(),
+    fullAddress: document.getElementById('eAddress').value.trim(),
+    about: document.getElementById('eAbout').value.trim(),
+    services: document.getElementById('eServices').value.split(',').map(function(s){return s.trim();}).filter(Boolean),
+    placeId: document.getElementById('ePlaceId').value.trim(),
+    customDomain: document.getElementById('eDomain').value.trim(),
+  };
+  try{
+    var r = await fetch('/update-business', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id, updates, pass})});
+    var d = await r.json();
+    if(d.error) throw new Error(d.error);
+    showToast('✅ Changes saved!');
+    document.getElementById('editModal').style.display='none';
+    load();
   }catch(e){ showToast('❌ Error: '+e.message); }
 }
 
