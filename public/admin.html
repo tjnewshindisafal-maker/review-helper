@@ -386,7 +386,8 @@ function renderTable(){
       +'<button class="bweb">🌐 Site</button>'
       +'<button class="bwa">💬 Send</button>'
       +'<button class="bposter">🖼️ Poster</button>'
-      +'<button class="bdel">Delete</button>'
+      +'<span style="display:inline-block;width:1px;height:20px;background:#e8eaf0;margin:0 6px;vertical-align:middle"></span>'
+      +'<button class="bdel" title="Delete">🗑️</button>'
       +'</div></td>';
     var bizId=b.id, bizName=b.name, bizIcon=b.icon||'';
     tr.querySelector('.bqr').onclick = function(){ showQR(bizId,bizName,bizIcon); };
