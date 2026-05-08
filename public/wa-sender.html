@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Send Review Request — Advizr Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0f4ff;min-height:100vh;padding:0}
+
+.header{background:#0d1b5e;padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.header-back{color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px}
+.header-title{font-size:15px;font-weight:800;color:#fff;flex:1;text-align:center}
+.header-logo{font-size:11px;color:rgba(255,255,255,0.4);font-weight:600}
+
+.content{max-width:480px;margin:0 auto;padding:16px}
+
+/* Business selector */
+.biz-selector{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.biz-select{width:100%;padding:12px 14px;border:2px solid #e8eaf0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:#1a1a2e;background:#f8f9ff;outline:none;cursor:pointer}
+.biz-select:focus{border-color:#4285F4}
+
+/* Customer input */
+.input-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.input-group{margin-bottom:14px}
+.input-field{width:100%;padding:12px 14px;border:2px solid #e8eaf0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#1a1a2e;background:#f8f9ff;outline:none;transition:border-color 0.2s}
+.input-field:focus{border-color:#4285F4;background:#fff}
+.input-field::placeholder{color:#bbb}
+
+/* Message preview */
+.msg-preview{background:#e8f5e9;border-radius:12px;padding:14px;margin-bottom:14px;border-left:4px solid #34A853;position:relative}
+.msg-preview-label{font-size:10px;font-weight:700;color:#34A853;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.msg-text{font-size:13px;color:#1a1a2e;line-height:1.6;white-space:pre-wrap}
+.msg-edit{width:100%;padding:12px;border:2px solid #e8eaf0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#1a1a2e;background:#fff;outline:none;resize:vertical;min-height:120px;line-height:1.6;margin-top:10px}
+.msg-edit:focus{border-color:#4285F4}
+
+/* Send button */
+.send-btn{width:100%;padding:16px;background:#25D366;color:#fff;border:none;border-radius:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 18px rgba(37,211,102,0.4);margin-bottom:10px;transition:transform 0.15s}
+.send-btn:hover{transform:translateY(-1px)}
+.send-btn:active{transform:scale(0.98)}
+
+/* Quick send - bulk */
+.bulk-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.bulk-title{font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:4px}
+.bulk-sub{font-size:12px;color:#94a3b8;margin-bottom:12px}
+.bulk-textarea{width:100%;padding:12px;border:2px solid #e8eaf0;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#1a1a2e;background:#f8f9ff;outline:none;resize:vertical;min-height:80px;line-height:1.6}
+.bulk-textarea:focus{border-color:#4285F4;background:#fff}
+.bulk-btn{width:100%;padding:13px;background:#0d1b5e;color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.stat-card{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.stat-num{font-size:24px;font-weight:900;color:#0d1b5e}
+.stat-label{font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px}
+
+/* Success toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;display:none;z-index:100;white-space:nowrap}
+.toast.show{display:block;animation:fadeUp 0.3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+.powered{text-align:center;font-size:11px;color:#ccc;padding:1.5rem;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="header-back" href="/admin">← Admin</a>
+  <div class="header-title">💬 Send Review Request</div>
+  <div class="header-logo">Advizr Media</div>
+</div>
+
+<div class="content">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-sent">0</div>
+      <div class="stat-label">Sent Today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">Total Sent</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-biz">0</div>
+      <div class="stat-label">Businesses</div>
+    </div>
+  </div>
+
+  <!-- Business selector -->
+  <div class="biz-selector">
+    <div class="label">Select Business</div>
+    <select class="biz-select" id="biz-select" onchange="updatePreview()">
+      <option value="">Loading businesses...</option>
+    </select>
+  </div>
+
+  <!-- Single customer send -->
+  <div class="input-card">
+    <div class="label">Customer Details</div>
+    <div class="input-group">
+      <input class="input-field" type="text" id="cust-name" placeholder="Customer Name (optional)" oninput="updatePreview()">
+    </div>
+    <div class="input-group" style="margin-bottom:0">
+      <input class="input-field" type="tel" id="cust-phone" placeholder="WhatsApp Number (e.g. 9876543210)" oninput="updatePreview()">
+    </div>
+  </div>
+
+  <!-- Message preview -->
+  <div class="msg-preview">
+    <div class="msg-preview-label">📱 WhatsApp Message Preview</div>
+    <div class="msg-text" id="msg-preview">Select a business to preview the message...</div>
+    <textarea class="msg-edit" id="msg-edit" placeholder="Edit message here..." style="display:none" oninput="syncEdit()"></textarea>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button onclick="toggleEdit()" style="flex:1;padding:8px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:8px;font-size:12px;font-weight:700;color:#4285F4;cursor:pointer" id="edit-toggle-btn">✏️ Edit Message</button>
+      <button onclick="resetMsg()" style="flex:1;padding:8px;background:#f0f4ff;border:1px solid #e8eaf0;border-radius:8px;font-size:12px;font-weight:700;color:#888;cursor:pointer">↺ Reset</button>
+    </div>
+  </div>
+
+  <button class="send-btn" onclick="sendSingle()">
+    <span style="font-size:20px">💬</span>
+    Send on WhatsApp
+  </button>
+
+  <!-- Bulk send -->
+  <div class="bulk-card">
+    <div class="bulk-title">📋 Bulk Send</div>
+    <div class="bulk-sub">Enter multiple numbers (one per line) to send to all at once</div>
+    <div class="label">Phone Numbers</div>
+    <textarea class="bulk-textarea" id="bulk-numbers" placeholder="9876543210&#10;8765432109&#10;7654321098"></textarea>
+    <button class="bulk-btn" onclick="sendBulk()">
+      <span>📤</span> Send to All Numbers
+    </button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="powered">Powered by <b>Advizr Media</b></div>
+
+<script>
+let businesses = {};
+let customMsg = null;
+let sentToday = parseInt(localStorage.getItem('wa_sent_today') || '0');
+let sentTotal = parseInt(localStorage.getItem('wa_sent_total') || '0');
+const lastDate = localStorage.getItem('wa_last_date');
+const today = new Date().toDateString();
+if(lastDate !== today) { sentToday = 0; localStorage.setItem('wa_last_date', today); }
+
+document.getElementById('stat-sent').textContent = sentToday;
+document.getElementById('stat-total').textContent = sentTotal;
+
+async function loadBusinesses() {
+  const res = await fetch('/business-list');
+  const list = await res.json();
+  document.getElementById('stat-biz').textContent = list.length;
+  const sel = document.getElementById('biz-select');
+  sel.innerHTML = '<option value="">-- Select Business --</option>';
+  list.forEach(b => {
+    businesses[b.id] = b;
+    const opt = document.createElement('option');
+    opt.value = b.id;
+    opt.textContent = b.icon + ' ' + b.name;
+    sel.appendChild(opt);
+  });
+}
+
+function getDefaultMsg(bizId, custName) {
+  const b = businesses[bizId];
+  if(!b) return '';
+  const name = custName ? ('Hi ' + custName + '! 😊') : 'Hi! 😊';
+  const link = 'https://reviews.advizrmedia.com/?b=' + bizId;
+  return `${name}
+
+Thank you for visiting *${b.name}*! 🙏
+
+We'd love to hear about your experience. It takes just *60 seconds* to leave a review:
+
+👉 ${link}
+
+Your feedback helps us serve you better! ⭐
+
+_(Powered by Advizr Media)_`;
+}
+
+function updatePreview() {
+  const bizId = document.getElementById('biz-select').value;
+  const name = document.getElementById('cust-name').value.trim();
+  if(!bizId) {
+    document.getElementById('msg-preview').textContent = 'Select a business to preview...';
+    return;
+  }
+  customMsg = null;
+  const msg = getDefaultMsg(bizId, name);
+  document.getElementById('msg-preview').textContent = msg;
+  document.getElementById('msg-edit').value = msg;
+}
+
+function toggleEdit() {
+  const preview = document.getElementById('msg-preview');
+  const edit = document.getElementById('msg-edit');
+  const btn = document.getElementById('edit-toggle-btn');
+  if(edit.style.display === 'none') {
+    edit.style.display = 'block';
+    preview.style.display = 'none';
+    btn.textContent = '👁️ Preview';
+    edit.focus();
+  } else {
+    edit.style.display = 'none';
+    preview.style.display = 'block';
+    btn.textContent = '✏️ Edit Message';
+    preview.textContent = edit.value;
+  }
+}
+
+function syncEdit() {
+  customMsg = document.getElementById('msg-edit').value;
+  document.getElementById('msg-preview').textContent = customMsg;
+}
+
+function resetMsg() {
+  customMsg = null;
+  updatePreview();
+  document.getElementById('msg-edit').style.display = 'none';
+  document.getElementById('msg-preview').style.display = 'block';
+  document.getElementById('edit-toggle-btn').textContent = '✏️ Edit Message';
+}
+
+function sendSingle() {
+  const bizId = document.getElementById('biz-select').value;
+  const phone = document.getElementById('cust-phone').value.replace(/\D/g,'').trim();
+  const name = document.getElementById('cust-name').value.trim();
+
+  if(!bizId) { showToast('⚠️ Please select a business'); return; }
+  if(!phone || phone.length < 10) { showToast('⚠️ Enter valid phone number'); return; }
+
+  const msg = customMsg || getDefaultMsg(bizId, name);
+  const waUrl = 'https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+
+  sentToday++; sentTotal++;
+  localStorage.setItem('wa_sent_today', sentToday);
+  localStorage.setItem('wa_sent_total', sentTotal);
+  document.getElementById('stat-sent').textContent = sentToday;
+  document.getElementById('stat-total').textContent = sentTotal;
+
+  document.getElementById('cust-phone').value = '';
+  document.getElementById('cust-name').value = '';
+  showToast('✅ WhatsApp opened! Send the message.');
+}
+
+function sendBulk() {
+  const bizId = document.getElementById('biz-select').value;
+  if(!bizId) { showToast('⚠️ Please select a business'); return; }
+
+  const lines = document.getElementById('bulk-numbers').value.split('\n').map(l => l.trim()).filter(l => l.length >= 10);
+  if(!lines.length) { showToast('⚠️ Enter at least one number'); return; }
+
+  let i = 0;
+  function sendNext() {
+    if(i >= lines.length) { showToast('✅ All ' + lines.length + ' messages opened!'); return; }
+    const phone = lines[i].replace(/\D/g,'');
+    const msg = customMsg || getDefaultMsg(bizId, '');
+    window.open('https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+    sentToday++; sentTotal++;
+    localStorage.setItem('wa_sent_today', sentToday);
+    localStorage.setItem('wa_sent_total', sentTotal);
+    document.getElementById('stat-sent').textContent = sentToday;
+    document.getElementById('stat-total').textContent = sentTotal;
+    i++;
+    setTimeout(sendNext, 1500);
+  }
+  sendNext();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+loadBusinesses();
+</script>
+</body>
+</html>
