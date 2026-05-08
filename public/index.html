@@ -139,11 +139,37 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:#F5F7FF;min-height:10
   </div>
 </div>
 <div class="popup-overlay" id="pastePopup">
-  <div class="popup-box">
-    <div class="popup-icon" style="color:#34A853">&#10003;</div>
-    <div class="popup-title">Review Copied!</div>
-    <div class="popup-msg">Google will open now.<br><br>Just <strong>tap and hold</strong> in the review box, then tap <strong>Paste</strong> and hit <strong style="color:#34A853">Post!</strong></div>
-    <button class="popup-btn" style="background:#4285F4;color:white" onclick="openGoogle()">Open Google Now</button>
+  <div class="popup-box" style="max-width:340px">
+    <div style="font-size:48px;margin-bottom:8px">✅</div>
+    <div class="popup-title" style="font-size:20px;color:#34A853">Review Copied!</div>
+    <div style="margin:14px 0">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:12px;background:#f0fff4;border-radius:12px;padding:12px 14px;border:1.5px solid #bbf7d0">
+          <div style="font-size:24px">1️⃣</div>
+          <div style="text-align:left">
+            <div style="font-size:13px;font-weight:800;color:#1a1a2e">Google is opening...</div>
+            <div style="font-size:12px;color:#666">Review page will open automatically</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f0fff4;border-radius:12px;padding:12px 14px;border:1.5px solid #bbf7d0">
+          <div style="font-size:24px">2️⃣</div>
+          <div style="text-align:left">
+            <div style="font-size:13px;font-weight:800;color:#1a1a2e">Tap & Hold in review box</div>
+            <div style="font-size:12px;color:#666">Hold your finger on the text area</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#f0fff4;border-radius:12px;padding:12px 14px;border:1.5px solid #bbf7d0">
+          <div style="font-size:24px">3️⃣</div>
+          <div style="text-align:left">
+            <div style="font-size:13px;font-weight:800;color:#1a1a2e">Tap "Paste" then "Post"</div>
+            <div style="font-size:12px;color:#666">Your review will be live! ⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="popup-btn" style="background:#4285F4;color:white;font-size:16px" onclick="openGoogle()">
+      🚀 Open Google Now
+    </button>
     <button class="popup-cancel" onclick="document.getElementById('pastePopup').style.display='none'">Cancel</button>
   </div>
 </div>
@@ -274,8 +300,16 @@ function postGoogle(){
     return;
   }
   navigator.clipboard.writeText(rev).then(function(){
+    // Show instructions popup
     document.getElementById("pastePopup").style.display="flex";
+    // Auto open Google after 1.5 seconds
+    setTimeout(function(){
+      fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
+      window.open(biz.googleLink||"https://www.google.com/maps","_blank");
+      document.getElementById("pastePopup").style.display="none";
+    }, 1500);
   }).catch(function(){
+    // Fallback - directly open Google
     openGoogle();
   });
 }
