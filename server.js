@@ -216,8 +216,8 @@ const structures = [
 ];
 const openings = [
   '', '', '', 'Honestly, ', 'Really happy with ', 'Visited last week — ',
-  'Finally found ', 'Came here after ', 'Tried this recently — ',
-  'Been using this for ', 'A colleague suggested ', 'Tried this place recently — ',
+  'Finally found ', 'Came here after ', 'Came across this recently — ',
+  'Been using this for ', 'A colleague suggested ', 'Stopped by last week — ',
 ];
 
 const bizContext = {
