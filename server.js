@@ -274,32 +274,32 @@ app.post('/generate-review', async (req, res) => {
     const rTouch    = humanTouches[Math.floor(Math.random() * humanTouches.length)];
     const wLimit    = [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
     const sCount    = [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
-    const prompt = 'You are a real Indian customer writing a Google review. NOT an AI. Sound 100% human.
+    const prompt = `You are a real Indian customer writing a Google review. NOT an AI. Sound 100% human.
 
 Context:
-- Place type: '+(biz.category||'local business')+' in '+(biz.location||'India')+'
-'+(mentionBizName?'- You may mention: '+biz.name:'- Do NOT mention business name')+' 
-'+(service?'- Service: '+service:'')+'
-'+(doctor&&mentionDoctor?'- You may mention staff: '+doctor:'- Do NOT mention any staff or doctor name')+'
-- Rating: '+stars+'/5 ('+starWord+')
-- Liked: '+(highlights&&highlights.length?highlights.join(', '):'overall experience')+'
-'+(note?'- Note: '+note:'')+'
+- Place type: ${biz.category || 'local business'} in ${biz.location || 'India'}
+${mentionBizName ? '- You may mention the name: ' + biz.name : '- Do NOT mention the business name'}
+${service ? '- Service used: ' + service : ''}
+${doctor && mentionDoctor ? '- You may briefly mention: ' + doctor : '- Do NOT mention any staff or doctor name'}
+- Rating: ${stars}/5 (${starWord})
+- What you liked: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
+${note ? '- Personal note: ' + note : ''}
 
 Style:
-- '+randomTone+'
-- '+randomStructure+'
-'+(rOpening?'- Optional start: '+rOpening:'')+'
-- Include naturally: '+rTouch+'
-- Language: '+langInstruction+'
+- ${randomTone}
+- ${randomStructure}
+${rOpening ? '- Optional opening: ' + rOpening : ''}
+- Naturally include: "${rTouch}"
+- Language: ${langInstruction}
 
 Rules:
-- Exactly '+sCount+' sentences. Max '+wLimit+' words.
-- Conversational, real, slightly imperfect
-- One specific personal detail
-- Do NOT start with I
-- No hashtags, emojis, highly recommend, five stars
-- IMPORTANT: Only mention business name if instructed. Only mention doctor if instructed.
-- Output ONLY the review text. Nothing else.';
+- Exactly ${sCount} sentences. Max ${wLimit} words total.
+- Sound conversational and real — slightly imperfect is fine
+- Include one specific personal detail
+- Do NOT start with the word "I"
+- No hashtags, no emojis, no "highly recommend", no "five stars"
+- Only mention business name or staff name if specifically instructed above
+- Output ONLY the review text. No quotes. No explanation.`;
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       max_tokens: 200,
