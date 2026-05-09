@@ -430,10 +430,7 @@ const DEFAULTS = {
     {q:'Do you offer free consultation?',a:'Yes, initial consultation is free of charge.'},
     {q:'How can I book an appointment?',a:'Call us or WhatsApp us and we will schedule at your convenience.'},
   ],
-  reviews:[
-    {name:'Rahul M.',text:'Excellent service! Very professional and reliable. Highly recommended!'},
-    {name:'Priya S.',text:'Amazing experience. Will definitely come back again.'},
-  ]
+  reviews: []
 };
 
 function initials(name){return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
@@ -494,13 +491,9 @@ async function loadSite(){
     });
 
     // Reviews
+    // Hero review pills — only show if Google Places reviews available
     const pills=document.getElementById('review-pills');
-    const revs=d.reviews||DEFAULTS.reviews;
-    revs.slice(0,2).forEach(r=>{
-      const div=document.createElement('div');div.className='review-pill';
-      div.innerHTML='<div class="review-pill-top"><div class="review-avatar" style="background:'+avatarColor(r.name)+'">'+initials(r.name)+'</div><span class="review-name">'+r.name+'</span><span class="review-stars">★★★★★</span></div><div class="review-text">'+r.text+'</div>';
-      pills.appendChild(div);
-    });
+    pills.style.display='none'; // hide by default, show after Places data loads
 
     // Services
     const serviceIcons={'Consultation':'💬','Wash':'🚿','Coating':'✨','Repair':'🔧','Cleaning':'🧹','Checkup':'🩺','Haircut':'✂️','Color':'🎨','Facial':'💆','Bridal':'👰','Food':'🍽️','Delivery':'🛵','Training':'🏋️','Dental':'🦷','Default':'⚡'};
@@ -569,7 +562,20 @@ async function loadSite(){
           });
         }
 
-        // Google Reviews
+        // Show real reviews in hero pills
+        if (pData.reviews && pData.reviews.length > 0) {
+          const pills = document.getElementById('review-pills');
+          pills.innerHTML = '';
+          pills.style.display = 'flex';
+          pData.reviews.slice(0,2).forEach(r => {
+            const div = document.createElement('div');
+            div.className = 'review-pill';
+            div.innerHTML = '<div class="review-pill-top"><div class="review-avatar" style="background:'+avatarColor(r.name)+'">'+initials(r.name)+'</div><span class="review-name">'+r.name+'</span><span class="review-stars">★★★★★</span></div><div class="review-text">'+(r.text.length>80?r.text.slice(0,80)+'...':r.text)+'</div>';
+            pills.appendChild(div);
+          });
+        }
+
+        // Google Reviews section
         if (pData.reviews && pData.reviews.length > 0) {
           document.getElementById('google-reviews').style.display = 'block';
           const rg = document.getElementById('google-reviews-grid');
