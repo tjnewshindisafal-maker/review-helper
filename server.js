@@ -268,18 +268,38 @@ app.post('/generate-review', async (req, res) => {
       hinglish: 'Write in Hinglish (mix of Hindi and English, Roman script).'
     };
     const langInstruction = langMap[language] || langMap.english;
-    const prompt = `You are a real human customer writing a genuine Google review. NOT an AI.
-Business: "${biz.name}"
-${service ? 'Service: '+service : ''}
-${doctor ? 'Doctor/Staff: '+doctor+' - mention naturally.' : ''}
-Rating: ${stars}/5 - ${starWord}
-Liked: ${highlights?.length ? highlights.join(', ') : 'overall experience'}
-${note ? 'Note: '+note : ''}
-${keywords.length ? 'Include 1-2 keywords naturally: '+keywords.join(', ') : ''}
-Language: ${langInstruction}
-Tone: ${randomTone}
-Structure: ${randomStructure}
-RULES: 2-4 sentences. Max 90 words. Simple language. ONE specific detail. Never start with I. No hashtags, no emojis. Output ONLY review text.`;
+    const mentionBizName = Math.random() < 0.30;
+    const mentionDoctor  = Math.random() < 0.20;
+    const rOpening  = openings[Math.floor(Math.random() * openings.length)];
+    const rTouch    = humanTouches[Math.floor(Math.random() * humanTouches.length)];
+    const wLimit    = [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
+    const sCount    = [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
+    const prompt = 'You are a real Indian customer writing a Google review. NOT an AI. Sound 100% human.
+
+Context:
+- Place type: '+(biz.category||'local business')+' in '+(biz.location||'India')+'
+'+(mentionBizName?'- You may mention: '+biz.name:'- Do NOT mention business name')+' 
+'+(service?'- Service: '+service:'')+'
+'+(doctor&&mentionDoctor?'- You may mention staff: '+doctor:'- Do NOT mention any staff or doctor name')+'
+- Rating: '+stars+'/5 ('+starWord+')
+- Liked: '+(highlights&&highlights.length?highlights.join(', '):'overall experience')+'
+'+(note?'- Note: '+note:'')+'
+
+Style:
+- '+randomTone+'
+- '+randomStructure+'
+'+(rOpening?'- Optional start: '+rOpening:'')+'
+- Include naturally: '+rTouch+'
+- Language: '+langInstruction+'
+
+Rules:
+- Exactly '+sCount+' sentences. Max '+wLimit+' words.
+- Conversational, real, slightly imperfect
+- One specific personal detail
+- Do NOT start with I
+- No hashtags, emojis, highly recommend, five stars
+- IMPORTANT: Only mention business name if instructed. Only mention doctor if instructed.
+- Output ONLY the review text. Nothing else.';
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       max_tokens: 200,
