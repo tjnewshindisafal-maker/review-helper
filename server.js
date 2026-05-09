@@ -197,17 +197,42 @@ function getBusinesses() {
 }
 
 const tones = [
-  'Write like a busy person who rarely writes reviews but felt strongly enough to do it.',
-  'Write like a regular local customer who genuinely recommends this place.',
+  'Write like a busy working professional who rarely reviews but was genuinely impressed.',
+  'Write like a regular local customer casually recommending to neighbors.',
   'Write like someone who was skeptical at first but was pleasantly surprised.',
-  'Write like a first-time customer who was very impressed.',
-  'Write like someone recommending this place to a close friend in casual language.',
+  'Write like a first-time visitor who did not expect such good service.',
+  'Write like someone telling a close friend about this place over chai.',
+  'Write like a middle-aged parent who brought family and was happy.',
+  'Write like a young person who found this place through a friend.',
+  'Write like someone who compared multiple options before choosing this.',
+  'Write like a regular customer who has been coming for months.',
+  'Write like someone who had a specific problem and got it solved perfectly.',
 ];
 const structures = [
-  'Start with what brought you there, then what impressed you, end with recommendation.',
-  'Start with the best thing you noticed, add a specific detail, end with whether you return.',
-  'Start with overall feeling, mention one specific moment, end with rating opinion.',
-  'Start with the problem you came with, explain how it was solved, end with satisfaction.',
+  'Start with what brought you there. Mention one specific thing that stood out. End with whether you will return.',
+  'Start with the best thing you noticed. Add one small personal detail. End with recommendation.',
+  'Start with your overall feeling in one word or phrase. Share one specific moment. End casually.',
+  'Start with the problem you came with. Explain how it was handled. End with how you feel now.',
+  'Start with how long you waited or how quick it was. Mention quality. End with rating.',
+  'Start with comparing it to similar places. Share what made this better. End with recommendation.',
+  'Start mid-story as if continuing a conversation. Share the highlight. End naturally.',
+];
+const openings = [
+  '', '', '', 'Honestly, ', 'Really happy with ', 'Visited last week — ',
+  'Finally found ', 'Came here after ', 'Went for the first time — ', 'My family and I ',
+  'Been coming here for ', 'A friend suggested ', 'Tried this place recently — ',
+];
+const humanTouches = [
+  'will definitely come back',
+  'already recommended to 2-3 friends',
+  'booked my next appointment already',
+  'worth every rupee',
+  'no complaints at all',
+  'better than I expected',
+  'staff remembered my name the second time',
+  'parking was easy too',
+  'did not have to wait long',
+  'felt very comfortable throughout',
 ];
 
 app.get('/business/:id', (req, res) => {
@@ -258,7 +283,7 @@ RULES: 2-4 sentences. Max 90 words. Simple language. ONE specific detail. Never 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       max_tokens: 200,
-      temperature: 1.1,
+      temperature: 1.2,
       messages: [{ role: 'user', content: prompt }]
     });
     res.json({ review: completion.choices[0]?.message?.content?.trim() });
