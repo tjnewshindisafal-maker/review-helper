@@ -224,15 +224,20 @@ const openings = [
 ];
 const humanTouches = [
   'will definitely come back',
-  'already recommended to 2-3 friends',
-  'booked my next appointment already',
+  'already told 2-3 friends about this',
+  'booked my next appointment',
   'worth every rupee',
   'no complaints at all',
-  'better than I expected',
-  'staff remembered my name the second time',
-  'parking was easy too',
-  'did not have to wait long',
+  'better than I expected honestly',
+  'did not have to wait long at all',
   'felt very comfortable throughout',
+  'the staff was very polite',
+  'would visit again without hesitation',
+  'the whole process was smooth',
+  'got exactly what I was looking for',
+  'very satisfied with the outcome',
+  'will not go anywhere else now',
+  'genuinely impressed with the service',
 ];
 
 app.get('/business/:id', (req, res) => {
@@ -299,6 +304,8 @@ Rules:
 - Do NOT start with the word "I"
 - No hashtags, no emojis, no "highly recommend", no "five stars"
 - Only mention business name or staff name if specifically instructed above
+- Do NOT mention tea, coffee, chai, water or any food/drinks unless the business is a restaurant or cafe
+- Do NOT invent details that were not in the context
 - Output ONLY the review text. No quotes. No explanation.`;
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
