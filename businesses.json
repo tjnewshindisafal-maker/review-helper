@@ -420,7 +420,7 @@
     "phone": "07552574020",
     "whatsapp": "07552574020",
     "type": "other",
-    "showDoctor": false,
+    "showDoctor": true,
     "showLocation": true,
     "services": [
       "Heart Checkup",
@@ -450,6 +450,8 @@
       "MP Nagar",
       "cardiac"
     ],
-    "trialClient": true
+    "trialClient": true,
+    "doctor": "Dr. Rajesh Sethi",
+    "about": "Dr. Rajesh Sethi is a renowned cardiologist and health specialist at Ved Health & Heart Centre, Bhopal. Offering expert cardiac care, physical examinations and general health consultations."
   }
 }
