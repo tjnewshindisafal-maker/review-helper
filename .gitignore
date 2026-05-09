@@ -1,23 +1,13 @@
-# Dependencies
 node_modules/
-
-# Environment variables - NEVER commit
 .env
 .env.local
 .env.production
-
-# Sensitive data
 places_cache.json
+analytics.json
 businesses_backup.json
-
-# Logs
 *.log
 npm-debug.log*
-
-# OS files
 .DS_Store
 Thumbs.db
-
-# Editor
 .vscode/
 .idea/
