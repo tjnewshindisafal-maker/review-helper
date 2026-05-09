@@ -292,7 +292,7 @@ app.get('/analytics/:bizId', (req, res) => {
 });
 
 app.get('/analytics-all', (req, res) => {
-  if (req.query.pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
+  if (req.query.pass !== (process.env.ADMIN_PASS || 'sandeep9821')) return res.status(401).json({ error: 'Unauthorized' });
   const businesses = getBusinesses();
   const analytics = getAnalytics();
   res.json(Object.keys(businesses).map(id => ({
@@ -327,7 +327,7 @@ app.get('/places-data/:id', (req, res) => {
 
 // Manual refresh trigger (admin only)
 app.post('/refresh-places', async (req, res) => {
-  if (req.body.pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) 
+  if (req.body.pass !== (process.env.ADMIN_PASS || 'sandeep9821')) 
     return res.status(401).json({ error: 'Unauthorized' });
   refreshAllPlacesData();
   res.json({ ok: true, message: 'Refresh started in background' });
@@ -377,7 +377,7 @@ app.get('/find-place', async (req, res) => {
 // Bulk update place IDs
 app.post('/update-place-ids', (req, res) => {
   const { updates, pass } = req.body;
-  if (pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
+  if (pass !== (process.env.ADMIN_PASS || 'sandeep9821')) return res.status(401).json({ error: 'Unauthorized' });
   try {
     const businesses = getBusinesses();
     Object.entries(updates).forEach(([bizId, placeId]) => {
@@ -392,7 +392,7 @@ app.post('/update-place-ids', (req, res) => {
 // Update existing business
 app.post('/update-business', (req, res) => {
   const { id, updates, pass } = req.body;
-  if (pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({ error: 'Unauthorized' });
+  if (pass !== (process.env.ADMIN_PASS || 'sandeep9821')) return res.status(401).json({ error: 'Unauthorized' });
   try {
     const businesses = getBusinesses();
     if (!businesses[id]) return res.status(404).json({ error: 'Business not found' });
@@ -407,7 +407,7 @@ app.post('/update-business', (req, res) => {
 
 app.post('/add-business', (req, res) => {
   const { id, name, icon, googleLink, location, placeId, services, keywords, pass } = req.body;
-  if(pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({error:'Unauthorized'});
+  if(pass !== (process.env.ADMIN_PASS || 'sandeep9821')) return res.status(401).json({error:'Unauthorized'});
   if(!id || !name || !googleLink) return res.status(400).json({error:'Missing fields'});
   try {
     const businesses = getBusinesses();
@@ -429,7 +429,7 @@ app.post('/add-business', (req, res) => {
 
 app.post('/delete-business', (req, res) => {
   const { id, pass } = req.body;
-  if(pass !== (process.env.ADMIN_PASS || 'adv!zr@2026#secure')) return res.status(401).json({error:'Unauthorized'});
+  if(pass !== (process.env.ADMIN_PASS || 'sandeep9821')) return res.status(401).json({error:'Unauthorized'});
   try {
     const businesses = getBusinesses();
     if(!businesses[id]) return res.status(404).json({error:'Not found'});
