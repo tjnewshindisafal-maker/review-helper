@@ -408,5 +408,48 @@
     ],
     "trialClient": true,
     "placeId": "ChIJAdOKsu6VwjsRwwnY7CBCi2U"
+  },
+  "vedhealth": {
+    "name": "Ved Health & Heart Centre",
+    "icon": "🏥",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJVVUVSkNCfDkRoYh3xC6kIP4",
+    "placeId": "ChIJVVUVSkNCfDkRoYh3xC6kIP4",
+    "location": "MP Nagar, Bhopal",
+    "fullAddress": "Near Sargam Talkies, Zone-II, Maharana Pratap Nagar, Bhopal, Madhya Pradesh 462011",
+    "category": "Health & Heart Centre",
+    "phone": "07552574020",
+    "whatsapp": "07552574020",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "services": [
+      "Heart Checkup",
+      "Physical Examination",
+      "ECG",
+      "Blood Pressure Monitoring",
+      "General Consultation",
+      "Cardiac Care",
+      "Health Packages",
+      "Emergency Care"
+    ],
+    "chips": [
+      "Experienced doctors",
+      "Modern equipment",
+      "Affordable",
+      "Quick service",
+      "Clean & hygienic",
+      "Trusted care",
+      "Professional staff",
+      "Heart specialist"
+    ],
+    "keywords": [
+      "heart",
+      "health",
+      "clinic",
+      "Bhopal",
+      "MP Nagar",
+      "cardiac"
+    ],
+    "trialClient": true
   }
 }
