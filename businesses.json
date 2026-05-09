@@ -453,5 +453,49 @@
     "trialClient": true,
     "doctor": "Dr. Rajesh Sethi",
     "about": "Dr. Rajesh Sethi is a renowned cardiologist and health specialist at Ved Health & Heart Centre, Bhopal. Offering expert cardiac care, physical examinations and general health consultations."
+  },
+  "sanguine": {
+    "name": "Sanguine Software Solutions",
+    "icon": "💻",
+    "googleLink": "https://g.page/r/CSXvRcb7BiLPEBM/review",
+    "placeId": "ChIJ_sanguine_pune",
+    "location": "Viman Nagar, Pune",
+    "fullAddress": "No. 29, 7B, Pune Nagar Rd, Kargil Vijay Nagar, Viman Nagar, Pune, Maharashtra 411014",
+    "category": "Software Company",
+    "phone": "07776002200",
+    "whatsapp": "07776002200",
+    "about": "Sanguine Software Solutions is a Pune-based software product and services company focused on hospitality industry solutions including POS systems, ERP modules, mobile POS, contactless dining, property management tools, and business dashboards.",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "services": [
+      "POS Systems",
+      "ERP Modules",
+      "Mobile POS",
+      "Contactless Dining",
+      "Property Management",
+      "Business Dashboards",
+      "Software Consulting",
+      "Custom Development"
+    ],
+    "chips": [
+      "Expert team",
+      "Innovative solutions",
+      "Great support",
+      "Reliable software",
+      "Quick delivery",
+      "Professional service",
+      "Industry expertise",
+      "Cost effective"
+    ],
+    "keywords": [
+      "software",
+      "POS",
+      "ERP",
+      "hospitality",
+      "Pune",
+      "technology"
+    ],
+    "trialClient": true
   }
 }
