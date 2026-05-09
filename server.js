@@ -219,9 +219,31 @@ const structures = [
 ];
 const openings = [
   '', '', '', 'Honestly, ', 'Really happy with ', 'Visited last week — ',
-  'Finally found ', 'Came here after ', 'Went for the first time — ', 'My family and I ',
-  'Been coming here for ', 'A friend suggested ', 'Tried this place recently — ',
+  'Finally found ', 'Came here after ', 'Tried this recently — ',
+  'Been using this for ', 'A colleague suggested ', 'Tried this place recently — ',
 ];
+
+// Business context — what kind of reviewer makes sense
+const bizContext = {
+  software: 'You are a business professional or entrepreneur who uses this software for their business.',
+  tech: 'You are a business owner or manager evaluating this tech solution.',
+  clinic: 'You are a patient who visited for a health concern.',
+  dental: 'You are a patient who visited for dental treatment.',
+  salon: 'You are someone who visited for a personal grooming service.',
+  restaurant: 'You are a food lover who dined here.',
+  gym: 'You are someone who uses this facility for fitness.',
+  default: 'You are a customer who used this service.'
+};
+function getBizContext(biz) {
+  const name = (biz.name + ' ' + (biz.category||'')).toLowerCase();
+  if(name.includes('software') || name.includes('tech') || name.includes('it ') || name.includes('digital')) return bizContext.tech;
+  if(name.includes('dental') || name.includes('teeth') || name.includes('dentist')) return bizContext.dental;
+  if(name.includes('clinic') || name.includes('hospital') || name.includes('health') || name.includes('doctor') || name.includes('heart')) return bizContext.clinic;
+  if(name.includes('salon') || name.includes('spa') || name.includes('beauty') || name.includes('hair')) return bizContext.salon;
+  if(name.includes('restaurant') || name.includes('food') || name.includes('biryani') || name.includes('cafe') || name.includes('dhaba')) return bizContext.restaurant;
+  if(name.includes('gym') || name.includes('fitness') || name.includes('yoga')) return bizContext.gym;
+  return bizContext.default;
+}
 const humanTouches = [
   'will definitely come back',
   'already told 2-3 friends about this',
@@ -279,7 +301,8 @@ app.post('/generate-review', async (req, res) => {
     const rTouch    = humanTouches[Math.floor(Math.random() * humanTouches.length)];
     const wLimit    = [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
     const sCount    = [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
-    const prompt = `You are a real Indian customer writing a Google review. NOT an AI. Sound 100% human.
+    const reviewerContext = getBizContext(biz);
+    const prompt = `${reviewerContext} You are writing a real Google review. NOT an AI. Sound 100% human.
 
 Context:
 - Place type: ${biz.category || 'local business'} in ${biz.location || 'India'}
@@ -305,6 +328,8 @@ Rules:
 - No hashtags, no emojis, no "highly recommend", no "five stars"
 - Only mention business name or staff name if specifically instructed above
 - Do NOT mention tea, coffee, chai, water or any food/drinks unless the business is a restaurant or cafe
+- Do NOT mention family members (wife, husband, brother, cousin, children) unless the business type makes it natural (e.g. family clinic, restaurant)
+- For software/tech companies: write as a business user, mention ROI, efficiency, support, implementation — not personal family visits
 - Do NOT invent details that were not in the context
 - Output ONLY the review text. No quotes. No explanation.`;
     const completion = await groq.chat.completions.create({
