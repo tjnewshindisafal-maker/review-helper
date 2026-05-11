@@ -1,4 +1,46 @@
 {
+  "shk": {
+    "name": "SHK Electrical & Security",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJl04eSaPBwjsRxZtH5Rc8Sao",
+    "type": "electrical",
+    "showDoctor": false,
+    "showLocation": false,
+    "icon": "⚡",
+    "doctor": "",
+    "location": "Hadapsar, Pune",
+    "services": [
+      "Electrical Installation",
+      "Wiring & Rewiring",
+      "CCTV Installation",
+      "Security Alarm Setup",
+      "MCB / DB Panel Work",
+      "Earthing & Grounding",
+      "Electrical Repair",
+      "Annual Maintenance"
+    ],
+    "chips": [
+      "Professional work",
+      "On-time service",
+      "Clean installation",
+      "Affordable pricing",
+      "Reliable team",
+      "Quality materials",
+      "Quick response",
+      "Neat wiring"
+    ],
+    "keywords": [
+      "electrical",
+      "security",
+      "CCTV",
+      "wiring",
+      "installation",
+      "electrician",
+      "Hadapsar",
+      "Pune"
+    ],
+    "category": "Electrical & Security Services",
+    "placeId": "ChIJl04eSaPBwjsRxZtH5Rc8Sao"
+  },
   "orthoderma": {
     "name": "Orthoderma Skin & Joint Clinic",
     "googleLink": "https://g.page/r/Ca3mxnzw0BJ1EBM/review",
