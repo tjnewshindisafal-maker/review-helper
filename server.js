@@ -327,14 +327,7 @@ Rules:
       messages: [{ role: 'user', content: prompt }]
     });
     const reviewText = completion.choices[0]?.message?.content?.trim();
-    const scoreCompletion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      max_tokens: 10,
-      temperature: 0.1,
-      messages: [{ role: 'user', content: `Rate this Google review for how natural and human it sounds. Score 1-10. Reply with ONLY the number.\n\nReview: "${reviewText}"` }]
-    });
-    const score = parseInt(scoreCompletion.choices[0]?.message?.content?.trim()) || null;
-    res.json({ review: reviewText, qualityScore: score });
+    res.json({ review: reviewText });
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
