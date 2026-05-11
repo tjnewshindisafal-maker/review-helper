@@ -152,6 +152,7 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
   <!-- TABS -->
   <div class="tabs">
     <div class="tab active" onclick="switchTab('clients')">📊 Clients</div>
+    <div class="tab" onclick="switchTab('analytics')">📈 Analytics</div>
     <div class="tab" onclick="switchTab('whatsapp')">💬 Send Reviews</div>
     <div class="tab" onclick="switchTab('places')">🔍 Place IDs</div>
   </div>
@@ -173,6 +174,25 @@ td{padding:14px 16px;font-size:14px;color:#333;border-bottom:1px solid #F0F0F5}
         <thead><tr><th>Business</th><th>Scans</th><th>Generated</th><th>Submitted</th><th>Negative</th><th>Actions</th></tr></thead>
         <tbody id="tbl"><tr><td colspan="6" class="ldg">Loading...</td></tr></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- TAB: ANALYTICS -->
+  <div class="tab-content" id="tab-analytics">
+    <div class="sgrid">
+      <div class="sc bl"><div class="slbl">Total Scans</div><div class="sval" id="as1">-</div><div class="ssub">All businesses</div></div>
+      <div class="sc gr"><div class="slbl">Reviews Generated</div><div class="sval" id="as2">-</div><div class="ssub">AI generated</div></div>
+      <div class="sc or"><div class="slbl">Posted on Google</div><div class="sval" id="as3">-</div><div class="ssub">Submitted</div></div>
+      <div class="sc rd"><div class="slbl">Conversion Rate</div><div class="sval" id="as4">-</div><div class="ssub">Generated to Posted</div></div>
+    </div>
+    <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1rem">
+      <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:1rem">Top Businesses by Scans</div>
+      <div id="chartBars" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+    <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+      <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:1rem">Review Funnel</div>
+      <div id="funnelChart" style="display:flex;gap:1rem;align-items:flex-end;height:180px;padding-bottom:8px"></div>
+      <div style="display:flex;gap:1rem;margin-top:8px" id="funnelLabels"></div>
     </div>
   </div>
 
@@ -389,6 +409,43 @@ function switchTab(name){
   document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
   event.target.classList.add('active');
   document.getElementById('tab-'+name).classList.add('active');
+  if(name==='analytics') renderAnalytics();
+}
+
+function renderAnalytics(){
+  if(!data||!data.length) return;
+  var totalScans=data.reduce(function(s,b){return s+(b.scans||0);},0);
+  var totalGen=data.reduce(function(s,b){return s+(b.generated||0);},0);
+  var totalSub=data.reduce(function(s,b){return s+(b.submitted||0);},0);
+  document.getElementById('as1').textContent=totalScans;
+  document.getElementById('as2').textContent=totalGen;
+  document.getElementById('as3').textContent=totalSub;
+  document.getElementById('as4').textContent=totalGen?Math.round(totalSub/totalGen*100)+'%':'0%';
+  var sorted=[...data].sort(function(a,b){return (b.scans||0)-(a.scans||0);}).slice(0,8);
+  var max=sorted[0]?sorted[0].scans||1:1;
+  var bars='';
+  sorted.forEach(function(b){
+    var pct=Math.round((b.scans||0)/max*100);
+    var genPct=Math.round((b.generated||0)/max*100);
+    bars+='<div style="display:flex;align-items:center;gap:10px">'
+      +'<div style="width:120px;font-size:12px;font-weight:600;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(b.icon||'')+' '+b.name+'</div>'
+      +'<div style="flex:1;position:relative;height:28px;background:#F0F4FF;border-radius:8px;overflow:hidden">'
+      +'<div style="position:absolute;left:0;top:0;height:100%;width:'+pct+'%;background:linear-gradient(90deg,#4285F4,#6EA8FE);border-radius:8px;transition:width .6s ease"></div>'
+      +'<div style="position:absolute;left:0;top:0;height:100%;width:'+genPct+'%;background:rgba(52,168,83,.35);border-radius:8px"></div>'
+      +'</div>'
+      +'<div style="width:40px;text-align:right;font-size:13px;font-weight:700;color:#4285F4">'+(b.scans||0)+'</div>'
+      +'</div>';
+  });
+  document.getElementById('chartBars').innerHTML=bars;
+  var steps=[{label:'Scans',val:totalScans,color:'#4285F4'},{label:'Generated',val:totalGen,color:'#34A853'},{label:'Posted',val:totalSub,color:'#FF6B35'}];
+  var fMax=steps[0].val||1;var fcols='';var flbls='';
+  steps.forEach(function(s){
+    var h=Math.max(20,Math.round(s.val/fMax*160));
+    fcols+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end"><div style="font-size:16px;font-weight:800;color:'+s.color+';margin-bottom:4px">'+s.val+'</div><div style="width:100%;height:'+h+'px;background:'+s.color+';border-radius:10px 10px 4px 4px;opacity:.85"></div></div>';
+    flbls+='<div style="flex:1;text-align:center;font-size:12px;font-weight:600;color:#888">'+s.label+'</div>';
+  });
+  document.getElementById('funnelChart').innerHTML=fcols;
+  document.getElementById('funnelLabels').innerHTML=flbls;
 }
 
 // LOAD CLIENTS
@@ -441,6 +498,43 @@ function switchTabDirect(name){
   document.querySelectorAll('.tab').forEach(function(t,i){ t.classList.remove('active'); if(['clients','whatsapp','places'][i]===name) t.classList.add('active'); });
   document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
   document.getElementById('tab-'+name).classList.add('active');
+  if(name==='analytics') renderAnalytics();
+}
+
+function renderAnalytics(){
+  if(!data||!data.length) return;
+  var totalScans=data.reduce(function(s,b){return s+(b.scans||0);},0);
+  var totalGen=data.reduce(function(s,b){return s+(b.generated||0);},0);
+  var totalSub=data.reduce(function(s,b){return s+(b.submitted||0);},0);
+  document.getElementById('as1').textContent=totalScans;
+  document.getElementById('as2').textContent=totalGen;
+  document.getElementById('as3').textContent=totalSub;
+  document.getElementById('as4').textContent=totalGen?Math.round(totalSub/totalGen*100)+'%':'0%';
+  var sorted=[...data].sort(function(a,b){return (b.scans||0)-(a.scans||0);}).slice(0,8);
+  var max=sorted[0]?sorted[0].scans||1:1;
+  var bars='';
+  sorted.forEach(function(b){
+    var pct=Math.round((b.scans||0)/max*100);
+    var genPct=Math.round((b.generated||0)/max*100);
+    bars+='<div style="display:flex;align-items:center;gap:10px">'
+      +'<div style="width:120px;font-size:12px;font-weight:600;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(b.icon||'')+' '+b.name+'</div>'
+      +'<div style="flex:1;position:relative;height:28px;background:#F0F4FF;border-radius:8px;overflow:hidden">'
+      +'<div style="position:absolute;left:0;top:0;height:100%;width:'+pct+'%;background:linear-gradient(90deg,#4285F4,#6EA8FE);border-radius:8px;transition:width .6s ease"></div>'
+      +'<div style="position:absolute;left:0;top:0;height:100%;width:'+genPct+'%;background:rgba(52,168,83,.35);border-radius:8px"></div>'
+      +'</div>'
+      +'<div style="width:40px;text-align:right;font-size:13px;font-weight:700;color:#4285F4">'+(b.scans||0)+'</div>'
+      +'</div>';
+  });
+  document.getElementById('chartBars').innerHTML=bars;
+  var steps=[{label:'Scans',val:totalScans,color:'#4285F4'},{label:'Generated',val:totalGen,color:'#34A853'},{label:'Posted',val:totalSub,color:'#FF6B35'}];
+  var fMax=steps[0].val||1;var fcols='';var flbls='';
+  steps.forEach(function(s){
+    var h=Math.max(20,Math.round(s.val/fMax*160));
+    fcols+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end"><div style="font-size:16px;font-weight:800;color:'+s.color+';margin-bottom:4px">'+s.val+'</div><div style="width:100%;height:'+h+'px;background:'+s.color+';border-radius:10px 10px 4px 4px;opacity:.85"></div></div>';
+    flbls+='<div style="flex:1;text-align:center;font-size:12px;font-weight:600;color:#888">'+s.label+'</div>';
+  });
+  document.getElementById('funnelChart').innerHTML=fcols;
+  document.getElementById('funnelLabels').innerHTML=flbls;
 }
 
 function showQR(id,name,icon){

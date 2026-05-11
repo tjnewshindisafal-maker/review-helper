@@ -29,6 +29,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:#F5F7FF;min-height:10
 .star-row{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
 .star{width:54px;height:54px;border:2px solid #E8EAF0;border-radius:14px;background:#F8F9FF;cursor:pointer;font-size:28px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#DDD}
 .star.on{background:#FFF8E1;border-color:#FFC107;color:#FFC107}
+.star.pop{animation:starPop .35s ease}
+@keyframes starPop{0%{transform:scale(1)}40%{transform:scale(1.4) rotate(-8deg)}70%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1)}}
 .star-lbl{font-size:14px;color:#666;text-align:center;min-height:20px;margin-bottom:14px;font-weight:500}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
 .chip{padding:8px 14px;border:2px solid #E8EAF0;border-radius:50px;font-size:13px;cursor:pointer;background:#F8F9FF;color:#555;font-family:"Plus Jakarta Sans",sans-serif;font-weight:500;transition:all .2s}
@@ -51,6 +53,13 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:#F5F7FF;min-height:10
 .act-row{display:flex;gap:8px;margin-top:12px}
 .btn-re{flex:1;padding:13px;border:2px solid #E8EAF0;border-radius:12px;background:white;color:#555;font-size:13px;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif}
 .btn-g{flex:2;padding:13px;background:#34A853;color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-wa{width:100%;padding:13px;background:#25D366;color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px}
+.quality-bar{margin-top:12px;padding:10px 14px;border-radius:12px;background:#F0FDF4;border:1.5px solid #BBF7D0;display:none;align-items:center;gap:10px}
+.quality-bar.show{display:flex}
+.q-label{font-size:12px;font-weight:700;color:#555;white-space:nowrap}
+.q-track{flex:1;height:8px;background:#E8EAF0;border-radius:50px;overflow:hidden}
+.q-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,#FFC107,#34A853);transition:width .8s ease}
+.q-score{font-size:13px;font-weight:800;color:#34A853;white-space:nowrap}
 .hint{font-size:12px;color:#999;margin-top:8px;text-align:center}
 .hint.ok{color:#34A853;font-weight:600}
 .err{font-size:13px;color:#D93025;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:12px;padding:10px 14px;margin-bottom:12px;display:none}
@@ -123,6 +132,15 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:#F5F7FF;min-height:10
           Post on Google
         </button>
       </div>
+      <button class="btn-wa" onclick="shareWhatsApp()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Share on WhatsApp
+      </button>
+      <div class="quality-bar" id="qualityBar">
+        <span class="q-label">Review Quality</span>
+        <div class="q-track"><div class="q-fill" id="qFill" style="width:0%"></div></div>
+        <span class="q-score" id="qScore"></span>
+      </div>
       <div class="hint" id="hintMsg"></div>
     </div>
     <div class="powered">Powered by <b>Advizr Media</b></div>
@@ -178,82 +196,52 @@ var STAR_LABELS=["","Very poor","Poor","Okay","Good","Excellent"];
 var biz=null,dept=null,svc="",stars=0,busy=false,lang="english";
 var id=new URLSearchParams(location.search).get("b")||"orthoderma";
 var langMap={"English":"english","Hindi":"hindi","Marathi":"marathi","Hinglish":"hinglish"};
-
 async function init(){
-  try{
-    var r=await fetch("/business/"+id);
-    if(!r.ok) throw new Error("Not found");
-    biz=await r.json();
-    render();
-  }catch(e){
-    document.getElementById("bizName").textContent="Business not found.";
-  }
+  try{var r=await fetch("/business/"+id);if(!r.ok)throw new Error("Not found");biz=await r.json();render();}
+  catch(e){document.getElementById("bizName").textContent="Business not found.";}
 }
-
 function render(){
   document.title=biz.name+" Review";
   document.getElementById("bizIcon").textContent=biz.icon||"star";
   document.getElementById("bizName").textContent=biz.name;
   if(biz.type==="multi"){
     document.getElementById("deptCard").classList.remove("hidden");
-    document.getElementById("svcBadge").textContent="2";
-    document.getElementById("starBadge").textContent="3";
-    document.getElementById("chipBadge").textContent="4";
-    document.getElementById("langBadge").textContent="5";
+    document.getElementById("svcBadge").textContent="2";document.getElementById("starBadge").textContent="3";
+    document.getElementById("chipBadge").textContent="4";document.getElementById("langBadge").textContent="5";
     document.getElementById("noteBadge").textContent="6";
     var html="";
-    biz.departments.forEach(function(d){
-      html+="<div class=\"dept-btn\" onclick=\"pickDept('"+d.id+"',this)\"><div class=\"di\">"+d.icon+"</div><div class=\"dl\">"+d.label+"</div></div>";
-    });
+    biz.departments.forEach(function(d){html+="<div class=\"dept-btn\" onclick=\"pickDept('"+d.id+"',this)\"><div class=\"di\">"+d.icon+"</div><div class=\"dl\">"+d.label+"</div></div>";});
     document.getElementById("deptRow").innerHTML=html;
-  } else {
-    loadSvc(biz.services,biz.chips);
-  }
+  } else { loadSvc(biz.services,biz.chips); }
 }
-
 function pickDept(did,el){
-  dept=did; svc="";
+  dept=did;svc="";
   document.querySelectorAll(".dept-btn").forEach(function(b){b.classList.remove("on");});
   el.classList.add("on");
   var d=biz.departments.find(function(x){return x.id===did;});
   if(d) loadSvc(d.services,d.chips);
 }
-
 function loadSvc(services,chips){
-  var sg="";
-  services.forEach(function(s){sg+="<div class=\"svc\" onclick=\"pickSvc(this)\">"+s+"</div>";});
+  var sg="";services.forEach(function(s){sg+="<div class=\"svc\" onclick=\"pickSvc(this)\">"+s+"</div>";});
   document.getElementById("svcGrid").innerHTML=sg;
-  var cw="";
-  chips.forEach(function(c){cw+="<div class=\"chip\" onclick=\"this.classList.toggle('on')\">"+c+"</div>";});
+  var cw="";chips.forEach(function(c){cw+="<div class=\"chip\" onclick=\"this.classList.toggle('on')\">"+c+"</div>";});
   document.getElementById("chipsWrap").innerHTML=cw;
 }
-
-function pickSvc(el){
-  svc=el.textContent;
-  document.querySelectorAll(".svc").forEach(function(s){s.classList.remove("on");});
-  el.classList.add("on");
-}
-
+function pickSvc(el){svc=el.textContent;document.querySelectorAll(".svc").forEach(function(s){s.classList.remove("on");});el.classList.add("on");}
 function setStar(n){
   stars=n;
   document.querySelectorAll(".star").forEach(function(s,i){
-    if(i<n) s.classList.add("on"); else s.classList.remove("on");
+    s.classList.remove("on","pop");
+    if(i<n){s.classList.add("on");setTimeout(function(){s.classList.add("pop");setTimeout(function(){s.classList.remove("pop");},350);},i*60);}
   });
   document.getElementById("starLbl").textContent=STAR_LABELS[n];
 }
-
 function pickLang(el){
   lang=langMap[el.textContent]||"english";
   document.querySelectorAll("#langWrap .chip").forEach(function(c){c.classList.remove("on");});
   el.classList.add("on");
 }
-
-function hint(msg,ok){
-  var h=document.getElementById("hintMsg");
-  h.textContent=msg;
-  h.className="hint"+(ok?" ok":"");
-}
-
+function hint(msg,ok){var h=document.getElementById("hintMsg");h.textContent=msg;h.className="hint"+(ok?" ok":"");}
 async function generate(){
   if(biz.type==="multi"&&!dept){alert("Please select a department!");return;}
   if(!svc){alert("Please select a service!");return;}
@@ -262,19 +250,12 @@ async function generate(){
   busy=true;
   var btn=document.getElementById("genBtn");
   document.getElementById("btnTxt").innerHTML="<div class=\"dots\"><span></span><span></span><span></span></div>";
-  btn.disabled=true;
-  document.getElementById("errMsg").style.display="none";
+  btn.disabled=true;document.getElementById("errMsg").style.display="none";
   var highlights=[];
-  document.querySelectorAll(".chip.on").forEach(function(c){
-    if(c.parentElement.id!=="langWrap") highlights.push(c.textContent);
-  });
+  document.querySelectorAll(".chip.on").forEach(function(c){if(c.parentElement.id!=="langWrap")highlights.push(c.textContent);});
   var note=document.getElementById("noteField").value.trim();
   try{
-    var r=await fetch("/generate-review",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({bizId:id,department:dept,service:svc,stars:stars,highlights:highlights,note:note,language:lang})
-    });
+    var r=await fetch("/generate-review",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id,department:dept,service:svc,stars:stars,highlights:highlights,note:note,language:lang})});
     var data=await r.json();
     if(data.error) throw new Error(data.error);
     document.getElementById("revText").value=data.review;
@@ -282,57 +263,45 @@ async function generate(){
     card.classList.add("show");
     setTimeout(function(){card.scrollIntoView({behavior:"smooth",block:"start"});},100);
     hint("Edit if needed, then post on Google!",true);
+    if(data.qualityScore){
+      var bar=document.getElementById("qualityBar");bar.classList.add("show");
+      setTimeout(function(){document.getElementById("qFill").style.width=(data.qualityScore*10)+"%";document.getElementById("qScore").textContent=data.qualityScore+"/10";},200);
+    }
   }catch(e){
-    var err=document.getElementById("errMsg");
-    err.textContent="Error: "+(e.message||"Something went wrong.");
-    err.style.display="block";
+    var err=document.getElementById("errMsg");err.textContent="Error: "+(e.message||"Something went wrong.");err.style.display="block";
   }
-  document.getElementById("btnTxt").innerHTML="Generate My Review";
-  btn.disabled=false;
-  busy=false;
+  document.getElementById("btnTxt").innerHTML="Generate My Review";btn.disabled=false;busy=false;
 }
-
 function postGoogle(){
   var rev=document.getElementById("revText").value.trim();
   if(!rev){alert("Generate a review first!");return;}
-  if(stars<=2){
-    document.getElementById("shieldPopup").style.display="flex";
-    return;
-  }
+  if(stars<=2){document.getElementById("shieldPopup").style.display="flex";return;}
   navigator.clipboard.writeText(rev).then(function(){
-    // Show instructions popup
     document.getElementById("pastePopup").style.display="flex";
-    // Auto open Google after 1.5 seconds
     setTimeout(function(){
       fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
       window.open(biz.googleLink||"https://www.google.com/maps","_blank");
       document.getElementById("pastePopup").style.display="none";
-    }, 1500);
-  }).catch(function(){
-    // Fallback - directly open Google
-    openGoogle();
-  });
+    },1500);
+  }).catch(function(){openGoogle();});
 }
-
 function openGoogle(){
   document.getElementById("pastePopup").style.display="none";
   fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
   window.open(biz.googleLink||"https://www.google.com/maps","_blank");
 }
-
+function shareWhatsApp(){
+  var rev=document.getElementById("revText").value.trim();
+  if(!rev){alert("Generate a review first!");return;}
+  var msg="Here's my review for "+biz.name+":\n\n"+rev+"\n\n"+(biz.googleLink||"");
+  window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
+}
 async function submitNegative(){
   var feedback=document.getElementById("negativeFeedback").value.trim();
   document.getElementById("shieldPopup").style.display="none";
-  try{
-    await fetch("/negative-feedback",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({bizId:id,stars:stars,service:svc,department:dept,feedback:feedback})
-    });
-  }catch(e){}
+  try{await fetch("/negative-feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id,stars:stars,service:svc,department:dept,feedback:feedback})});}catch(e){}
   alert("Thank you! We will contact you soon.");
 }
-
 init();
 </script>
 </body>
