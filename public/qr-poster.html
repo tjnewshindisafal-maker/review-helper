@@ -1,1 +1,215 @@
-404: Not Found
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Poster</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f0f2f5;min-height:100vh;font-family:Arial,sans-serif;padding:20px}
+.page{display:flex;gap:24px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+
+/* Editor panel */
+.editor{background:white;border-radius:16px;padding:20px;width:280px;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.editor h3{font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #f0f0f0}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.field input[type=text],.field textarea{width:100%;padding:9px 12px;border:1.5px solid #e8eaf0;border-radius:10px;font-size:13px;font-family:Arial,sans-serif;outline:none}
+.field input[type=text]:focus,.field textarea:focus{border-color:#4285F4}
+.field textarea{resize:vertical;min-height:60px;line-height:1.5}
+
+/* Logo upload */
+.logo-upload-area{border:2px dashed #d0d4e8;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;background:#f8f9ff}
+.logo-upload-area:hover{border-color:#4285F4;background:#eef2ff}
+.logo-upload-area input{display:none}
+.logo-preview{width:64px;height:64px;border-radius:50%;object-fit:contain;margin:0 auto 8px;display:block;border:2px solid #e0e0e0}
+.upload-icon{font-size:28px;margin-bottom:6px}
+.upload-txt{font-size:11px;color:#888;font-weight:600}
+.upload-hint{font-size:10px;color:#bbb;margin-top:3px}
+
+.btn-print{width:100%;padding:12px;background:#4285F4;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px}
+.btn-print:hover{background:#3367d6}
+
+/* POSTER CARD */
+.poster-wrap{display:flex;flex-direction:column;align-items:center}
+.poster-label{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.card{
+  width:320px;background:white;border-radius:20px;
+  padding:28px 24px 20px;text-align:center;
+  box-shadow:0 8px 40px rgba(0,0,0,0.15);
+}
+
+/* Client logo */
+.client-logo-circle{
+  width:78px;height:78px;border-radius:50%;
+  border:2px solid #e0e0e0;background:#f8f9ff;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;overflow:hidden;
+}
+.client-logo-circle img{width:100%;height:100%;object-fit:contain;padding:8px}
+.client-logo-circle .name-fallback{font-size:9px;font-weight:900;color:#444;text-align:center;line-height:1.3;padding:8px;word-break:break-word}
+
+/* Custom text */
+.custom-text-display{font-size:12px;color:#555;margin-bottom:12px;font-weight:500;line-height:1.4;min-height:0}
+
+/* Google branding */
+.g-text{display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:8px}
+.g1{color:#4285F4}.g2{color:#EA4335}.g3{color:#FBBC05}.g4{color:#4285F4}.g5{color:#34A853}.g6{color:#EA4335}
+.stars-row{display:flex;justify-content:center;gap:4px;margin-bottom:14px}
+.star{font-size:24px;color:#FBBC05}
+.scan-title{font-size:18px;font-weight:900;color:#1a1a2e;letter-spacing:.5px;margin-bottom:2px}
+.scan-sub{font-size:11px;font-weight:700;color:#666;letter-spacing:1.5px;margin-bottom:18px;text-transform:uppercase}
+
+/* QR */
+.qr-wrap{position:relative;width:190px;height:190px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+.qr-inner{width:166px;height:166px}
+.qr-inner canvas,.qr-inner img{width:166px!important;height:166px!important}
+.corner{position:absolute;width:30px;height:30px}
+.corner::before,.corner::after{content:'';position:absolute;background:currentColor}
+.corner-tl{top:0;left:0;color:#EA4335}.corner-tl::before{top:0;left:0;width:30px;height:5px}.corner-tl::after{top:0;left:0;width:5px;height:30px}
+.corner-tr{top:0;right:0;color:#4285F4}.corner-tr::before{top:0;right:0;width:30px;height:5px}.corner-tr::after{top:0;right:0;width:5px;height:30px}
+.corner-bl{bottom:0;left:0;color:#FBBC05}.corner-bl::before{bottom:0;left:0;width:30px;height:5px}.corner-bl::after{bottom:0;left:0;width:5px;height:30px}
+.corner-br{bottom:0;right:0;color:#34A853}.corner-br::before{bottom:0;right:0;width:30px;height:5px}.corner-br::after{bottom:0;right:0;width:5px;height:30px}
+
+.biz-name-label{font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:3px}
+.url-label{font-size:10px;color:#bbb;margin-bottom:14px}
+.powered{border-top:1px solid #f0f0f0;padding-top:10px;font-size:10px;color:#aaa}
+.powered b{color:#4285F4;font-weight:700}
+
+@media print{
+  body{background:white;padding:0}
+  .editor,.poster-label{display:none}
+  .page{justify-content:center}
+  .card{box-shadow:none;border-radius:0}
+  @page{margin:0}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Editor -->
+  <div class="editor">
+    <h3>Customize Poster</h3>
+
+    <div class="field">
+      <label>Client Logo</label>
+      <div class="logo-upload-area" onclick="document.getElementById('logoInput').click()">
+        <input type="file" id="logoInput" accept="image/*" onchange="uploadLogo(this)">
+        <div id="uploadPreviewWrap">
+          <div class="upload-icon">&#128444;</div>
+          <div class="upload-txt">Click to Upload Logo</div>
+          <div class="upload-hint">PNG, JPG — any size</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Custom Text (optional)</label>
+      <textarea id="customTextInput" placeholder="e.g. Thank you for visiting!" oninput="updateCustomText(this.value)" rows="3"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Business</label>
+      <input type="text" id="bizIdInput" value="" placeholder="e.g. potdar" onchange="changeBiz(this.value)">
+    </div>
+
+    <button class="btn-print" onclick="window.print()">&#128438; Print Poster</button>
+  </div>
+
+  <!-- Poster preview -->
+  <div class="poster-wrap">
+    <div class="poster-label">Preview (actual print size)</div>
+    <div class="card" id="poster">
+
+      <div class="client-logo-circle" id="clientLogoCircle">
+        <div class="name-fallback" id="nameFallback">CLIENT LOGO</div>
+      </div>
+
+      <div class="custom-text-display" id="customTextDisplay"></div>
+
+      <div class="g-text">
+        <span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g4">g</span><span class="g5">l</span><span class="g6">e</span>
+      </div>
+      <div class="stars-row">
+        <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+      </div>
+      <div class="scan-title">SCAN QR CODE</div>
+      <div class="scan-sub">To Leave Us a Review</div>
+
+      <div class="qr-wrap">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        <div class="qr-inner" id="qrCode"></div>
+      </div>
+
+      <div class="biz-name-label" id="bizLabel"></div>
+      <div class="url-label">reviews.advizrmedia.com</div>
+      <div class="powered">Powered by <b>Advizr Media</b></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var id = new URLSearchParams(location.search).get('b') || 'orthoderma';
+var qrInstance = null;
+
+function makeQR(url) {
+  document.getElementById('qrCode').innerHTML = '';
+  qrInstance = new QRCode(document.getElementById('qrCode'), {
+    text: url, width: 166, height: 166,
+    colorDark: '#000000', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+function loadBiz(bizId) {
+  var url = 'https://reviews.advizrmedia.com/?b=' + bizId;
+  makeQR(url);
+  fetch('/business/' + bizId).then(function(r){ return r.json(); }).then(function(biz) {
+    document.getElementById('bizLabel').textContent = biz.name || bizId;
+    document.getElementById('nameFallback').textContent = biz.name || bizId;
+    document.getElementById('bizIdInput').value = bizId;
+    document.title = 'QR Poster - ' + (biz.name || bizId);
+  }).catch(function() {
+    document.getElementById('bizLabel').textContent = bizId;
+    document.getElementById('nameFallback').textContent = bizId;
+  });
+}
+
+function changeBiz(val) {
+  if (val.trim()) loadBiz(val.trim());
+}
+
+function uploadLogo(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var src = e.target.result;
+    // Update upload area preview
+    document.getElementById('uploadPreviewWrap').innerHTML =
+      '<img src="' + src + '" class="logo-preview">' +
+      '<div class="upload-txt">Tap to change</div>';
+    // Update poster circle
+    document.getElementById('clientLogoCircle').innerHTML =
+      '<img src="' + src + '" style="width:100%;height:100%;object-fit:contain;padding:8px">';
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateCustomText(val) {
+  var el = document.getElementById('customTextDisplay');
+  el.textContent = val;
+  el.style.display = val ? 'block' : 'none';
+}
+
+// Init
+loadBiz(id);
+</script>
+</body>
+</html>
