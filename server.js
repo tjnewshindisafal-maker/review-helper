@@ -296,54 +296,88 @@ app.post('/generate-review', async (req, res) => {
       hinglish: 'Write in Hinglish (mix of Hindi and English, Roman script).'
     };
     const langInstruction = langMap[language] || langMap.english;
-    const mentionBizName = Math.random() < 0.30;
-    const mentionDoctor  = Math.random() < 0.20;
-    const rOpening  = openings[Math.floor(Math.random() * openings.length)];
-    const rTouch    = humanTouches[Math.floor(Math.random() * humanTouches.length)];
-    const wLimit    = [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
-    const sCount    = [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
+    const medicalBiz = /dental|clinic|hospital|health|doctor|heart|gynec|ortho|surgeon|psychiatr/i.test(biz.name + ' ' + (biz.category||''));
+    const mentionBizName = Math.random() < 0.25;
+    const mentionDoctor = !!(doctor && Math.random() < (medicalBiz ? 0.85 : 0.20));
+    const rOpening = openings[Math.floor(Math.random() * openings.length)];
+    const rTouch = humanTouches[Math.floor(Math.random() * humanTouches.length)];
+    const wLimit = medicalBiz
+      ? [100,110,120,130][Math.floor(Math.random() * 4)]
+      : [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
+    const sCount = medicalBiz
+      ? [4,5,5,6][Math.floor(Math.random() * 4)]
+      : [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
     const reviewerContext = getBizContext(biz);
-    const imperfectStyle = Math.random() < 0.4;
-    const useAbbrev = Math.random() < 0.3;
-    const prompt = `You are a real person writing a Google review from your own experience. You are NOT an AI. Write exactly how a normal Indian person types a review — not formally, not like a template.
+    const imperfectStyle = !medicalBiz && Math.random() < 0.4;
+    const useAbbrev = !medicalBiz && Math.random() < 0.3;
+    let prompt;
+    if (medicalBiz) {
+      prompt = `You are a real patient or a patient's family member writing a genuine Google review about your personal experience at a ${biz.category || 'clinic'} in ${biz.location || 'India'}.
+${mentionBizName ? 'Place: ' + biz.name : ''}
+${service ? 'Treatment or service received: ' + service : ''}
+${doctor && mentionDoctor ? 'Doctor who treated you: ' + doctor + ' — mention by full name naturally in the review' : ''}
+Your rating: ${stars}/5 (${starWord})
+What you appreciated: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
+${note ? 'Additional detail: ' + note : ''}
+
+Write a personal, warm, honest review that follows this emotional journey:
+1. Start with the situation — the problem, pain, injury, or fear that brought you or your family member here
+2. Describe how the doctor listened, explained the condition clearly, and gave you confidence before treatment
+3. Describe how the surgery or treatment went and how recovery is progressing
+4. End with sincere gratitude and recommend to others who need similar help
+
+Style rules:
+- ${sCount} to ${sCount + 1} sentences. Around ${wLimit} words.
+- ${langInstruction}
+- Mention a family member naturally if they were the patient (mother, father, son, wife, etc.)
+- Include a specific detail — a timeframe, the condition name, or a moment that stood out
+- "highly recommend" feels earned here — use it naturally at the end
+- Sound like a real person who genuinely went through this experience
+- Warm and grateful tone, not marketing language
+- Do NOT start with "I"
+- No hashtags
+- Output ONLY the review text. No quotes. No explanation.`;
+    } else {
+      prompt = `You are a real person writing a Google review from your own experience. NOT an AI. Write like a normal Indian person — casual, personal, not formal or like a template.
 
 ${reviewerContext}
 
-Your visit details:
+Details of your visit:
 - Business type: ${biz.category || 'local business'}, ${biz.location || 'Pune'}
-${mentionBizName ? '- Business name: ' + biz.name + ' (mention casually once if it fits)' : '- Do not mention the business name'}
-${service ? '- You used: ' + service : ''}
-${doctor && mentionDoctor ? '- You may briefly mention: ' + doctor : ''}
-- Your rating: ${stars}/5 — ${starWord}
-- Things you liked: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
+${mentionBizName ? '- Mention business name casually once: ' + biz.name : '- Do not mention the business name'}
+${service ? '- Service you used: ' + service : ''}
+${doctor && mentionDoctor ? '- You may mention: ' + doctor : ''}
+- Rating: ${stars}/5 — ${starWord}
+- What you liked: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
 ${note ? '- Extra detail: ' + note : ''}
 
-How to write:
+Writing style:
 - ${randomTone}
 - ${randomStructure}
-${rOpening ? '- Start with: ' + rOpening : ''}
-- Somewhere naturally say something like: "${rTouch}"
+${rOpening ? '- You can start with: ' + rOpening : ''}
+- Somewhere naturally include something like: "${rTouch}"
 - ${langInstruction}
-- Write ${sCount} to ${sCount + 1} sentences. Under ${wLimit} words total.
-${imperfectStyle ? '- Write slightly casually — a short sentence, a thought that trails off. Real people are not perfect writers.' : '- Write naturally and conversationally, not like a formal testimonial.'}
-${useAbbrev ? '- Can use casual words like tbh, v good where natural.' : ''}
+- ${sCount} to ${sCount + 1} sentences. Under ${wLimit} words total.
+${imperfectStyle ? '- Write slightly casually — a short sentence, a natural pause. Real people are not perfect writers.' : '- Write naturally and conversationally, not like a formal testimonial.'}
+${useAbbrev ? '- Can use casual phrases like tbh, v good where it feels natural.' : ''}
 
 Hard rules:
 - Do NOT start with "I"
-- Do NOT use: highly recommend, five stars, 5 stars, I am pleased, I would like to, In conclusion, Overall
+- Do NOT use: highly recommend, five stars, I am pleased, I would like to, In conclusion, Overall
 - No hashtags, no emojis
-- Do not sound like a marketing ad or an AI template
-- Do NOT mention tea, coffee, chai unless it is a restaurant or cafe
-- Do NOT mention spouse or family unless business type naturally involves them
-- For tech or software: write as a business owner about results and support, not personal visits
+- Not like a marketing ad or AI-generated text
+- No tea, coffee, or chai unless it is a restaurant or cafe
+- No family members unless the business type naturally involves them
+- For tech or software companies: write as a business owner about results, efficiency, support
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
+    }
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
-      max_tokens: 200,
+      max_tokens: 220,
       temperature: 1.0,
       messages: [
-        { role: 'system', content: 'You write short authentic Google reviews that sound like real people wrote them. Never sound like an AI or a marketing template.' },
+        { role: 'system', content: 'You write authentic Google reviews that sound like real people wrote them — personal, genuine, warm, never like an AI or a marketing template.' },
         { role: 'user', content: prompt }
       ]
     });
