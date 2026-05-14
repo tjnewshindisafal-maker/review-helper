@@ -601,7 +601,7 @@ function openPoster(b){
   var typeMap={'dental':'Dental Clinic','automotive':'Car Detailing Studio','electronics':'Electronics Shop','multi':'Multi Specialty Clinic','other':'Professional Services'};
   var cat=b.category||typeMap[b.type]||(b.services&&b.services[0])||'Professional Services';
   var params=new URLSearchParams({name:b.name||'',cat:cat,loc:b.location||'',url:b.googleLink||''});
-  document.getElementById('posterFrame').src='/poster-generator.html?'+params.toString();
+  document.getElementById('posterFrame').src='/qr-poster?b='+b.id;
   document.getElementById('posterModal').style.display='flex';
 }
 
