@@ -320,11 +320,13 @@ Your rating: ${stars}/5 (${starWord})
 What you appreciated: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
 ${note ? 'Additional detail: ' + note : ''}
 
-Write a personal, warm, honest review that follows this emotional journey:
-1. Start naturally — mention what happened or why you visited (avoid starting with Dealing, Suffering, Severe, Struggling — instead say something like: I had a fracture, Came here after an accident, Was in a lot of pain, Consulted after my injury, etc.)
-2. Describe how the doctor listened, explained the condition clearly, and gave you confidence before treatment
-3. Describe how the surgery or treatment went and how recovery is progressing
-4. End with sincere gratitude and recommend to others who need similar help
+Here are examples of real natural reviews — write a NEW one in the same style (vary the opening each time, do not copy these):
+
+Example 1: "I had a fracture in my leg and was in a lot of pain. Consulted here and the doctor explained everything very clearly and advised surgery. The surgery was successful and the whole process was smooth. Now recovering well and able to walk better. Highly recommend to anyone with bone or fracture problems."
+
+Example 2: "Came here for knee replacement after years of constant pain. The doctor cleared all our doubts and explained the procedure so we felt fully confident. Surgery went successfully and the staff was very caring throughout. Very happy with the results and highly recommend."
+
+Example 3: "Was in a lot of pain after my injury and visited this clinic. The doctor diagnosed the issue, explained the treatment clearly, and gave us complete confidence. Surgery was done without any complications. Recovery has been very good. Truly grateful for the care." 
 
 Style rules:
 - ${sCount} to ${sCount + 1} sentences. Around ${wLimit} words.
