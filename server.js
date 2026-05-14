@@ -263,6 +263,16 @@ const humanTouches = [
   'surprisingly smooth experience',
 ];
 
+const medicalOpeners = [
+  'Visited here for', 'Consulted here for', 'Got my',
+  'Had my treatment for', 'Came here for', 'Took treatment for',
+  'Recently got', 'Just completed my', 'Underwent',
+  'Was treated here for', 'Chose this place for',
+  'Went here for', 'After months of pain,', 'Was in a lot of pain,',
+  'Pain in my', 'My knee pain', 'The fracture in my',
+  'Got surgery done for', 'Had been in pain for', 'First visited here for',
+];
+
 app.get('/business/:id', (req, res) => {
   try {
     const businesses = getBusinesses();
@@ -308,6 +318,7 @@ app.post('/generate-review', async (req, res) => {
       ? [4,5,5,6][Math.floor(Math.random() * 4)]
       : [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
     const reviewerContext = getBizContext(biz);
+    const medOpener = medicalBiz ? medicalOpeners[Math.floor(Math.random() * medicalOpeners.length)] : '';
     const imperfectStyle = !medicalBiz && Math.random() < 0.4;
     const useAbbrev = !medicalBiz && Math.random() < 0.3;
     let prompt;
@@ -331,6 +342,7 @@ Example 3: "Was in a lot of pain after my injury and visited this clinic. The do
 Style rules:
 - ${sCount} to ${sCount + 1} sentences. Around ${wLimit} words.
 - ${langInstruction}
+- You MUST start the review with exactly this word or phrase: "${medOpener}"
 - The reviewer is the patient themselves (do NOT mention family member unless note specifically says so)
 - Include a specific detail — a timeframe, the condition name, or a moment that stood out
 - "highly recommend" feels earned here — use it naturally at the end
