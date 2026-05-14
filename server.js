@@ -329,7 +329,7 @@ Write a personal, warm, honest review that follows this emotional journey:
 Style rules:
 - ${sCount} to ${sCount + 1} sentences. Around ${wLimit} words.
 - ${langInstruction}
-- Mention a family member naturally if they were the patient (mother, father, son, wife, etc.)
+- The reviewer is the patient themselves (do NOT mention family member unless note specifically says so)
 - Include a specific detail — a timeframe, the condition name, or a moment that stood out
 - "highly recommend" feels earned here — use it naturally at the end
 - Sound like a real person who genuinely went through this experience
