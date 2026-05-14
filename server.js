@@ -321,7 +321,7 @@ What you appreciated: ${highlights && highlights.length ? highlights.join(', ') 
 ${note ? 'Additional detail: ' + note : ''}
 
 Write a personal, warm, honest review that follows this emotional journey:
-1. Start with the situation — the problem, pain, injury, or fear that brought you or your family member here
+1. Start naturally — mention what happened or why you visited (avoid starting with Dealing, Suffering, Severe, Struggling — instead say something like: I had a fracture, Came here after an accident, Was in a lot of pain, Consulted after my injury, etc.)
 2. Describe how the doctor listened, explained the condition clearly, and gave you confidence before treatment
 3. Describe how the surgery or treatment went and how recovery is progressing
 4. End with sincere gratitude and recommend to others who need similar help
