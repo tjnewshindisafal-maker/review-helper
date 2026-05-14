@@ -241,13 +241,26 @@ function getBizContext(biz) {
 }
 
 const humanTouches = [
-  'will definitely come back', 'already told 2-3 friends about this',
-  'booked my next appointment', 'worth every rupee', 'no complaints at all',
-  'better than I expected honestly', 'did not have to wait long at all',
-  'felt very comfortable throughout', 'the staff was very polite',
-  'would visit again without hesitation', 'the whole process was smooth',
-  'got exactly what I was looking for', 'very satisfied with the outcome',
-  'will not go anywhere else now', 'genuinely impressed with the service',
+  'will definitely go back',
+  'already referred 2-3 people',
+  'booked my next appointment already',
+  'worth the money honestly',
+  'zero complaints',
+  'pleasantly surprised tbh',
+  'barely had to wait',
+  'was comfortable throughout',
+  'staff was helpful and not pushy',
+  'no second thoughts about coming back',
+  'the whole thing was hassle free',
+  'got what I needed without any drama',
+  'quite happy with the result',
+  'not switching to anyone else',
+  'did not feel like a typical place',
+  'exactly what I was looking for',
+  'relieved honestly',
+  'have already recommended it',
+  'process was simple and quick',
+  'surprisingly smooth experience',
 ];
 
 app.get('/business/:id', (req, res) => {
@@ -290,41 +303,49 @@ app.post('/generate-review', async (req, res) => {
     const wLimit    = [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
     const sCount    = [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
     const reviewerContext = getBizContext(biz);
-    const prompt = `${reviewerContext} You are writing a real Google review. NOT an AI. Sound 100% human.
+    const imperfectStyle = Math.random() < 0.4;
+    const useAbbrev = Math.random() < 0.3;
+    const prompt = `You are a real person writing a Google review from your own experience. You are NOT an AI. Write exactly how a normal Indian person types a review — not formally, not like a template.
 
-Context:
-- Place type: ${biz.category || 'local business'} in ${biz.location || 'India'}
-${mentionBizName ? '- You may mention the name: ' + biz.name : '- Do NOT mention the business name'}
-${service ? '- Service used: ' + service : ''}
-${doctor && mentionDoctor ? '- You may briefly mention: ' + doctor : '- Do NOT mention any staff or doctor name'}
-- Rating: ${stars}/5 (${starWord})
-- What you liked: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
-${note ? '- Personal note: ' + note : ''}
+${reviewerContext}
 
-Style:
+Your visit details:
+- Business type: ${biz.category || 'local business'}, ${biz.location || 'Pune'}
+${mentionBizName ? '- Business name: ' + biz.name + ' (mention casually once if it fits)' : '- Do not mention the business name'}
+${service ? '- You used: ' + service : ''}
+${doctor && mentionDoctor ? '- You may briefly mention: ' + doctor : ''}
+- Your rating: ${stars}/5 — ${starWord}
+- Things you liked: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
+${note ? '- Extra detail: ' + note : ''}
+
+How to write:
 - ${randomTone}
 - ${randomStructure}
-${rOpening ? '- Optional opening: ' + rOpening : ''}
-- Naturally include: "${rTouch}"
-- Language: ${langInstruction}
+${rOpening ? '- Start with: ' + rOpening : ''}
+- Somewhere naturally say something like: "${rTouch}"
+- ${langInstruction}
+- Write ${sCount} to ${sCount + 1} sentences. Under ${wLimit} words total.
+${imperfectStyle ? '- Write slightly casually — a short sentence, a thought that trails off. Real people are not perfect writers.' : '- Write naturally and conversationally, not like a formal testimonial.'}
+${useAbbrev ? '- Can use casual words like tbh, v good where natural.' : ''}
 
-Rules:
-- Exactly ${sCount} sentences. Max ${wLimit} words total.
-- Sound conversational and real — slightly imperfect is fine
-- Include one specific personal detail
-- Do NOT start with the word "I"
-- No hashtags, no emojis, no "highly recommend", no "five stars"
-- Only mention business name or staff name if specifically instructed above
-- Do NOT mention tea, coffee, chai, water or any food/drinks unless the business is a restaurant or cafe
-- Do NOT mention family members unless the business type makes it natural
-- For software/tech companies: write as a business user, mention ROI, efficiency, support
-- Do NOT invent details that were not in the context
-- Output ONLY the review text. No quotes. No explanation.`;
+Hard rules:
+- Do NOT start with "I"
+- Do NOT use: highly recommend, five stars, 5 stars, I am pleased, I would like to, In conclusion, Overall
+- No hashtags, no emojis
+- Do not sound like a marketing ad or an AI template
+- Do NOT mention tea, coffee, chai unless it is a restaurant or cafe
+- Do NOT mention spouse or family unless business type naturally involves them
+- For tech or software: write as a business owner about results and support, not personal visits
+- Do NOT add details not mentioned above
+- Output ONLY the review text. No quotes. No label. No explanation.`;
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       max_tokens: 200,
-      temperature: 1.2,
-      messages: [{ role: 'user', content: prompt }]
+      temperature: 1.0,
+      messages: [
+        { role: 'system', content: 'You write short authentic Google reviews that sound like real people wrote them. Never sound like an AI or a marketing template.' },
+        { role: 'user', content: prompt }
+      ]
     });
     const reviewText = completion.choices[0]?.message?.content?.trim();
     res.json({ review: reviewText });
