@@ -263,6 +263,13 @@ const humanTouches = [
   'surprisingly smooth experience',
 ];
 
+const medicalTimeframes = [
+  'within 2 weeks', 'in just 10 days', 'within a month',
+  'in about 6 weeks', 'after 45 days', 'within 3 weeks',
+  'in just 2 months', 'after 5 weeks', 'within 8 weeks',
+  'in about 3 months', 'after just 4 weeks', 'within 10 days',
+];
+
 const medicalOpeners = [
   'Visited here for', 'Consulted here for', 'Got my',
   'Had my treatment for', 'Came here for', 'Took treatment for',
@@ -318,6 +325,7 @@ app.post('/generate-review', async (req, res) => {
       ? [4,5,5,6][Math.floor(Math.random() * 4)]
       : [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
     const reviewerContext = getBizContext(biz);
+    const medTimeframe = medicalBiz ? medicalTimeframes[Math.floor(Math.random() * medicalTimeframes.length)] : '';
     const medOpener = medicalBiz ? medicalOpeners[Math.floor(Math.random() * medicalOpeners.length)] : '';
     const imperfectStyle = !medicalBiz && Math.random() < 0.4;
     const useAbbrev = !medicalBiz && Math.random() < 0.3;
@@ -344,7 +352,8 @@ Style rules:
 - ${langInstruction}
 - You MUST start the review with exactly this word or phrase: "${medOpener}"
 - The reviewer is the patient themselves (do NOT mention family member unless note specifically says so)
-- Include a specific detail — a timeframe, the condition name, or a moment that stood out
+- If you mention recovery time, use this exact timeframe: "${medTimeframe}"
+- Include a specific detail naturally
 - "highly recommend" feels earned here — use it naturally at the end
 - Sound like a real person who genuinely went through this experience
 - Warm and grateful tone, not marketing language
