@@ -5,16 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 
-// ============ STARTUP ENV CHECK ============
-const REQUIRED_ENV = ['GROQ_API_KEY', 'EMAIL_USER', 'EMAIL_PASS', 'ADMIN_PASS'];
-const missing = REQUIRED_ENV.filter(k => !process.env[k]);
-if (missing.length) {
-  console.error('ERROR: Missing required environment variables:', missing.join(', '));
-  console.error('Create a .env file or set these variables before starting.');
-  process.exit(1);
-}
-const ADMIN_PASS = process.env.ADMIN_PASS;
-// ============ END ENV CHECK ============
+const ADMIN_PASS = process.env.ADMIN_PASS || 'sandeep9821';
 
 const PLACES_CACHE_FILE = path.join(__dirname, 'places_cache.json');
 
