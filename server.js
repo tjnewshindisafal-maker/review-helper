@@ -152,12 +152,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
-  }
-}));
+app.use(cors());
 
 app.use((req, res, next) => {
   const ip = req.ip || req.connection.remoteAddress;
