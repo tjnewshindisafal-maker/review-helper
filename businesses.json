@@ -250,14 +250,14 @@
     "placeId": "ChIJ_XTmSiLDwjsRfEDRa6AeNW4"
   },
   "anelectronics": {
-    "name": "A N Electronics",
+    "name": "A N Electronics Hadapsar",
     "googleLink": "https://g.page/r/CRJozOTFeW6PEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": false,
     "icon": "📺",
     "staff": "",
-    "location": "",
+    "location": "Hadapsar, Pune",
     "services": [
       "LED TV Repair",
       "LCD TV Repair",
@@ -282,8 +282,8 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
+      "Hadapsar",
       "Pune"
     ],
     "category": "Electronics Shop",
@@ -543,54 +543,17 @@
     ],
     "trialClient": true
   },
-  "anelectronicshadapsar": {
-    "name": "A N Electronics Hadapsar",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
-    "type": "electronics",
-    "showDoctor": false,
-    "showLocation": true,
-    "icon": "📺",
-    "location": "Hadapsar, Pune",
-    "category": "Electronics Shop",
-    "services": [
-      "LED TV Repair",
-      "LCD TV Repair",
-      "Smart TV Repair",
-      "TV Board Repair",
-      "TV Panel Repair",
-      "TV Purchase (New)",
-      "TV Purchase (Second Hand)",
-      "Home Appliance Repair"
-    ],
-    "chips": [
-      "Fast repair",
-      "Affordable price",
-      "Genuine parts",
-      "Expert technician",
-      "Quick service",
-      "Trustworthy",
-      "Good warranty",
-      "Professional"
-    ],
-    "keywords": [
-      "LED TV",
-      "LCD TV",
-      "TV repair",
-      "television",
-      "electronics",
-      "Hadapsar",
-      "Pune"
-    ]
-  },
   "anelectronicsshivane": {
     "name": "A N Electronics Shivane",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CdCi0SZ3MnBWEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
     "icon": "📺",
     "location": "Shivane, Pune",
-    "category": "Electronics Shop",
+    "category": "TV & Electronics Repair",
+    "phone": "07020877934",
+    "fullAddress": "NDA Rd, opp. Life Fitness Gym, Shivtirth Nagar, Shivane, Pune 411023",
     "services": [
       "LED TV Repair",
       "LCD TV Repair",
@@ -615,7 +578,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Shivane",
       "Pune"
@@ -623,7 +585,7 @@
   },
   "relaxspa": {
     "name": "Relax Spa Center",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/Cdq19PToF0zHEBM/review",
     "type": "other",
     "showDoctor": false,
     "showLocation": true,
@@ -631,14 +593,16 @@
     "location": "Pune",
     "category": "Spa & Wellness Center",
     "services": [
-      "Body Massage",
+      "Full Body Massage",
       "Deep Tissue Massage",
-      "Aromatherapy",
+      "Swedish Massage",
+      "Aromatherapy Massage",
+      "Thai Massage",
       "Head Massage",
       "Foot Massage",
-      "Couple Massage",
-      "Facial",
-      "Steam & Relaxation"
+      "Body Spa Therapy",
+      "Stress Relief Massage",
+      "Pain Relief Therapy"
     ],
     "chips": [
       "Relaxing experience",
@@ -653,14 +617,15 @@
     "keywords": [
       "spa",
       "massage",
-      "relaxation",
-      "wellness",
+      "body massage",
+      "thai massage",
+      "aromatherapy",
       "Pune"
     ]
   },
   "qdigihadapsar": {
     "name": "Qdigi Service Center Hadapsar",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CedfZ_SMfPucEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -691,7 +656,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Hadapsar",
       "Pune"
@@ -699,7 +663,7 @@
   },
   "qdigihinjewadi": {
     "name": "Qdigi Service Center Hinjewadi",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CQeLpwoW-EtcEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -730,7 +694,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Hinjewadi",
       "Pune"
@@ -738,7 +701,7 @@
   },
   "qdigilohegaon": {
     "name": "Qdigi Service Center Lohegaon",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CXYPWMP5mKofEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -769,7 +732,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Lohegaon",
       "Pune"
@@ -777,7 +739,7 @@
   },
   "qdigipimpri": {
     "name": "Qdigi Service Center Pimpri",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CQ0H7-a0QttYEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -808,7 +770,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Pimpri",
       "Pune"
@@ -816,7 +777,7 @@
   },
   "qdigikharadi": {
     "name": "Qdigi Service Center Kharadi",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/Cam-dv9KTpw6EBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -847,7 +808,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Kharadi",
       "Pune"
@@ -855,7 +815,7 @@
   },
   "aienterprises": {
     "name": "AI Enterprises",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CU3gBLeyGUifEBM/review",
     "type": "other",
     "showDoctor": false,
     "showLocation": true,
@@ -897,7 +857,7 @@
   },
   "hselectronicskharadi": {
     "name": "HS Electronics Kharadi",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CVJ5S8izPxPeEBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -928,7 +888,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Kharadi",
       "Pune"
@@ -936,7 +895,7 @@
   },
   "hselectronicshandewadi": {
     "name": "HS Electronics Handewadi",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CTUkxPXFTanREBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -967,7 +926,6 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Handewadi",
       "Pune"
@@ -975,7 +933,7 @@
   },
   "rajveerelectronics": {
     "name": "Rajveer Electronics",
-    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "googleLink": "https://g.page/r/CT0XKVtdc6-3EBM/review",
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
@@ -1006,9 +964,46 @@
       "LED TV",
       "LCD TV",
       "TV repair",
-      "television",
       "electronics",
       "Rajveer",
+      "Pune"
+    ]
+  },
+  "anelectronicspimpri": {
+    "name": "A N Electronics Pimpri",
+    "googleLink": "https://g.page/r/CeqvC8WsSVBxEBM/review",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Pimpri, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "electronics",
+      "Pimpri",
       "Pune"
     ]
   }
