@@ -261,9 +261,12 @@
     "services": [
       "LED TV Repair",
       "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
       "TV Purchase (New)",
       "TV Purchase (Second Hand)",
-      "Cooler Purchase"
+      "Home Appliance Repair"
     ],
     "chips": [
       "Fast repair",
@@ -276,12 +279,12 @@
       "Professional"
     ],
     "keywords": [
-      "LED TV repair",
-      "LCD TV repair",
-      "TV service",
+      "LED TV",
+      "LCD TV",
+      "TV repair",
       "television",
-      "cooler",
-      "electronics"
+      "electronics",
+      "Pune"
     ],
     "category": "Electronics Shop",
     "placeId": "ChIJl4MecQPqwjsREmjM5MV5bo8"
@@ -552,11 +555,11 @@
     "services": [
       "LED TV Repair",
       "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
       "TV Purchase (New)",
       "TV Purchase (Second Hand)",
-      "Mobile Repair",
-      "Cooler Purchase",
-      "Electrical Repair",
       "Home Appliance Repair"
     ],
     "chips": [
@@ -572,7 +575,8 @@
     "keywords": [
       "LED TV",
       "LCD TV",
-      "repair",
+      "TV repair",
+      "television",
       "electronics",
       "Hadapsar",
       "Pune"
@@ -590,11 +594,11 @@
     "services": [
       "LED TV Repair",
       "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
       "TV Purchase (New)",
       "TV Purchase (Second Hand)",
-      "Mobile Repair",
-      "Cooler Purchase",
-      "Electrical Repair",
       "Home Appliance Repair"
     ],
     "chips": [
@@ -610,7 +614,8 @@
     "keywords": [
       "LED TV",
       "LCD TV",
-      "repair",
+      "TV repair",
+      "television",
       "electronics",
       "Shivane",
       "Pune"
@@ -659,34 +664,35 @@
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
-    "icon": "📱",
+    "icon": "📺",
     "location": "Hadapsar, Pune",
-    "category": "Mobile & Electronics Service Center",
+    "category": "TV & Electronics Repair",
     "services": [
-      "Mobile Screen Repair",
-      "Battery Replacement",
-      "Water Damage Repair",
-      "Laptop Repair",
-      "Data Recovery",
-      "Charging Port Repair",
-      "Software Issues",
-      "All Brand Service"
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
     ],
     "chips": [
       "Fast repair",
-      "Genuine parts",
-      "Expert technicians",
       "Affordable price",
-      "Quick turnaround",
-      "All brands",
-      "Warranty on repair",
-      "Trustworthy"
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
     ],
     "keywords": [
-      "mobile repair",
-      "service center",
-      "smartphone",
-      "laptop",
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
       "Hadapsar",
       "Pune"
     ]
@@ -697,35 +703,312 @@
     "type": "electronics",
     "showDoctor": false,
     "showLocation": true,
-    "icon": "📱",
+    "icon": "📺",
     "location": "Hinjewadi, Pune",
-    "category": "Mobile & Electronics Service Center",
+    "category": "TV & Electronics Repair",
     "services": [
-      "Mobile Screen Repair",
-      "Battery Replacement",
-      "Water Damage Repair",
-      "Laptop Repair",
-      "Data Recovery",
-      "Charging Port Repair",
-      "Software Issues",
-      "All Brand Service"
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
     ],
     "chips": [
       "Fast repair",
-      "Genuine parts",
-      "Expert technicians",
       "Affordable price",
-      "Quick turnaround",
-      "All brands",
-      "Warranty on repair",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Hinjewadi",
+      "Pune"
+    ]
+  },
+  "qdigilohegaon": {
+    "name": "Qdigi Service Center Lohegaon",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Lohegaon, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Lohegaon",
+      "Pune"
+    ]
+  },
+  "qdigipimpri": {
+    "name": "Qdigi Service Center Pimpri",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Pimpri, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Pimpri",
+      "Pune"
+    ]
+  },
+  "qdigikharadi": {
+    "name": "Qdigi Service Center Kharadi",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Kharadi, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Kharadi",
+      "Pune"
+    ]
+  },
+  "aienterprises": {
+    "name": "AI Enterprises",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "⚡",
+    "location": "Kharadi, Pune",
+    "category": "Electrician & CCTV Services",
+    "services": [
+      "Electrician Services",
+      "Electrical Installation",
+      "Wiring Repair",
+      "Switch & Socket Repair",
+      "MCB Repair",
+      "Power Supply Repair",
+      "CCTV Installation",
+      "CCTV Repair",
+      "CCTV Maintenance",
+      "Security Camera Setup",
+      "Home Electrical Repair"
+    ],
+    "chips": [
+      "Professional work",
+      "On-time service",
+      "Clean installation",
+      "Affordable pricing",
+      "Reliable team",
+      "Quality materials",
+      "Quick response",
       "Trustworthy"
     ],
     "keywords": [
-      "mobile repair",
-      "service center",
-      "smartphone",
-      "laptop",
-      "Hinjewadi",
+      "electrician",
+      "CCTV",
+      "wiring",
+      "installation",
+      "Kharadi",
+      "Pune",
+      "security camera"
+    ]
+  },
+  "hselectronicskharadi": {
+    "name": "HS Electronics Kharadi",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Kharadi, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Kharadi",
+      "Pune"
+    ]
+  },
+  "hselectronicshandewadi": {
+    "name": "HS Electronics Handewadi",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Handewadi, Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Handewadi",
+      "Pune"
+    ]
+  },
+  "rajveerelectronics": {
+    "name": "Rajveer Electronics",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Pune",
+    "category": "TV & Electronics Repair",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "Smart TV Repair",
+      "TV Board Repair",
+      "TV Panel Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "TV repair",
+      "television",
+      "electronics",
+      "Rajveer",
       "Pune"
     ]
   }
