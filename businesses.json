@@ -539,5 +539,194 @@
       "technology"
     ],
     "trialClient": true
+  },
+  "anelectronicshadapsar": {
+    "name": "A N Electronics Hadapsar",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Hadapsar, Pune",
+    "category": "Electronics Shop",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Mobile Repair",
+      "Cooler Purchase",
+      "Electrical Repair",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "repair",
+      "electronics",
+      "Hadapsar",
+      "Pune"
+    ]
+  },
+  "anelectronicsshivane": {
+    "name": "A N Electronics Shivane",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📺",
+    "location": "Shivane, Pune",
+    "category": "Electronics Shop",
+    "services": [
+      "LED TV Repair",
+      "LCD TV Repair",
+      "TV Purchase (New)",
+      "TV Purchase (Second Hand)",
+      "Mobile Repair",
+      "Cooler Purchase",
+      "Electrical Repair",
+      "Home Appliance Repair"
+    ],
+    "chips": [
+      "Fast repair",
+      "Affordable price",
+      "Genuine parts",
+      "Expert technician",
+      "Quick service",
+      "Trustworthy",
+      "Good warranty",
+      "Professional"
+    ],
+    "keywords": [
+      "LED TV",
+      "LCD TV",
+      "repair",
+      "electronics",
+      "Shivane",
+      "Pune"
+    ]
+  },
+  "relaxspa": {
+    "name": "Relax Spa Center",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "💆",
+    "location": "Pune",
+    "category": "Spa & Wellness Center",
+    "services": [
+      "Body Massage",
+      "Deep Tissue Massage",
+      "Aromatherapy",
+      "Head Massage",
+      "Foot Massage",
+      "Couple Massage",
+      "Facial",
+      "Steam & Relaxation"
+    ],
+    "chips": [
+      "Relaxing experience",
+      "Expert therapists",
+      "Clean & hygienic",
+      "Affordable pricing",
+      "Great ambiance",
+      "Professional staff",
+      "Feel refreshed",
+      "Highly recommended"
+    ],
+    "keywords": [
+      "spa",
+      "massage",
+      "relaxation",
+      "wellness",
+      "Pune"
+    ]
+  },
+  "qdigihadapsar": {
+    "name": "Qdigi Service Center Hadapsar",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📱",
+    "location": "Hadapsar, Pune",
+    "category": "Mobile & Electronics Service Center",
+    "services": [
+      "Mobile Screen Repair",
+      "Battery Replacement",
+      "Water Damage Repair",
+      "Laptop Repair",
+      "Data Recovery",
+      "Charging Port Repair",
+      "Software Issues",
+      "All Brand Service"
+    ],
+    "chips": [
+      "Fast repair",
+      "Genuine parts",
+      "Expert technicians",
+      "Affordable price",
+      "Quick turnaround",
+      "All brands",
+      "Warranty on repair",
+      "Trustworthy"
+    ],
+    "keywords": [
+      "mobile repair",
+      "service center",
+      "smartphone",
+      "laptop",
+      "Hadapsar",
+      "Pune"
+    ]
+  },
+  "qdigihinjewadi": {
+    "name": "Qdigi Service Center Hinjewadi",
+    "googleLink": "https://search.google.com/local/writereview?placeid=UPDATE_PLACE_ID",
+    "type": "electronics",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "📱",
+    "location": "Hinjewadi, Pune",
+    "category": "Mobile & Electronics Service Center",
+    "services": [
+      "Mobile Screen Repair",
+      "Battery Replacement",
+      "Water Damage Repair",
+      "Laptop Repair",
+      "Data Recovery",
+      "Charging Port Repair",
+      "Software Issues",
+      "All Brand Service"
+    ],
+    "chips": [
+      "Fast repair",
+      "Genuine parts",
+      "Expert technicians",
+      "Affordable price",
+      "Quick turnaround",
+      "All brands",
+      "Warranty on repair",
+      "Trustworthy"
+    ],
+    "keywords": [
+      "mobile repair",
+      "service center",
+      "smartphone",
+      "laptop",
+      "Hinjewadi",
+      "Pune"
+    ]
   }
 }
