@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advizr Media - Get More Google Reviews</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;background:#fff}
+a{text-decoration:none;color:inherit}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07);position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:900;color:#4285F4}.logo span{color:#EA4335}
+.nav-wa{background:#25D366;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:700}
+.hero{background:linear-gradient(135deg,#f8faff,#eef2ff);padding:64px 24px 48px;text-align:center}
+.badge{background:#e8f0fe;color:#4285F4;font-size:12px;font-weight:700;padding:6px 16px;border-radius:50px;display:inline-block;margin-bottom:20px}
+h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.15;margin-bottom:16px}
+h1 span{color:#4285F4}
+.sub{font-size:clamp(15px,2vw,19px);color:#555;max-width:580px;margin:0 auto 32px;line-height:1.6}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.btn-b{background:#4285F4;color:#fff;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.btn-w{background:#25D366;color:#fff;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.rating-box{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:20px 28px;display:inline-flex;align-items:center;gap:16px;margin-bottom:40px}
+.g-logo{font-size:26px;font-weight:900}
+.g1{color:#4285F4}.g2{color:#EA4335}.g3{color:#FBBC05}.g4{color:#34A853}
+.r-num{font-size:22px;font-weight:900}.r-sub{font-size:12px;color:#888;margin-top:2px}
+.stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.stat .n{font-size:32px;font-weight:900;color:#4285F4}.stat .l{font-size:12px;color:#888;font-weight:600;margin-top:4px}
+.sec{padding:60px 24px;max-width:1100px;margin:0 auto;text-align:center}
+.tag{font-size:12px;font-weight:700;color:#4285F4;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.stitle{font-size:clamp(24px,3.5vw,38px);font-weight:900;margin-bottom:32px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;text-align:left}
+.step{background:#f8faff;border-radius:20px;padding:28px}
+.snum{width:44px;height:44px;background:#4285F4;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;margin-bottom:16px}
+.step h3{font-size:17px;font-weight:800;margin-bottom:8px}
+.step p{font-size:14px;color:#666;line-height:1.6}
+.feat-bg{background:#f8faff;padding:60px 24px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1100px;margin:32px auto 0}
+.feat{background:#fff;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.fi{font-size:32px;margin-bottom:12px}
+.feat h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.feat p{font-size:13px;color:#666;line-height:1.6}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:32px}
+.plan{border:2px solid #e8eaf0;border-radius:20px;padding:28px;position:relative;transition:transform .2s;text-align:left}
+.plan:hover{transform:translateY(-4px)}
+.plan.hot{border-color:#4285F4;background:#f0f4ff}
+.hbadge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#4285F4;color:#fff;font-size:11px;font-weight:800;padding:5px 16px;border-radius:50px;white-space:nowrap}
+.pname{font-size:14px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:8px}
+.price{font-size:38px;font-weight:900;margin-bottom:4px}
+.price span{font-size:16px;font-weight:600;color:#888}
+.psub{font-size:13px;color:#888;margin-bottom:20px}
+.plist{list-style:none;margin-bottom:24px}
+.plist li{font-size:13px;color:#444;padding:7px 0;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+.plist li:last-child{border:none}
+.plist li:before{content:"\2713";color:#34A853;font-weight:900;flex-shrink:0}
+.pbtn{width:100%;padding:12px;background:#4285F4;color:#fff;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer}
+.pbtn:hover{background:#3367d6}
+.testi-bg{background:#f8faff;padding:60px 24px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:32px auto 0}
+.testi{background:#fff;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.ts{color:#FBBC05;font-size:16px;margin-bottom:10px}
+.tt{font-size:14px;color:#444;line-height:1.7;margin-bottom:14px;font-style:italic}
+.ta{font-size:13px;font-weight:700}.tb{font-size:12px;color:#888}
+.cta{background:linear-gradient(135deg,#4285F4,#3367d6);padding:64px 24px;text-align:center;color:#fff}
+.cta h2{font-size:clamp(24px,4vw,40px);font-weight:900;margin-bottom:12px}
+.cta p{font-size:16px;opacity:.85;max-width:480px;margin:0 auto 32px}
+.cta-btn{background:#25D366;color:#fff;padding:16px 36px;border-radius:50px;font-size:16px;font-weight:700;display:inline-flex;align-items:center;gap:10px}
+footer{background:#1a1a2e;color:#aaa;text-align:center;padding:24px;font-size:13px}
+footer b{color:#4285F4}
+.fwa{position:fixed;bottom:24px;right:24px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:999;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,.7)}}
+@media(max-width:600px){.stats{gap:24px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Advizr<span>Media</span></div>
+  <a class="nav-wa" href="https://wa.me/918087289267">WhatsApp Us</a>
+</nav>
+
+<div class="hero">
+  <div class="badge">India No.1 Review Growth Tool</div>
+  <h1>Apne Business ke liye<br><span>Zyada Google Reviews</span> Pao</h1>
+  <p class="sub">60 seconds mein genuine 5-star review. AI ki madad se Hindi, Marathi aur English mein. Koi awkward maangna nahi.</p>
+  <div class="btns">
+    <a class="btn-b" href="https://wa.me/918087289267?text=Hi%2C%20mujhe%20apne%20business%20ke%20liye%20Google%20reviews%20chahiye">Get Started - Rs.199/mo</a>
+    <a class="btn-w" href="https://wa.me/918087289267">Talk to Us</a>
+  </div>
+  <div class="rating-box">
+    <div class="g-logo"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span></div>
+    <div><div class="r-num">4.9 &starf;&starf;&starf;&starf;&starf;</div><div class="r-sub">Aapka business aisa dikh sakta hai</div></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">500+</div><div class="l">Reviews Generate</div></div>
+    <div class="stat"><div class="n">25+</div><div class="l">Happy Businesses</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">Languages</div></div>
+    <div class="stat"><div class="n">60s</div><div class="l">Mein Review</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="tag">Kaise Kaam Karta Hai</div>
+  <div class="stitle">3 Simple Steps</div>
+  <div class="steps">
+    <div class="step"><div class="snum">1</div><h3>Customer QR Scan Kare</h3><p>Counter ya entrance par QR poster lagao. Koi bhi phone se scan kare, koi app nahi chahiye.</p></div>
+    <div class="step"><div class="snum">2</div><h3>AI Review Likhta Hai</h3><p>Customer apna experience select kare aur AI unki language mein genuine, natural review generate kare.</p></div>
+    <div class="step"><div class="snum">3</div><h3>Google Par Post</h3><p>Customer ek click kare - review seconds mein live. Aapko instantly notification milti hai.</p></div>
+  </div>
+</div>
+
+<div class="feat-bg">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="tag">Features</div>
+    <div class="stitle">Sab Kuch Aapke Liye</div>
+    <div class="feat-grid">
+      <div class="feat"><div class="fi">&#129302;</div><h3>AI Review Generation</h3><p>Natural, authentic reviews jo kabhi generic ya spammy nahi lagti.</p></div>
+      <div class="feat"><div class="fi">&#127760;</div><h3>4 Languages</h3><p>Hindi, Marathi, English, Hinglish - customer apni language mein review kare.</p></div>
+      <div class="feat"><div class="fi">&#128242;</div><h3>QR Poster Included</h3><p>Branded QR poster - print karke business par lagao. Kaam khatam.</p></div>
+      <div class="feat"><div class="fi">&#128202;</div><h3>Analytics Dashboard</h3><p>Scans, reviews aur submissions real time track karo.</p></div>
+      <div class="feat"><div class="fi">&#128276;</div><h3>Negative Alert System</h3><p>Unhappy customer Google par jaane se pehle aapko notify karte hain.</p></div>
+      <div class="feat"><div class="fi">&#9889;</div><h3>24 Ghante Mein Setup</h3><p>QR, poster, dashboard - sab hum karte hain. Aapka zero effort.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="tag">Pricing</div>
+  <div class="stitle">Simple, Affordable Plans</div>
+  <p style="color:#666;margin-bottom:32px">Koi setup fees nahi. Koi contract nahi. Kabhi bhi cancel karo.</p>
+  <div class="price-grid">
+    <div class="plan">
+      <div class="pname">Basic</div>
+      <div class="price">&#8377;199<span>/mo</span></div>
+      <div class="psub">Chhote businesses ke liye</div>
+      <ul class="plist">
+        <li>1 Business Location</li>
+        <li>AI Review Generation</li>
+        <li>Hindi + English</li>
+        <li>QR Poster (Digital)</li>
+        <li>Basic Analytics</li>
+        <li>Email Support</li>
+      </ul>
+      <button class="pbtn" onclick="window.open('https://wa.me/918087289267?text=Hi%2C%20Basic%20plan%20Rs%20199%20chahiye')">Shuru Karo</button>
+    </div>
+    <div class="plan hot">
+      <div class="hbadge">Most Popular</div>
+      <div class="pname">Pro</div>
+      <div class="price">&#8377;499<span>/mo</span></div>
+      <div class="psub">Growing businesses ke liye</div>
+      <ul class="plist">
+        <li>1 Business Location</li>
+        <li>AI Review Generation</li>
+        <li>Saari 4 Languages</li>
+        <li>QR Poster (Print-Ready)</li>
+        <li>Full Analytics Dashboard</li>
+        <li>Negative Alert System</li>
+        <li>WhatsApp Support</li>
+      </ul>
+      <button class="pbtn" onclick="window.open('https://wa.me/918087289267?text=Hi%2C%20Pro%20plan%20Rs%20499%20chahiye')">Shuru Karo</button>
+    </div>
+    <div class="plan">
+      <div class="pname">Business</div>
+      <div class="price">&#8377;999<span>/mo</span></div>
+      <div class="psub">Multiple locations ke liye</div>
+      <ul class="plist">
+        <li>3 Locations Tak</li>
+        <li>AI Review Generation</li>
+        <li>Saari 4 Languages</li>
+        <li>Branded QR Posters</li>
+        <li>Full Analytics Dashboard</li>
+        <li>Negative Alert System</li>
+        <li>Priority WhatsApp Support</li>
+        <li>Monthly Report</li>
+      </ul>
+      <button class="pbtn" onclick="window.open('https://wa.me/918087289267?text=Hi%2C%20Business%20plan%20Rs%20999%20chahiye')">Shuru Karo</button>
+    </div>
+  </div>
+</div>
+
+<div class="testi-bg">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="tag">Testimonials</div>
+    <div class="stitle">Hamare Clients Kya Kehte Hain</div>
+    <div class="tgrid">
+      <div class="testi"><div class="ts">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tt">"Hamare Google rating 4.1 se 4.7 ho gayi sirf 2 mahine mein. Patients ab Google Maps par bahut aasani se milte hain."</div><div class="ta">Dr. Pradeep Jadhav</div><div class="tb">Orthoderma Skin Clinic, Pune</div></div>
+      <div class="testi"><div class="ts">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tt">"Counter par QR poster game changer hai. Customer wait karte hue scan karta hai aur seconds mein review ho jati hai."</div><div class="ta">Sameer</div><div class="tb">Reshine Studio, Kharadi</div></div>
+      <div class="testi"><div class="ts">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tt">"Ek din mein setup ho gaya. Ab har hafte 5-10 naye reviews aate hain bina kuch kiye. Best investment tha."</div><div class="ta">Dr. Vaishali</div><div class="tb">Dr. Vaishali Dental Care, Wakad</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Zyada Reviews Chahiye?</h2>
+  <p>25+ businesses ke saath juro. Setup in 24 hours.</p>
+  <a class="cta-btn" href="https://wa.me/918087289267?text=Hi%2C%20mujhe%20apna%20Google%20reviews%20badhana%20hai">WhatsApp par Free Demo Lo</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <b>Advizr Media</b> - Google Review Growth for Indian Businesses</p>
+  <p style="margin-top:8px"><a href="tel:+918087289267" style="color:#4285F4">+91 80872 89267</a> &nbsp;|&nbsp; <a href="https://wa.me/918087289267" style="color:#25D366">WhatsApp</a></p>
+</footer>
+
+<a class="fwa" href="https://wa.me/918087289267">&#128172;</a>
+
+</body>
+</html>
