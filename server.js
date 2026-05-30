@@ -170,10 +170,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.get('/', (req, res) => {
-  if (req.query.b) return res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  res.sendFile(path.join(__dirname, 'public', 'home.html'));
-});
 app.use(express.static(path.join(__dirname, 'public')));
 
 let _groq = null;
