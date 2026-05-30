@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All QR Review Cards - Print</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#ddd;font-family:'Segoe UI',Arial,sans-serif}
+
+.toolbar{background:#1a1a2e;color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.toolbar h2{font-size:16px;font-weight:700}
+.toolbar span{font-size:13px;opacity:.7}
+.print-btn{background:#4285F4;color:#fff;border:none;padding:10px 28px;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer}
+.print-btn:hover{background:#3367d6}
+
+.cards-grid{padding:24px;display:flex;flex-direction:column;gap:24px;align-items:center}
+
+/* Each card = A3 size (297mm x 420mm) */
+.card{
+  width:297mm;
+  height:420mm;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:28mm 24mm 20mm;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.2);
+  page-break-after:always;
+  break-after:page;
+}
+
+/* Decorative background */
+.card::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,#e8f0fe,transparent 70%);border-radius:50%}
+.card::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,#fce8e6,transparent 70%);border-radius:50%}
+
+.top{display:flex;flex-direction:column;align-items:center;width:100%;z-index:1}
+
+.logo-ring{width:110px;height:110px;border-radius:50%;background:#f8faff;border:3px solid #e0e4f0;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.logo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.logo-icon{font-size:46px;line-height:1}
+
+.biz-name{font-size:28px;font-weight:900;color:#1a1a2e;text-align:center;line-height:1.2;margin-bottom:6px}
+.biz-loc{font-size:15px;color:#999;text-align:center;margin-bottom:24px}
+
+.google-block{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:18px}
+.g-word{font-size:42px;font-weight:900;letter-spacing:-1px}
+.g1{color:#4285F4}.g2{color:#EA4335}.g3{color:#FBBC05}.g4{color:#34A853}
+.stars{color:#FBBC05;font-size:38px;letter-spacing:4px}
+
+.scan-head{font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:#1a1a2e;margin-bottom:4px}
+.scan-sub{font-size:14px;color:#888;letter-spacing:1px;margin-bottom:28px}
+
+.mid{z-index:1;display:flex;flex-direction:column;align-items:center}
+.qr-border{background:#fff;border:5px solid #4285F4;border-radius:20px;padding:14px;box-shadow:0 6px 30px rgba(66,133,244,.25);margin-bottom:16px}
+canvas{display:block}
+.url{font-size:14px;color:#aaa;letter-spacing:1px}
+
+.bot{z-index:1;width:100%;display:flex;flex-direction:column;align-items:center}
+.divider{width:70%;height:1px;background:linear-gradient(90deg,transparent,#ddd,transparent);margin-bottom:12px}
+.powered{font-size:13px;color:#bbb;letter-spacing:1px}
+.powered b{color:#4285F4}
+
+@media print{
+  body{background:#fff}
+  .toolbar{display:none !important}
+  .cards-grid{padding:0;gap:0}
+  .card{box-shadow:none;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div>
+    <h2>All QR Review Cards &mdash; A3 Print Size</h2>
+    <span id="count">Loading businesses...</span>
+  </div>
+  <button class="print-btn" onclick="window.print()">&#128424; Print All Cards</button>
+</div>
+
+<div class="cards-grid" id="cards"></div>
+
+<script>
+fetch('/business-list')
+  .then(r => r.json())
+  .then(list => {
+    document.getElementById('count').textContent = list.length + ' businesses loaded';
+    const grid = document.getElementById('cards');
+
+    list.forEach((b, i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.id = 'card-' + b.id;
+
+      const logoHtml = b.logo
+        ? '<img src="' + b.logo + '" alt="logo">'
+        : '<div class="logo-icon">' + (b.icon || '&#11088;') + '</div>';
+
+      card.innerHTML = `
+        <div class="top">
+          <div class="logo-ring">${logoHtml}</div>
+          <div class="biz-name">${b.name}</div>
+          <div class="biz-loc" id="loc-${b.id}"></div>
+          <div class="google-block">
+            <div class="g-word"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span></div>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+          <div class="scan-head">Scan QR Code</div>
+          <div class="scan-sub">To Leave Us a Review</div>
+        </div>
+        <div class="mid">
+          <div class="qr-border">
+            <canvas id="qr-${b.id}"></canvas>
+          </div>
+          <div class="url">reviews.advizrmedia.com</div>
+        </div>
+        <div class="bot">
+          <div class="divider"></div>
+          <div class="powered">Powered by <b>Advizr Media</b></div>
+        </div>
+      `;
+      grid.appendChild(card);
+
+      // Generate QR
+      QRCode.toCanvas(
+        document.getElementById('qr-' + b.id),
+        'https://reviews.advizrmedia.com/?b=' + b.id,
+        { width: 320, margin: 1, color: { dark: '#000', light: '#fff' } }
+      );
+
+      // Fetch location
+      fetch('/business/' + b.id)
+        .then(r => r.json())
+        .then(d => {
+          const loc = document.getElementById('loc-' + b.id);
+          if (loc && d.location) loc.textContent = d.location;
+        });
+    });
+  })
+  .catch(() => {
+    document.getElementById('count').textContent = 'Error loading businesses';
+  });
+</script>
+</body>
+</html>

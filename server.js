@@ -465,6 +465,8 @@ app.get('/business-list', (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
+app.get('/qr-all', (req, res) => res.sendFile(path.join(__dirname, 'public', 'qr-all.html')));
+
 app.get('/qr-card', (req, res) => res.sendFile(path.join(__dirname, 'public', 'qr-card.html')));
 
 app.get('/qr-poster', (req, res) => res.sendFile(path.join(__dirname, 'public', 'qr-poster.html')));
