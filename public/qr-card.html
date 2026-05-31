@@ -4,315 +4,259 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Review Card</title>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f0f0f0; font-family: 'Segoe UI', Arial, sans-serif; }
-
-.controls {
-  padding: 20px 24px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.controls h2 { font-size: 18px; font-weight: 800; color: #1a1a2e; }
-.biz-name { font-size: 14px; color: #4285F4; font-weight: 700; }
-.print-btn {
-  background: #4285F4; color: #fff; border: none;
-  padding: 10px 24px; border-radius: 50px; font-size: 14px;
-  font-weight: 700; cursor: pointer; margin-left: auto;
-}
-.print-btn:hover { background: #3367d6; }
-
-/* A2 size = 420mm x 594mm */
-.card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #e8eaf0;
   min-height: 100vh;
-}
-
-.card {
-  width: 420mm;
-  min-height: 594mm;
-  background: #fff;
-  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 40mm 30mm;
+  justify-content: center;
+  padding: 30px 20px;
+}
+.toolbar {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.btn {
+  padding: 11px 28px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+}
+.btn-dl { background: #1a73e8; color: #fff; }
+.btn-dl:hover { background: #1557b0; }
+.btn-back { background: #fff; color: #333; border: 1.5px solid #ddd; }
+.btn-back:hover { background: #f5f5f5; }
+
+/* ===== ID CARD ===== */
+.card {
+  width: 320px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 22px 18px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,.15);
 }
 
-/* Background decorative circles */
-.card::before {
-  content: '';
-  position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, #e8f0fe 0%, transparent 70%);
-  border-radius: 50%;
-}
+/* Google 4-color right border */
 .card::after {
   content: '';
   position: absolute;
-  bottom: -80px;
-  left: -80px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, #e8f0fe 0%, transparent 70%);
-  border-radius: 50%;
+  top: 0; right: 0;
+  width: 7px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #4285F4 0%, #4285F4 25%,
+    #EA4335 25%, #EA4335 50%,
+    #FBBC04 50%, #FBBC04 75%,
+    #34A853 75%, #34A853 100%
+  );
 }
 
-.top-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-/* Logo */
-.logo-wrap {
-  width: 140px;
-  height: 140px;
+.logo-circle {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: #f8faff;
-  border: 3px solid #e8eaf0;
+  border: 2px solid #e8e8e8;
+  background: #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.1);
-}
-.logo-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.logo-placeholder {
-  font-size: 56px;
-  line-height: 1;
-}
-
-/* Business name */
-.biz-title {
   font-size: 36px;
-  font-weight: 900;
-  color: #1a1a2e;
-  text-align: center;
-  margin-bottom: 8px;
-  line-height: 1.2;
+  margin-bottom: 16px;
+  overflow: hidden;
 }
-.biz-loc {
-  font-size: 20px;
-  color: #888;
-  text-align: center;
-  margin-bottom: 32px;
+.logo-circle img {
+  width: 100%; height: 100%; object-fit: contain;
 }
 
-/* Google logo */
-.google-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-.g-logo {
-  font-size: 52px;
-  font-weight: 900;
-  letter-spacing: -2px;
+.google-logo {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
   line-height: 1;
-}
-.g1{color:#4285F4}.g2{color:#EA4335}.g3{color:#FBBC05}.g4{color:#34A853}
-.stars {
-  color: #FBBC05;
-  font-size: 48px;
-  letter-spacing: 6px;
-}
-
-/* Scan text */
-.scan-title {
-  font-size: 32px;
-  font-weight: 900;
-  color: #1a1a2e;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 3px;
   margin-bottom: 6px;
 }
+.g-b { color: #4285F4; }
+.g-r { color: #EA4335; }
+.g-y { color: #FBBC04; }
+.g-g { color: #34A853; }
+
+.stars {
+  color: #FBBC04;
+  font-size: 22px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.scan-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #111;
+  text-align: center;
+}
 .scan-sub {
-  font-size: 18px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
   color: #666;
   text-align: center;
-  letter-spacing: 1px;
-  margin-bottom: 36px;
+  margin-top: 2px;
+  margin-bottom: 14px;
 }
 
-/* QR Code */
-.qr-section {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.qr-frame {
+#qrcode {
+  padding: 8px;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
   background: #fff;
-  border: 6px solid #4285F4;
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 8px 40px rgba(66,133,244,.2);
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
-canvas { display: block; }
+#qrcode canvas { display: block; }
 
-/* URL */
-.url-text {
-  font-size: 18px;
-  color: #888;
-  letter-spacing: 1px;
-  margin-bottom: 32px;
+.biz-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 14px;
+  padding: 0 10px;
 }
 
-/* Bottom */
-.bottom-section {
+.card-footer {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  text-align: center;
 }
-.divider {
-  width: 80%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #e8eaf0, transparent);
-  margin-bottom: 20px;
+.card-domain {
+  font-size: 9px;
+  color: #999;
+  letter-spacing: 0.3px;
 }
-.powered {
-  font-size: 16px;
+.card-powered {
+  font-size: 9px;
   color: #aaa;
-  letter-spacing: 1px;
+  margin-top: 3px;
 }
-.powered b { color: #4285F4; }
+.card-powered span { color: #1a73e8; font-weight: 700; }
 
-/* Print styles */
 @media print {
-  body { background: #fff; }
-  .controls { display: none !important; }
-  .card-wrapper { padding: 0; }
-  .card {
-    width: 420mm;
-    min-height: 594mm;
-    box-shadow: none;
-    page-break-after: always;
-  }
+  .toolbar { display: none; }
+  body { background: white; padding: 0; }
+  .card { box-shadow: none; }
 }
 </style>
 </head>
 <body>
 
-<div class="controls" id="controls">
-  <h2>QR Review Card &mdash; A2 Print Size</h2>
-  <span class="biz-name" id="ctrl-name">Loading...</span>
-  <button class="print-btn" onclick="window.print()">&#128424; Print / Save as PDF</button>
+<div class="toolbar" id="toolbar">
+  <button class="btn btn-back" onclick="history.back()">← Back</button>
+  <button class="btn btn-dl" id="dlBtn" onclick="downloadCard()">⬇ Download PNG</button>
 </div>
 
-<div class="card-wrapper">
-  <div class="card" id="card">
+<div class="card" id="card">
+  <div class="logo-circle" id="logoCircle">
+    <span id="iconEmoji">🏢</span>
+  </div>
 
-    <div class="top-section">
-      <!-- Logo -->
-      <div class="logo-wrap" id="logo-wrap">
-        <div class="logo-placeholder" id="logo-placeholder">&#11088;</div>
-      </div>
+  <div class="google-logo">
+    <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span>
+  </div>
+  <div class="stars">★★★★★</div>
 
-      <!-- Business Name -->
-      <div class="biz-title" id="biz-title">Business Name</div>
-      <div class="biz-loc" id="biz-loc"></div>
+  <div class="scan-label">SCAN QR CODE</div>
+  <div class="scan-sub">TO LEAVE US A REVIEW</div>
 
-      <!-- Google -->
-      <div class="google-row">
-        <div class="g-logo">
-          <span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g1">g</span><span class="g4">l</span><span class="g2">e</span>
-        </div>
-        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      </div>
+  <div id="qrcode"></div>
 
-      <!-- Scan Text -->
-      <div class="scan-title">Scan QR Code</div>
-      <div class="scan-sub">To Leave Us a Review</div>
-    </div>
+  <div class="biz-name" id="bizName">Loading...</div>
 
-    <!-- QR Code -->
-    <div class="qr-section">
-      <div class="qr-frame">
-        <canvas id="qr-canvas"></canvas>
-      </div>
-      <div class="url-text">reviews.advizrmedia.com</div>
-    </div>
-
-    <!-- Bottom -->
-    <div class="bottom-section">
-      <div class="divider"></div>
-      <div class="powered">Powered by <b>Advizr Media</b></div>
-    </div>
-
+  <div class="card-footer">
+    <div class="card-domain">reviews.advizrmedia.com</div>
+    <div class="card-powered">Powered by <span>Advizr Media</span></div>
   </div>
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(location.search);
 const bizId = params.get('b');
 
-if (!bizId) {
-  document.getElementById('biz-title').textContent = 'No Business ID';
-  document.getElementById('ctrl-name').textContent = 'No Business ID — add ?b=businessid to URL';
-} else {
-  fetch('/business/' + bizId)
-    .then(r => r.json())
-    .then(biz => {
-      // Business name & location
-      document.getElementById('biz-title').textContent = biz.name;
-      document.getElementById('ctrl-name').textContent = biz.name;
-      if (biz.location) document.getElementById('biz-loc').textContent = biz.location;
+async function init() {
+  if (!bizId) {
+    document.getElementById('bizName').textContent = 'No business ID';
+    return;
+  }
+  let biz;
+  try {
+    const res = await fetch('/business/' + bizId);
+    if (!res.ok) throw new Error();
+    biz = await res.json();
+  } catch(e) {
+    document.getElementById('bizName').textContent = 'Business not found';
+    return;
+  }
 
-      // Icon / Logo
-      const logoWrap = document.getElementById('logo-wrap');
-      if (biz.logo) {
-        logoWrap.innerHTML = '<img src="' + biz.logo + '" alt="logo">';
-      } else if (biz.icon) {
-        document.getElementById('logo-placeholder').textContent = biz.icon;
-      }
+  document.title = biz.name + ' — QR Card';
+  document.getElementById('bizName').textContent = biz.name;
 
-      // Page title
-      document.title = biz.name + ' — QR Review Card';
+  if (biz.icon) document.getElementById('iconEmoji').textContent = biz.icon;
 
-      // Generate QR
-      const url = 'https://reviews.advizrmedia.com/?b=' + bizId;
-      QRCode.toCanvas(document.getElementById('qr-canvas'), url, {
-        width: 400,
-        margin: 1,
-        color: { dark: '#000000', light: '#ffffff' }
-      });
-    })
-    .catch(() => {
-      document.getElementById('biz-title').textContent = 'Business not found';
-    });
+  const url = biz.googleLink || ('https://reviews.advizrmedia.com/?b=' + bizId);
+  new QRCode(document.getElementById('qrcode'), {
+    text: url,
+    width: 160,
+    height: 160,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
 }
+
+function downloadCard() {
+  const toolbar = document.getElementById('toolbar');
+  toolbar.style.display = 'none';
+  const btn = document.getElementById('dlBtn');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    html2canvas(document.getElementById('card'), {
+      scale: 4,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      logging: false
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = (bizId || 'qr') + '-review-card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      toolbar.style.display = 'flex';
+      btn.textContent = '⬇ Download PNG';
+      btn.disabled = false;
+    });
+  }, 300);
+}
+
+init();
 </script>
 </body>
 </html>
