@@ -31,13 +31,13 @@ body {
   cursor: pointer;
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.3px;
   transition: background 0.2s;
 }
 .btn-dl { background: #1a73e8; color: #fff; }
 .btn-dl:hover { background: #1557b0; }
 .btn-back { background: #fff; color: #333; border: 1.5px solid #ddd; }
 .btn-back:hover { background: #f5f5f5; }
+
 .card {
   width: 320px;
   background: #fff;
@@ -56,55 +56,142 @@ body {
   top: 0; right: 0;
   width: 7px;
   height: 100%;
-  background: linear-gradient(to bottom, #4285F4 0%, #4285F4 25%, #EA4335 25%, #EA4335 50%, #FBBC04 50%, #FBBC04 75%, #34A853 75%, #34A853 100%);
+  background: linear-gradient(to bottom,
+    #4285F4 0%, #4285F4 25%,
+    #EA4335 25%, #EA4335 50%,
+    #FBBC04 50%, #FBBC04 75%,
+    #34A853 75%, #34A853 100%);
 }
+
+/* Logo circle — supports real image or letter avatar */
 .logo-circle {
   width: 72px; height: 72px;
   border-radius: 50%;
   border: 2px solid #e8e8e8;
   background: #fafafa;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 36px;
   margin-bottom: 16px;
   overflow: hidden;
+  flex-shrink: 0;
 }
-.logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+.logo-circle img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.letter-avatar {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  border-radius: 50%;
+  letter-spacing: -1px;
+}
+
 .google-logo { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; margin-bottom: 6px; }
-.g-b { color: #4285F4; } .g-r { color: #EA4335; } .g-yl { color: #FBBC04; } .g-g { color: #34A853; }
+.g-b { color: #4285F4; } .g-r { color: #EA4335; } .g-y { color: #FBBC04; } .g-g { color: #34A853; }
+
 .stars { color: #FBBC04; font-size: 22px; letter-spacing: 3px; margin-bottom: 14px; }
+
 .scan-label { font-size: 13px; font-weight: 800; letter-spacing: 2px; color: #111; text-align: center; }
 .scan-sub { font-size: 9px; font-weight: 500; letter-spacing: 1.5px; color: #666; text-align: center; margin-top: 2px; margin-bottom: 14px; }
-#qrcode { padding: 8px; border: 2px solid #f0f0f0; border-radius: 10px; background: #fff; margin-bottom: 16px; }
-#qrcode canvas { display: block; }
+
+#qrcode-wrap {
+  padding: 8px;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  background: #fff;
+  margin-bottom: 16px;
+  line-height: 0;
+}
+#qrcode-wrap img { display: block; border-radius: 4px; }
+
 .biz-name { font-size: 13px; font-weight: 800; color: #111; text-align: center; line-height: 1.4; margin-bottom: 14px; padding: 0 10px; }
+
 .card-footer { width: 100%; border-top: 1px solid #eee; padding-top: 10px; text-align: center; }
-.card-domain { font-size: 9px; color: #999; letter-spacing: 0.3px; }
+.card-domain { font-size: 9px; color: #999; }
 .card-powered { font-size: 9px; color: #aaa; margin-top: 3px; }
 .card-powered span { color: #1a73e8; font-weight: 700; }
-@media print { .toolbar { display: none; } body { background: white; padding: 0; } .card { box-shadow: none; } }
+
+@media print {
+  .toolbar { display: none; }
+  body { background: white; padding: 0; }
+  .card { box-shadow: none; }
+}
 </style>
 </head>
 <body>
+
 <div class="toolbar" id="toolbar">
   <button class="btn btn-back" onclick="history.back()">← Back</button>
   <button class="btn btn-dl" id="dlBtn" onclick="downloadCard()">⬇ Download PNG</button>
 </div>
+
 <div class="card" id="card">
-  <div class="logo-circle"><span id="iconEmoji">🏢</span></div>
-  <div class="google-logo"><span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span></div>
+  <div class="logo-circle" id="logoCircle"></div>
+
+  <div class="google-logo">
+    <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span>
+  </div>
   <div class="stars">★★★★★</div>
+
   <div class="scan-label">SCAN QR CODE</div>
   <div class="scan-sub">TO LEAVE US A REVIEW</div>
-  <div id="qrcode"></div>
+
+  <div id="qrcode-wrap"><div id="qrcode"></div></div>
+
   <div class="biz-name" id="bizName">Loading...</div>
+
   <div class="card-footer">
     <div class="card-domain">reviews.advizrmedia.com</div>
     <div class="card-powered">Powered by <span>Advizr Media</span></div>
   </div>
 </div>
+
 <script>
 const params = new URLSearchParams(location.search);
 const bizId = params.get('b');
+
+const AVATAR_COLORS = ['#1a73e8','#ea4335','#34a853','#f29900','#9c27b0','#00897b','#e91e63','#ff5722','#0097a7','#5c6bc0'];
+
+function getAvatarColor(id) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
+
+function renderLogo(biz, id) {
+  const circle = document.getElementById('logoCircle');
+  if (biz.logoUrl) {
+    const img = document.createElement('img');
+    img.src = biz.logoUrl;
+    img.onerror = () => { circle.innerHTML = ''; renderLetterAvatar(circle, biz, id); };
+    circle.appendChild(img);
+  } else if (biz.icon && biz.icon.length <= 4) {
+    circle.style.fontSize = '36px';
+    circle.textContent = biz.icon;
+  } else {
+    renderLetterAvatar(circle, biz, id);
+  }
+}
+
+function renderLetterAvatar(circle, biz, id) {
+  const div = document.createElement('div');
+  div.className = 'letter-avatar';
+  div.style.background = getAvatarColor(id);
+  const words = biz.name.trim().split(/\s+/);
+  div.textContent = words.length >= 2
+    ? (words[0][0] + words[1][0]).toUpperCase()
+    : biz.name[0].toUpperCase();
+  circle.appendChild(div);
+}
+
 async function init() {
   if (!bizId) { document.getElementById('bizName').textContent = 'No business ID'; return; }
   let biz;
@@ -113,20 +200,50 @@ async function init() {
     if (!res.ok) throw new Error();
     biz = await res.json();
   } catch(e) { document.getElementById('bizName').textContent = 'Business not found'; return; }
+
   document.title = biz.name + ' — QR Card';
   document.getElementById('bizName').textContent = biz.name;
-  if (biz.icon) document.getElementById('iconEmoji').textContent = biz.icon;
+  renderLogo(biz, bizId);
+
   const url = biz.googleLink || ('https://reviews.advizrmedia.com/?b=' + bizId);
-  new QRCode(document.getElementById('qrcode'), { text: url, width: 160, height: 160, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+
+  const qrDiv = document.getElementById('qrcode');
+  new QRCode(qrDiv, {
+    text: url,
+    width: 180,
+    height: 180,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  setTimeout(() => {
+    const canvas = qrDiv.querySelector('canvas');
+    if (canvas) {
+      const img = document.createElement('img');
+      img.src = canvas.toDataURL('image/png');
+      img.width = 180; img.height = 180;
+      qrDiv.innerHTML = '';
+      qrDiv.appendChild(img);
+    }
+  }, 200);
 }
+
 function downloadCard() {
   const toolbar = document.getElementById('toolbar');
   toolbar.style.display = 'none';
   const btn = document.getElementById('dlBtn');
   btn.textContent = 'Generating...';
   btn.disabled = true;
+
   setTimeout(() => {
-    html2canvas(document.getElementById('card'), { scale: 4, backgroundColor: '#ffffff', useCORS: true, logging: false }).then(canvas => {
+    html2canvas(document.getElementById('card'), {
+      scale: 4,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      allowTaint: true,
+      logging: false
+    }).then(canvas => {
       const link = document.createElement('a');
       link.download = (bizId || 'qr') + '-review-card.png';
       link.href = canvas.toDataURL('image/png');
@@ -135,8 +252,9 @@ function downloadCard() {
       btn.textContent = '⬇ Download PNG';
       btn.disabled = false;
     });
-  }, 300);
+  }, 500);
 }
+
 init();
 </script>
 </body>
