@@ -1114,5 +1114,48 @@
       "tv installation pune",
       "tv wall mounting pune"
     ]
+  },
+  "happykids": {
+    "name": "Happy Kids Speech Therapy & Rehab Clinic",
+    "icon": "🧒",
+    "googleLink": "https://search.google.com/local/writereview?placeid=ChIJtz0oUAG5wjsR7K3lVs-eXVg",
+    "placeId": "ChIJtz0oUAG5wjsR7K3lVs-eXVg",
+    "location": "Wakad, Pune",
+    "fullAddress": "Shop no-201, Suyog Space, Chaudhari Pk Rd, Yamuna Nagar, Shankar Kalat Nagar, Wakad, Pimpri-Chinchwad, Maharashtra 411057",
+    "category": "Speech Therapy & Rehabilitation Clinic",
+    "phone": "08149574144",
+    "whatsapp": "08149574144",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "services": [
+      "Speech Therapy",
+      "Occupational Therapy",
+      "Developmental Assessment",
+      "Language Therapy",
+      "Behavioral Therapy",
+      "Sensory Integration",
+      "Early Intervention",
+      "General Consultation"
+    ],
+    "chips": [
+      "Expert therapist",
+      "Child-friendly",
+      "Patient approach",
+      "Affordable",
+      "Quick progress",
+      "Caring staff",
+      "Clean facility",
+      "Great results"
+    ],
+    "keywords": [
+      "speech therapy",
+      "occupational therapy",
+      "child rehabilitation",
+      "Wakad",
+      "Pimpri-Chinchwad",
+      "kids therapy"
+    ],
+    "trialClient": true
   }
 }
