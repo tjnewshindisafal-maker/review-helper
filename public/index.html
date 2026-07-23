@@ -258,7 +258,7 @@ async function generate(){
   btn.disabled=true;document.getElementById("errMsg").style.display="none";
   var highlights=[];
   document.querySelectorAll(".chip.on").forEach(function(c){if(c.parentElement.id!=="langWrap")highlights.push(c.textContent);});
-  var note=document.getElementById("noteField").value.trim();
+  var note="";
   try{
     var r=await fetch("/generate-review",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id,department:dept,service:svc,stars:stars,highlights:highlights,note:note,language:lang})});
     var data=await r.json();
