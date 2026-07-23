@@ -101,18 +101,19 @@ body{font-family:"Plus Jakarta Sans",sans-serif;background:#F5F7FF;min-height:10
         <div class="star" onclick="setStar(5)">&#9733;</div>
       </div>
       <div class="star-lbl" id="starLbl">Tap a star to rate</div>
-      <div class="card-head"><div class="badge" id="chipBadge">3</div><div class="card-title">What did you like?</div></div>
+      <div class="divider"></div>
+      <div style="font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">What did you like? <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></div>
       <div class="chips" id="chipsWrap"></div>
       <div class="divider"></div>
-      <div class="card-head"><div class="badge" id="langBadge">4</div><div class="card-title">Review Language</div></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="langWrap">
-        <div class="chip on" onclick="pickLang(this)">English</div>
-        <div class="chip" onclick="pickLang(this)">Hindi</div>
-        <div class="chip" onclick="pickLang(this)">Marathi</div>
-        <div class="chip" onclick="pickLang(this)">Hinglish</div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px">Language</div>
+        <div style="display:flex;gap:6px" id="langWrap">
+          <div class="chip on" style="padding:6px 12px;font-size:12px" onclick="pickLang(this)">English</div>
+          <div class="chip" style="padding:6px 12px;font-size:12px" onclick="pickLang(this)">Hindi</div>
+          <div class="chip" style="padding:6px 12px;font-size:12px" onclick="pickLang(this)">Marathi</div>
+          <div class="chip" style="padding:6px 12px;font-size:12px" onclick="pickLang(this)">Hinglish</div>
+        </div>
       </div>
-      <div class="card-head"><div class="badge" id="noteBadge">5</div><div class="card-title">Anything else? (optional)</div></div>
-      <textarea class="note" id="noteField" rows="2" placeholder="e.g. Staff was very helpful..."></textarea>
     </div>
     <div class="err" id="errMsg"></div>
     <button class="gen-btn" id="genBtn" onclick="generate()">
