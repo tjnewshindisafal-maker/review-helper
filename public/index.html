@@ -214,8 +214,6 @@ function render(){
   if(biz.type==="multi"){
     document.getElementById("deptCard").classList.remove("hidden");
     document.getElementById("svcBadge").textContent="2";document.getElementById("starBadge").textContent="3";
-    document.getElementById("chipBadge").textContent="4";document.getElementById("langBadge").textContent="5";
-    document.getElementById("noteBadge").textContent="6";
     var html="";
     biz.departments.forEach(function(d){html+="<div class=\"dept-btn\" onclick=\"pickDept('"+d.id+"',this)\"><div class=\"di\">"+d.icon+"</div><div class=\"dl\">"+d.label+"</div></div>";});
     document.getElementById("deptRow").innerHTML=html;
