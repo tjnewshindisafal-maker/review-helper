@@ -339,9 +339,9 @@ app.post('/generate-review', async (req, res) => {
     if (medicalBiz) {
       prompt = `Write a Google review as ${medPersona} who visited a ${biz.category || 'clinic'} in ${biz.location || 'India'} for ${service || 'treatment'}. Rating: ${stars}/5.
 
-${doctor && mentionDoctor ? `Doctor visited: ${doctor} — use the name once only, then "she/he/the doctor"` : ''}
-${highlights && highlights.length ? `Liked: ${highlights.join(', ')}` : ''}
-${note ? `Note: ${note}` : ''}
+${doctor && mentionDoctor ? 'Doctor visited: ' + doctor + ' — use the name once only, then she/he/the doctor after that' : ''}
+${highlights && highlights.length ? 'Liked: ' + highlights.join(', ') : ''}
+${note ? 'Note: ' + note : ''}
 
 Examples of how real patients write Google reviews in India — match this natural style, do NOT copy:
 - "Went for root canal, was nervous but it was painless. Clean clinic, no waiting. Happy with the result."
@@ -359,9 +359,9 @@ Rules:
 - Do NOT use: highly recommend, five stars, excellent experience, amazing experience, truly grateful, wonderful, outstanding, overall, in conclusion
 - Do NOT repeat the doctor name or business name — use pronouns after first mention
 - Do NOT follow a fixed formula (problem → treatment → result → praise)
-- ${skipTimeframe ? 'Do NOT mention any recovery time or timeframe' : `If mentioning recovery, say: "${medTimeframe}"`}
+- ${skipTimeframe ? 'Do NOT mention any recovery time or timeframe' : 'If mentioning recovery, say: ' + medTimeframe}
 - No hashtags, no emojis
-- Output ONLY the review text. Nothing else.\`
+- Output ONLY the review text. Nothing else.`;
     } else {
       prompt = `You are a real person writing a Google review from your own experience. NOT an AI. Write like a normal Indian person — casual, personal, not formal or like a template.
 
