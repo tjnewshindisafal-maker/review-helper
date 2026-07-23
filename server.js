@@ -323,39 +323,45 @@ app.post('/generate-review', async (req, res) => {
     const medOpener = medicalBiz ? medicalOpeners[Math.floor(Math.random() * medicalOpeners.length)] : '';
     const imperfectStyle = !medicalBiz && Math.random() < 0.4;
     const useAbbrev = !medicalBiz && Math.random() < 0.3;
+    const longTreatments = /brace|aligner|implant|orthodon|root canal|crown|veneer|physiotherapy|rehab|ivf|infertil/i;
+    const isLongTreatment = longTreatments.test(service || '');
+    const skipTimeframe = isLongTreatment || Math.random() < 0.45;
+    const medPersonas = [
+      'a working professional in their 30s',
+      'a homemaker',
+      'a young adult in their 20s',
+      'a middle-aged person',
+      'someone who delayed treatment for a long time',
+      'a person nervous about medical treatment',
+    ];
+    const medPersona = medPersonas[Math.floor(Math.random() * medPersonas.length)];
     let prompt;
     if (medicalBiz) {
-      prompt = `You are a real patient or a patient's family member writing a genuine Google review about your personal experience at a ${biz.category || 'clinic'} in ${biz.location || 'India'}.
-${mentionBizName ? 'Place: ' + biz.name : ''}
-${service ? 'Treatment or service received: ' + service : ''}
-${doctor && mentionDoctor ? 'Doctor who treated you: ' + doctor + ' — mention the name ONCE only (first time). After that use "she", "he", or "the doctor" — never repeat the name again' : ''}
-Your rating: ${stars}/5 (${starWord})
-What you appreciated: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
-${note ? 'Additional detail: ' + note : ''}
+      prompt = `Write a Google review as ${medPersona} who visited a ${biz.category || 'clinic'} in ${biz.location || 'India'} for ${service || 'treatment'}. Rating: ${stars}/5.
 
-Here are examples of real natural reviews — write a NEW one in the same style (vary the opening each time, do not copy these):
+${doctor && mentionDoctor ? `Doctor visited: ${doctor} — use the name once only, then "she/he/the doctor"` : ''}
+${highlights && highlights.length ? `Liked: ${highlights.join(', ')}` : ''}
+${note ? `Note: ${note}` : ''}
 
-Example 1: "I had a fracture in my leg and was in a lot of pain. Consulted here and the doctor explained everything very clearly and advised surgery. The surgery was successful and the whole process was smooth. Very happy with the care."
+Examples of how real patients write Google reviews in India — match this natural style, do NOT copy:
+- "Went for root canal, was nervous but it was painless. Clean clinic, no waiting. Happy with the result."
+- "Got braces done here. Doctor explains everything properly. 3 months in, progress is good."
+- "Had severe tooth pain, came here urgently. Got attended fast and treatment was done same day. No issues since."
+- "Came for knee pain. Treatment was explained clearly and felt confident. Doing better now."
+- "Got my checkup and cleaning done. Dentist was gentle, no unnecessary suggestions. Will come back."
 
-Example 2: "Came here for knee replacement after years of constant pain. The doctor cleared all our doubts and explained the procedure so we felt fully confident. Surgery went successfully and the staff was very caring throughout. So relieved to finally be pain-free."
-
-Example 3: "Was in a lot of pain after my injury and visited this clinic. The doctor diagnosed the issue, explained the treatment clearly, and gave us complete confidence. Surgery was done without any complications. Recovery has been very good. Truly grateful for the care." 
-
-Style rules:
-- ${sCount} to ${sCount + 1} sentences. Around ${wLimit} words.
+Rules:
 - ${langInstruction}
-- You MUST start the review with exactly this word or phrase: "${medOpener}"
-- The reviewer is the patient themselves (do NOT mention family member unless note specifically says so)
-- If you mention recovery time, use this exact timeframe: "${medTimeframe}"
-- Include a specific detail naturally
-- Do NOT use: "highly recommend", "five stars", "I would like to", "Overall", "In conclusion"
-- Sound like a real person who genuinely went through this experience
-- Warm and grateful tone, not marketing language
+- MAXIMUM ${wLimit} words. 2-3 sentences only. SHORT is better.
+- ONE or TWO specific observations — not a full story
+- Write casually, like texting someone — small imperfections are fine
 - Do NOT start with "I"
-- Do NOT mention the business name or doctor name more than once total
-- Do NOT repeat any phrase or name — use pronouns after first mention
-- No hashtags
-- Output ONLY the review text. No quotes. No explanation.`;
+- Do NOT use: highly recommend, five stars, excellent experience, amazing experience, truly grateful, wonderful, outstanding, overall, in conclusion
+- Do NOT repeat the doctor name or business name — use pronouns after first mention
+- Do NOT follow a fixed formula (problem → treatment → result → praise)
+- ${skipTimeframe ? 'Do NOT mention any recovery time or timeframe' : `If mentioning recovery, say: "${medTimeframe}"`}
+- No hashtags, no emojis
+- Output ONLY the review text. Nothing else.\`
     } else {
       prompt = `You are a real person writing a Google review from your own experience. NOT an AI. Write like a normal Indian person — casual, personal, not formal or like a template.
 
