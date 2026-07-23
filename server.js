@@ -178,7 +178,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 let _groq = null;
 function getGroq() {
-  if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY, timeout: 20000 });
   return _groq;
 }
 
@@ -397,18 +397,27 @@ Hard rules:
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
     }
-    const completion = await getGroq().chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      max_tokens: 220,
-      temperature: 1.0,
-      messages: [
-        { role: 'system', content: 'You write authentic Google reviews that sound like real people wrote them — personal, genuine, warm, never like an AI or a marketing template.' },
-        { role: 'user', content: prompt }
-      ]
-    });
-    const reviewText = completion.choices[0]?.message?.content?.trim();
+    const models = ['llama-3.3-70b-versatile', 'llama3-70b-8192'];
+    let reviewText = null;
+    let lastErr = null;
+    for (const model of models) {
+      try {
+        const completion = await getGroq().chat.completions.create({
+          model,
+          max_tokens: 220,
+          temperature: 1.0,
+          messages: [
+            { role: 'system', content: 'You write authentic Google reviews that sound like real people wrote them — personal, genuine, warm, never like an AI or a marketing template.' },
+            { role: 'user', content: prompt }
+          ]
+        });
+        reviewText = completion.choices[0]?.message?.content?.trim();
+        if (reviewText) break;
+      } catch (e) { lastErr = e; }
+    }
+    if (!reviewText) throw lastErr || new Error('No review generated');
     res.json({ review: reviewText });
-  } catch (err) { res.status(500).json({ error: err.message }); }
+  } catch (err) { res.status(500).json({ error: err.message || 'Generation failed. Please try again.' }); }
 });
 
 app.post('/track-submit', (req, res) => {
