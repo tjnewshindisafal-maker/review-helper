@@ -309,14 +309,14 @@ app.post('/generate-review', async (req, res) => {
     const langInstruction = langMap[language] || langMap.english;
     const medicalBiz = /dental|clinic|hospital|health|doctor|heart|gynec|ortho|surgeon|psychiatr/i.test(biz.name + ' ' + (biz.category||''));
     const mentionBizName = Math.random() < 0.25;
-    const mentionDoctor = !!(doctor && Math.random() < (medicalBiz ? 0.85 : 0.20));
+    const mentionDoctor = !!(doctor && Math.random() < (medicalBiz ? 0.50 : 0.20));
     const rOpening = openings[Math.floor(Math.random() * openings.length)];
     const rTouch = humanTouches[Math.floor(Math.random() * humanTouches.length)];
     const wLimit = medicalBiz
-      ? [100,110,120,130][Math.floor(Math.random() * 4)]
+      ? [75,80,85,90,95][Math.floor(Math.random() * 5)]
       : [55,65,70,75,80,85][Math.floor(Math.random() * 6)];
     const sCount = medicalBiz
-      ? [4,5,5,6][Math.floor(Math.random() * 4)]
+      ? [3,4,4,5][Math.floor(Math.random() * 4)]
       : [2,2,3,3,3,4][Math.floor(Math.random() * 6)];
     const reviewerContext = getBizContext(biz);
     const medTimeframe = medicalBiz ? medicalTimeframes[Math.floor(Math.random() * medicalTimeframes.length)] : '';
@@ -328,16 +328,16 @@ app.post('/generate-review', async (req, res) => {
       prompt = `You are a real patient or a patient's family member writing a genuine Google review about your personal experience at a ${biz.category || 'clinic'} in ${biz.location || 'India'}.
 ${mentionBizName ? 'Place: ' + biz.name : ''}
 ${service ? 'Treatment or service received: ' + service : ''}
-${doctor && mentionDoctor ? 'Doctor who treated you: ' + doctor + ' — mention by full name naturally in the review' : ''}
+${doctor && mentionDoctor ? 'Doctor who treated you: ' + doctor + ' — mention the name ONCE only (first time). After that use "she", "he", or "the doctor" — never repeat the name again' : ''}
 Your rating: ${stars}/5 (${starWord})
 What you appreciated: ${highlights && highlights.length ? highlights.join(', ') : 'overall experience'}
 ${note ? 'Additional detail: ' + note : ''}
 
 Here are examples of real natural reviews — write a NEW one in the same style (vary the opening each time, do not copy these):
 
-Example 1: "I had a fracture in my leg and was in a lot of pain. Consulted here and the doctor explained everything very clearly and advised surgery. The surgery was successful and the whole process was smooth. Now recovering well and able to walk better. Highly recommend to anyone with bone or fracture problems."
+Example 1: "I had a fracture in my leg and was in a lot of pain. Consulted here and the doctor explained everything very clearly and advised surgery. The surgery was successful and the whole process was smooth. Very happy with the care."
 
-Example 2: "Came here for knee replacement after years of constant pain. The doctor cleared all our doubts and explained the procedure so we felt fully confident. Surgery went successfully and the staff was very caring throughout. Very happy with the results and highly recommend."
+Example 2: "Came here for knee replacement after years of constant pain. The doctor cleared all our doubts and explained the procedure so we felt fully confident. Surgery went successfully and the staff was very caring throughout. So relieved to finally be pain-free."
 
 Example 3: "Was in a lot of pain after my injury and visited this clinic. The doctor diagnosed the issue, explained the treatment clearly, and gave us complete confidence. Surgery was done without any complications. Recovery has been very good. Truly grateful for the care." 
 
@@ -348,10 +348,12 @@ Style rules:
 - The reviewer is the patient themselves (do NOT mention family member unless note specifically says so)
 - If you mention recovery time, use this exact timeframe: "${medTimeframe}"
 - Include a specific detail naturally
-- "highly recommend" feels earned here — use it naturally at the end
+- Do NOT use: "highly recommend", "five stars", "I would like to", "Overall", "In conclusion"
 - Sound like a real person who genuinely went through this experience
 - Warm and grateful tone, not marketing language
 - Do NOT start with "I"
+- Do NOT mention the business name or doctor name more than once total
+- Do NOT repeat any phrase or name — use pronouns after first mention
 - No hashtags
 - Output ONLY the review text. No quotes. No explanation.`;
     } else {
