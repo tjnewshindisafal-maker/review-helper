@@ -284,7 +284,6 @@ function postGoogle(){
   navigator.clipboard.writeText(rev).then(function(){
     fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
     window.open(biz.googleLink||"https://www.google.com/maps","_blank");
-    document.getElementById("pastePopup").style.display="flex";
   }).catch(function(){openGoogle();});
 }
 function openGoogle(){
