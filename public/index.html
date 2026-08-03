@@ -129,9 +129,6 @@ body{font-family:"Inter",sans-serif;background:var(--bg);min-height:100vh;paddin
       </div>
       <div class="star-lbl" id="starLbl">Tap a star to rate</div>
       <div class="divider"></div>
-      <div class="section-label">What did you like? <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#CBD5E1">(optional)</span></div>
-      <div class="chips" id="chipsWrap"></div>
-      <div class="divider"></div>
       <div class="lang-row">
         <div class="section-label" style="margin-bottom:0">Language</div>
         <div class="lang-chips" id="langWrap">
@@ -202,20 +199,18 @@ function render(){
     var html="";
     biz.departments.forEach(function(d){html+="<div class=\"dept-btn\" onclick=\"pickDept('"+d.id+"',this)\"><div class=\"di\">"+d.icon+"</div><div class=\"dl\">"+d.label+"</div></div>";});
     document.getElementById("deptRow").innerHTML=html;
-  } else { loadSvc(biz.services,biz.chips); }
+  } else { loadSvc(biz.services); }
 }
 function pickDept(did,el){
   dept=did;svc="";
   document.querySelectorAll(".dept-btn").forEach(function(b){b.classList.remove("on");});
   el.classList.add("on");
   var d=biz.departments.find(function(x){return x.id===did;});
-  if(d) loadSvc(d.services,d.chips);
+  if(d) loadSvc(d.services);
 }
-function loadSvc(services,chips){
+function loadSvc(services){
   var sg="";services.forEach(function(s){sg+="<div class=\"svc\" onclick=\"pickSvc(this)\">"+s+"</div>";});
   document.getElementById("svcGrid").innerHTML=sg;
-  var cw="";chips.forEach(function(c){cw+="<div class=\"chip\" onclick=\"this.classList.toggle('on')\">"+c+"</div>";});
-  document.getElementById("chipsWrap").innerHTML=cw;
 }
 function pickSvc(el){svc=el.textContent;document.querySelectorAll(".svc").forEach(function(s){s.classList.remove("on");});el.classList.add("on");}
 function setStar(n){
@@ -241,11 +236,8 @@ async function generate(){
   var btn=document.getElementById("genBtn");
   document.getElementById("btnTxt").innerHTML="<div class=\"dots\"><span></span><span></span><span></span></div>";
   btn.disabled=true;document.getElementById("errMsg").style.display="none";
-  var highlights=[];
-  document.querySelectorAll(".chip.on").forEach(function(c){if(c.parentElement.id!=="langWrap")highlights.push(c.textContent);});
-  var note="";
   try{
-    var r=await fetch("/generate-review",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id,department:dept,service:svc,stars:stars,highlights:highlights,note:note,language:lang})});
+    var r=await fetch("/generate-review",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id,department:dept,service:svc,stars:stars,highlights:[],note:"",language:lang})});
     var data=await r.json();
     if(data.error) throw new Error(data.error);
     document.getElementById("revText").value=data.review;
