@@ -282,12 +282,9 @@ function postGoogle(){
   if(!rev){alert("Generate a review first!");return;}
   if(stars<=2){document.getElementById("shieldPopup").style.display="flex";return;}
   navigator.clipboard.writeText(rev).then(function(){
+    fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
+    window.open(biz.googleLink||"https://www.google.com/maps","_blank");
     document.getElementById("pastePopup").style.display="flex";
-    setTimeout(function(){
-      fetch("/track-submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({bizId:id})});
-      window.open(biz.googleLink||"https://www.google.com/maps","_blank");
-      document.getElementById("pastePopup").style.display="none";
-    },1500);
   }).catch(function(){openGoogle();});
 }
 function openGoogle(){
