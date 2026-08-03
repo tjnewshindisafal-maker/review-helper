@@ -258,10 +258,9 @@ const humanTouches = [
 ];
 
 const medicalTimeframes = [
-  'within 2 weeks', 'in just 10 days', 'within a month',
-  'in about 6 weeks', 'after 45 days', 'within 3 weeks',
-  'in just 2 months', 'after 5 weeks', 'within 8 weeks',
-  'in about 3 months', 'after just 4 weeks', 'within 10 days',
+  'after completing the treatment', 'post-treatment', 'after the procedure',
+  'after following their advice', 'after the consultation', 'since starting treatment here',
+  'after completing the sessions', 'after the treatment course', 'since the procedure',
 ];
 
 const medicalOpeners = [
@@ -325,7 +324,7 @@ app.post('/generate-review', async (req, res) => {
     const useAbbrev = !medicalBiz && Math.random() < 0.3;
     const longTreatments = /brace|aligner|implant|orthodon|root canal|crown|veneer|physiotherapy|rehab|ivf|infertil/i;
     const isLongTreatment = longTreatments.test(service || '');
-    const skipTimeframe = isLongTreatment || Math.random() < 0.45;
+    const skipTimeframe = isLongTreatment || Math.random() < 0.75;
     const medPersonas = [
       'a working professional in their 30s',
       'a homemaker',
@@ -336,8 +335,11 @@ app.post('/generate-review', async (req, res) => {
     ];
     const medPersona = medPersonas[Math.floor(Math.random() * medPersonas.length)];
     let prompt;
+    const seoLocation = biz.location || 'Pune';
+    const seoService = service || 'treatment';
+    const seoKeywords = keywords.length ? keywords.slice(0, 3) : [];
     if (medicalBiz) {
-      prompt = `Write a Google review as ${medPersona} who visited a ${biz.category || 'clinic'} in ${biz.location || 'India'} for ${service || 'treatment'}. Rating: ${stars}/5.
+      prompt = `Write a Google review as ${medPersona} who visited a ${biz.category || 'clinic'} in ${seoLocation} for ${seoService}. Rating: ${stars}/5.
 
 ${doctor && mentionDoctor ? 'Doctor visited: ' + doctor + ' — use the name once only, then she/he/the doctor after that' : ''}
 ${highlights && highlights.length ? 'Liked: ' + highlights.join(', ') : ''}
@@ -356,6 +358,7 @@ Rules:
 - ONE or TWO specific observations — not a full story
 - Write casually, like texting someone — small imperfections are fine
 - Do NOT start with "I"
+- Do NOT mention any number of days, weeks, or months (no "45 days", no "6 weeks", no "3 months")
 - Do NOT use: highly recommend, five stars, excellent experience, amazing experience, truly grateful, wonderful, outstanding, overall, in conclusion
 - Do NOT repeat the doctor name or business name — use pronouns after first mention
 - Do NOT follow a fixed formula (problem → treatment → result → praise)
