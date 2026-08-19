@@ -400,7 +400,7 @@ Hard rules:
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
     }
-    const models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+    const models = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
     let reviewText = null;
     let lastErr = null;
     for (const model of models) {
