@@ -206,7 +206,7 @@ function render(){
   document.getElementById("bizIcon").textContent=biz.icon||"⭐";
   document.getElementById("bizName").textContent=biz.name;
   if(biz.phone){var pm=document.getElementById("bizMeta");pm.style.display="flex";document.getElementById("phoneNum").textContent=biz.phone;document.getElementById("bizPhone").href="tel:"+biz.phone.replace(/\s/g,"");}
-  if(biz.rating){document.getElementById("bizRating").style.display="flex";document.getElementById("ratingNum").textContent=biz.rating.toFixed(1)+(biz.reviewCount?" ("+biz.reviewCount+")"):"");}
+  if(biz.rating){document.getElementById("bizRating").style.display="flex";document.getElementById("ratingNum").textContent=biz.rating.toFixed(1)+(biz.reviewCount?" ("+biz.reviewCount+")":"");}
   if(biz.photos&&biz.photos.length){var ps=document.getElementById("photoStrip");ps.style.display="flex";ps.innerHTML=biz.photos.map(function(p){return'<img src="'+p.url+'" loading="lazy" alt="photo">';}).join("");}
   if(biz.type==="multi"){
     document.getElementById("deptCard").classList.remove("hidden");
