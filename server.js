@@ -279,7 +279,9 @@ app.get('/business/:id', (req, res) => {
     const biz = businesses[req.params.id];
     if (!biz) return res.status(404).json({ error: 'Business not found' });
     trackEvent(req.params.id, 'scans');
-    res.json(biz);
+    const cache = getPlacesCache();
+    const placeData = cache[req.params.id] || {};
+    res.json({ ...biz, photos: placeData.photos || [], phone: placeData.phone || biz.phone || '', rating: placeData.rating || null, reviewCount: placeData.reviewCount || null });
   } catch (err) { res.status(500).json({ error: 'Could not load business data' }); }
 });
 
