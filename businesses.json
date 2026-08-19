@@ -1157,5 +1157,34 @@
       "kids therapy"
     ],
     "trialClient": true
+  },
+  "spsgirlshostel": {
+    "name": "SPS Girls Hostel",
+    "googleLink": "https://www.google.com/maps/place/?q=place_id:ChIJ38bwcgBdfDkR5jZD7XKRX2c",
+    "placeId": "ChIJ38bwcgBdfDkR5jZD7XKRX2c",
+    "type": "other",
+    "showDoctor": false,
+    "showLocation": true,
+    "icon": "🏠",
+    "location": "Bhopal",
+    "category": "Girls Hostel",
+    "services": [
+      "Room & Accommodation",
+      "Mess & Food",
+      "Cleanliness & Hygiene",
+      "Security & Safety",
+      "WiFi & Amenities",
+      "Warden Support",
+      "Study Environment",
+      "Laundry Facility"
+    ],
+    "chips": [],
+    "keywords": [
+      "girls hostel",
+      "student hostel",
+      "hostel in Bhopal",
+      "girls accommodation Bhopal",
+      "SPS hostel"
+    ]
   }
 }
