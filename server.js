@@ -400,7 +400,7 @@ Hard rules:
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
     }
-    const models = ['llama-3.3-70b-versatile', 'llama3-70b-8192'];
+    const models = ['llama-3.3-70b-versatile', 'llama-3.1-70b-versatile'];
     let reviewText = null;
     let lastErr = null;
     for (const model of models) {
