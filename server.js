@@ -408,7 +408,7 @@ const models = ['openai/gpt-oss-20b', 'openai/gpt-oss-120b'];    let reviewText 
       try {
         const completion = await getGroq().chat.completions.create({
           model,
-          max_tokens: 220,
+          max_tokens: 1024,
           temperature: 1.0,
           messages: [
             { role: 'system', content: 'You write authentic Google reviews that sound like real people wrote them — personal, genuine, warm, never like an AI or a marketing template.' },
