@@ -402,7 +402,7 @@ Hard rules:
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
     }
-    const models = ['groq/compound-mini', 'openai/gpt-oss-20b'];
+    const models = ['llama-3.3-70b-versatile', 'openai/gpt-oss-20b'];
     let reviewText = null;
     let lastErr = null;
     for (const model of models) {
