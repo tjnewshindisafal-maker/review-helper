@@ -402,8 +402,7 @@ Hard rules:
 - Do NOT add details not mentioned above
 - Output ONLY the review text. No quotes. No label. No explanation.`;
     }
-    const models = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
-    let reviewText = null;
+const models = ['openai/gpt-oss-20b', 'openai/gpt-oss-120b'];    let reviewText = null;
     let lastErr = null;
     for (const model of models) {
       try {
@@ -416,7 +415,8 @@ Hard rules:
             { role: 'user', content: prompt }
           ]
         });
-        reviewText = completion.choices[0]?.message?.content?.trim();
+        const msg = completion.choices[0]?.message;
+reviewText = msg?.content?.trim() || msg?.reasoning_content?.trim();
         if (reviewText) break;
       } catch (e) { lastErr = e; }
     }
