@@ -362,7 +362,7 @@ Rules:
 - Do NOT start with "I"
 - Do NOT mention any number of days, weeks, or months (no "45 days", no "6 weeks", no "3 months")
 - Do NOT use: highly recommend, five stars, excellent experience, amazing experience, truly grateful, wonderful, outstanding, overall, in conclusion
-- Do NOT repeat the doctor name or business name — use pronouns after first mention
+- - ${mentionDoctor ? 'Do NOT repeat the doctor name — use pronouns after first mention' : 'Do NOT mention any doctor name or invent any name — use "the doctor" only'}
 - Do NOT follow a fixed formula (problem → treatment → result → praise)
 - ${skipTimeframe ? 'Do NOT mention any recovery time or timeframe' : 'If mentioning recovery, say: ' + medTimeframe}
 - No hashtags, no emojis
